@@ -1,0 +1,45 @@
+Debarjun Thakur
+Frontend Developer
+
+Professional Experience
+
+Frontend Developer, Raen AI
+May 2024 - Present
+- Primary frontend engineer for Raen AI web properties, including marketing pages, product interfaces, and internal platforms.
+- Drove technical SEO implementation across structured metadata, Core Web Vitals, semantic hierarchy, and indexing strategy.
+- Helped Raen AI rank #1 on Google Search for its primary brand keyword.
+- Owned website performance optimization across load time, asset delivery, rendering efficiency, and responsive behavior.
+- Led frontend development of GarageView CRM web portal, including authentication flows, real-time data interfaces, and responsive production delivery.
+
+Freelance Software Developer
+2023 - May 2024
+- Delivered end-to-end web and software projects for private businesses and NGOs.
+- Managed requirements, scoping, development, testing, and client handoff independently.
+- Built and maintained production-grade codebases across concurrent client projects.
+
+Selected Projects
+
+FastFox
+AI-powered CLI productivity tool using Groq API, Hugging Face, LLaMA 3, Mixtral 8x7B, and BLIP.
+
+Profi
+AI-integrated task management system built with React, Vite, and Tailwind CSS.
+
+Pragati
+Smart India Hackathon 2023 civic infrastructure and complaint management platform using Next.js, TypeScript, REST APIs, and MongoDB.
+
+Vaultify
+Secure document and asset-management frontend built with React, Vite, and Tailwind CSS.
+
+Slash
+Browser-native interactive game built with vanilla JavaScript, HTML, and CSS.
+
+Skills
+Python, JavaScript, TypeScript, HTML, CSS, Kotlin, SQL, React, Next.js, Vite, Tailwind CSS, LangChain, Groq API, Hugging Face Transformers, LLaMA, Mixtral, Unsloth, LoRA, REST APIs, MongoDB, Netlify.
+
+Achievements
+- Smart India Hackathon 2023 Runner-Up.
+- AI Unite Hackathon 2023 Top 5.
+- International Innovative Hardware Model Making Competition 2024 Winner.
+- 10+ additional competition wins.
+- Student developer community lead for 3+ years.

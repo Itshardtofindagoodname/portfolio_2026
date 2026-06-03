@@ -303,7 +303,7 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
 
 const HeroAnimation = () => {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-white text-black">
+    <section className="hero-section relative min-h-screen overflow-hidden bg-white text-black">
       <div className="absolute left-1/2 top-10 z-10 grid -translate-x-1/2 content-start justify-items-center gap-6 px-6 text-center text-black">
         <span className="relative max-w-[50ch] text-xl uppercase leading-tight opacity-40 after:absolute">
           Hi, I'm <strong className="font-bold">Debarjun Thakur</strong>, a frontend developer specializing in crafting engaging web experiences.
@@ -313,6 +313,7 @@ const HeroAnimation = () => {
       <div className="absolute inset-x-0 bottom-0 h-full">
         <CrowdCanvas src={allPeepsImage} rows={15} cols={7} />
       </div>
+      <div className="torn-hero-edge" aria-hidden="true" />
     </section>
   )
 }

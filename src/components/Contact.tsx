@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion'
+import DoodleButton from './DoodleButton'
+import VaraHoverText from './VaraHoverText'
 
 const Contact = () => {
   return (
@@ -39,15 +41,26 @@ const Contact = () => {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col gap-8"
+          className="flex flex-col gap-8 next-gen-reveal"
         >
           <h1 className="font-headline-xl text-5xl md:text-6xl lowercase italic leading-none">
-            let's talk.
+            <VaraHoverText text="let's talk." fontSize={52} />
           </h1>
           
           <p className="font-body-lg text-lg text-secondary leading-relaxed">
             I'm always open to interesting projects, collaborations, or just a good conversation.
           </p>
+
+          <div className="flex flex-wrap gap-4">
+            <DoodleButton href="mailto:hello@example.com" variant="ink">
+              Get in Touch
+              <span className="material-symbols-outlined text-lg">mail</span>
+            </DoodleButton>
+            <DoodleButton href="/debarjun-thakur-resume.txt" download variant="paper">
+              Download Resume
+              <span className="material-symbols-outlined text-lg">download</span>
+            </DoodleButton>
+          </div>
 
           <div className="flex flex-col gap-4 mt-4">
             <svg className="w-12 h-12 mb-2 pointer-events-none opacity-30" viewBox="0 0 100 50">
@@ -83,7 +96,7 @@ const Contact = () => {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.5 }}
-          className="relative flex justify-center border-2 border-black bg-white p-4 overflow-hidden group shadow-lg"
+          className="relative flex justify-center border-2 border-black bg-white p-4 overflow-hidden group shadow-lg next-gen-reveal"
         >
           <img
             alt="Debarjun Waving Illustration"

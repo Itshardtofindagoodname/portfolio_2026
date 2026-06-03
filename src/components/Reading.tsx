@@ -1,52 +1,23 @@
+import VaraHoverText from './VaraHoverText'
+
 const Reading = () => {
   return (
     <section id="reading" className="relative bg-white text-primary border-t-2 border-primary py-8 overflow-hidden">
-      {/* Framed scrapbook page border signature of Stitch UI */}
       <div className="border-[1px] border-primary m-2 md:m-4 relative bg-white py-12 md:py-24">
-        {/* Faint dot grid overlay */}
         <div className="absolute inset-0 bg-dot-grid-pattern-small opacity-30 pointer-events-none z-0"></div>
 
         <main className="flex-grow z-10 relative px-4 md:px-margin-page py-stack-lg max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-gutter">
-          {/* Header Annotation */}
-          <div className="col-span-1 md:col-span-12 mb-stack-md relative">
-            <h1 className="font-headline-xl text-headline-xl uppercase tracking-tighter">
-              Reading &amp; <br />
-              <span
-                style={{ fontFamily: '"Bricolage Grotesque", sans-serif' }}
-                className="lowercase italic text-secondary ml-12"
-              >
+          <div className="col-span-1 md:col-span-12 mb-8 md:mb-14 relative next-gen-reveal">
+            <h1 className="font-headline-xl text-5xl md:text-7xl uppercase leading-none tracking-normal">
+              <VaraHoverText text="READING &" fontSize={58} />
+              <span className="block font-handwriting lowercase italic text-secondary ml-12 mt-8 text-2xl md:text-3xl font-normal">
                 musings
               </span>
             </h1>
-            <svg
-              className="absolute top-0 right-10 hidden md:block opacity-40"
-              fill="none"
-              height="100"
-              viewBox="0 0 100 100"
-              width="100"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10 50 Q 50 10 90 50 T 90 90"
-                fill="none"
-                stroke="black"
-                strokeLinecap="round"
-                strokeWidth="2"
-              ></path>
-              <path d="M80 40 L90 50 L80 60" fill="none" stroke="black" strokeLinecap="round" strokeWidth="2"></path>
-              <text
-                style={{ fontFamily: '"Bricolage Grotesque", sans-serif' }}
-                className="text-xs italic text-secondary fill-current"
-                x="30"
-                y="30"
-              >
-                Start here!
-              </text>
-            </svg>
           </div>
 
           {/* Left Column: Currently Reading */}
-          <section className="col-span-1 md:col-span-5 flex flex-col gap-stack-md mt-10 md:mt-0">
+          <section className="col-span-1 md:col-span-5 flex flex-col gap-stack-md mt-10 md:mt-0 next-gen-reveal">
             <div className="flex items-center gap-4 border-b-2 border-primary pb-2 w-max">
               <h2 className="font-label-caps text-label-caps uppercase tracking-[0.15em]">
                 Currently Reading
@@ -106,8 +77,8 @@ const Reading = () => {
           </section>
 
           {/* Right Column: Random Musings */}
-          <section className="col-span-1 md:col-span-7 relative min-h-[500px] mt-16 md:mt-0">
-            <div className="flex items-center gap-4 border-b-2 border-primary pb-2 w-max mb-8 absolute top-0 right-0 md:relative">
+          <section className="col-span-1 md:col-span-7 relative min-h-[500px] mt-16 md:mt-0 next-gen-reveal">
+            <div className="flex items-center gap-4 border-b-2 border-primary pb-2 w-max mb-8 md:ml-20">
               <h2 className="font-label-caps text-label-caps uppercase tracking-[0.15em]">
                 Random Musings
               </h2>
@@ -117,7 +88,7 @@ const Reading = () => {
             </div>
 
             {/* Scrap 1 */}
-            <div className="paper-scrap w-64 p-6 absolute top-20 left-10 transform rotate-[-4deg] hover:rotate-0 hover:-translate-y-1 transition-all duration-200">
+            <div className="paper-scrap w-64 p-6 absolute top-24 left-8 md:left-24 transform rotate-[-4deg] hover:rotate-0 hover:-translate-y-1 transition-all duration-200 next-gen-reveal">
               <div className="tape"></div>
               <p className="font-headline-md text-headline-md font-bold leading-tight">
                 CSS is <br />
@@ -133,7 +104,7 @@ const Reading = () => {
             </div>
 
             {/* Scrap 2 */}
-            <div className="paper-scrap w-48 p-4 absolute top-40 right-10 md:right-20 transform rotate-[6deg] hover:rotate-0 hover:-translate-y-1 transition-all duration-200 bg-primary text-on-primary">
+            <div className="paper-scrap w-48 p-4 absolute top-44 right-0 md:right-20 transform rotate-[6deg] hover:rotate-0 hover:-translate-y-1 transition-all duration-200 bg-primary text-on-primary next-gen-reveal">
               <div className="tape bg-surface-container-lowest"></div>
               <p className="font-label-caps text-label-caps uppercase tracking-widest border-b border-on-primary pb-1 mb-2">
                 2 AM Ideas
@@ -148,7 +119,7 @@ const Reading = () => {
             </div>
 
             {/* Scrap 3 */}
-            <div className="paper-scrap w-56 p-5 absolute bottom-10 left-20 transform rotate-[-2deg] hover:rotate-0 hover:-translate-y-1 transition-all duration-200">
+            <div className="paper-scrap w-56 p-5 absolute bottom-8 left-12 md:left-36 transform rotate-[-2deg] hover:rotate-0 hover:-translate-y-1 transition-all duration-200 next-gen-reveal">
               <div className="tape"></div>
               <span className="material-symbols-outlined text-primary mb-2 text-4xl block">
                 architecture
