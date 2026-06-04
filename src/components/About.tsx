@@ -2,29 +2,6 @@ import { motion } from 'framer-motion'
 import DoodleButton from './DoodleButton'
 import VaraHoverText from './VaraHoverText'
 
-const WebGlLogo = () => (
-  <svg className="w-9 h-9 mb-1" viewBox="0 0 64 64" aria-hidden="true">
-    <path d="M8 42 L32 8 L56 42 Z" fill="none" stroke="black" strokeWidth="4" strokeLinejoin="round" />
-    <path d="M18 42 C26 30 38 30 46 42" fill="none" stroke="black" strokeWidth="4" strokeLinecap="round" />
-    <circle cx="32" cy="42" r="6" fill="black" />
-  </svg>
-)
-
-const DockerLogo = () => (
-  <svg className="w-10 h-9 mb-1" viewBox="0 0 80 64" aria-hidden="true">
-    <path d="M13 32h9v9h-9zM24 32h9v9h-9zM35 32h9v9h-9zM24 21h9v9h-9zM35 21h9v9h-9zM46 32h9v9h-9z" fill="black" />
-    <path d="M9 43h55c-3 11-12 17-26 17H27C15 60 8 54 5 43z" fill="none" stroke="black" strokeWidth="4" strokeLinejoin="round" />
-    <path d="M60 34c5-5 10-4 14 1-4 3-8 4-13 2" fill="none" stroke="black" strokeWidth="4" strokeLinecap="round" />
-  </svg>
-)
-
-const AiLogo = () => (
-  <svg className="w-9 h-9 mb-1" viewBox="0 0 64 64" aria-hidden="true">
-    <path d="M32 6 L36 24 L54 28 L36 34 L32 52 L28 34 L10 28 L28 24 Z" fill="none" stroke="black" strokeWidth="4" strokeLinejoin="round" />
-    <circle cx="49" cy="48" r="5" fill="black" />
-  </svg>
-)
-
 const About = () => {
   return (
     <section id="about" className="paper-cut-section relative bg-white py-20 md:py-32 overflow-hidden">
@@ -118,8 +95,7 @@ const About = () => {
                   </div>
                 ))}
               </div>
-
-              <div className="pt-6">
+              <div className="pt-6">
                 <DoodleButton href="#contact" variant="ink" className="font-handwriting">
                   Get in Touch
                   <span className="material-symbols-outlined text-lg">arrow_right_alt</span>
@@ -134,90 +110,240 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
-          className="py-12 relative next-gen-reveal"
+          className="py-24 relative next-gen-reveal bg-black -mx-6 md:-mx-12 px-6 md:px-12 overflow-hidden mt-16"
+          style={{ transform: 'rotate(-0.2deg)' }}
         >
-          <div className="sketch-divider mb-20" />
+          <div className="h-1 bg-white opacity-20 w-full mb-20" />
 
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4 relative z-10">
             <div className="relative">
-              <h2 className="font-label-caps text-xs text-secondary tracking-[0.2em] mb-2 uppercase">
+              <h2 className="font-label-caps text-label-caps text-white/60 tracking-[0.2em] mb-2 uppercase">
                 SYSTEM ARCHITECTURE
               </h2>
-              <h3 className="font-headline-lg text-4xl md:text-5xl marker-highlight">
-                Tech Stack &amp; Tools
+              <h3 className="font-headline-lg text-4xl md:text-5xl text-white">
+                The Engineering Journal
               </h3>
+              <div className="absolute -right-24 top-0 hidden md:block">
+                <svg className="w-16 h-16 rotate-[20deg] opacity-60 stroke-white" fill="none" viewBox="0 0 100 100">
+                  <path d="M10,10 C40,20 60,80 90,90" fill="none" strokeWidth="3" strokeLinecap="round" />
+                  <path d="M75,90 L90,90 L85,75" fill="none" strokeWidth="3" strokeLinecap="round" />
+                </svg>
+                <span className="font-handwriting text-2xl absolute -top-10 -right-4 opacity-70 text-white">
+                  blueprint
+                </span>
+              </div>
             </div>
-            <div className="font-handwriting text-2xl md:text-3xl text-primary opacity-40 rotate-[-4deg]">
-              010101 // craft
+            <div className="font-handwriting text-3xl text-white/40 rotate-[-4deg]">
+              010101 // tools of trade
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <div className="index-card p-10 rotate-[-1.2deg] relative bg-white next-gen-reveal">
-              <div className="tape-effect tape-tr !w-16 !rotate-[15deg] !-right-6 !-top-4" />
-              <div className="flex justify-between items-start mb-8">
-                <h4 className="font-headline-md text-2xl border-b-2 border-black pb-1">Frontend</h4>
-                <span className="material-symbols-outlined text-primary text-3xl">data_object</span>
-              </div>
-              <ul className="font-handwriting text-2xl space-y-4">
-                {['React & Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'].map((tool) => (
-                  <li key={tool} className="flex items-center gap-3 hover:translate-x-1 transition-transform">
-                    <span className="material-symbols-outlined text-lg text-primary/60">arrow_forward</span>
-                    {tool}
-                  </li>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-x-12 relative z-10">
+            {/* Block 1: Languages & Core */}
+            <div className="md:col-span-5 sketch-paper rotate-[-1deg] group">
+              <div className="hatching-shadow" />
+              <svg className="sketch-border" preserveAspectRatio="none" viewBox="0 0 400 300">
+                <path d="M10,10 Q200,5 390,15 T385,285 T15,290 T10,10" fill="none" stroke="white" strokeWidth="2" />
+              </svg>
+              <h4 className="font-headline-md text-3xl mb-6 text-white border-b border-white/30 pb-2">Languages</h4>
+              <div className="flex flex-wrap gap-2">
+                {['Python', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'Dart'].map((lang, idx) => (
+                  <motion.span
+                    whileHover={{ scale: 1.1, rotate: idx % 2 === 0 ? 3 : -3 }}
+                    key={lang}
+                    className="skill-tag border-white/30 text-white cursor-default"
+                  >
+                    {lang}
+                  </motion.span>
                 ))}
-              </ul>
-              <div className="mt-10 pt-4 border-t-2 border-black border-dotted">
-                <span className="font-label-caps text-[10px] text-secondary">PRIMARY TOOLS FOR SHIPMENT</span>
               </div>
-            </div>
-
-            <div className="index-card p-10 rotate-[0.8deg] relative bg-white next-gen-reveal">
-              <div className="flex justify-between items-start mb-8">
-                <h4 className="font-headline-md text-2xl border-b-2 border-black pb-1">Workflow</h4>
-                <span className="material-symbols-outlined text-primary text-3xl">architecture</span>
-              </div>
-              <ul className="font-handwriting text-2xl space-y-4">
-                {['Figma (UI/UX)', 'VS Code / Git', 'Docker / CI/CD', 'Node.js Ecosystem'].map((tool) => (
-                  <li key={tool} className="flex items-center gap-3 hover:translate-x-1 transition-transform">
-                    <span className="material-symbols-outlined text-lg text-primary/60">check</span>
-                    {tool}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-10 pt-4 border-t-2 border-black border-dotted">
-                <span className="font-label-caps text-[10px] text-secondary">THE ENGINE ROOM</span>
-              </div>
-            </div>
-
-            <div className="rough-border p-8 flex flex-col justify-between bg-white relative rotate-[-0.5deg] shadow-lg overflow-hidden min-h-[300px] next-gen-reveal">
-              <div className="relative z-10">
-                <h4 className="font-label-caps text-[12px] text-white mb-6 tracking-widest bg-black inline-block px-4 py-2 rotate-[-3deg] rough-cut">
-                  CURRENTLY EXPLORING
-                </h4>
-                <div className="grid grid-cols-2 gap-4">
-                  {[
-                    ['WEBGL', <WebGlLogo key="webgl" />],
-                    ['POSTGRES', <span key="postgres" className="material-symbols-outlined text-3xl mb-1 text-primary">database</span>],
-                    ['AI', <AiLogo key="ai" />],
-                    ['DOCKER', <DockerLogo key="docker" />],
-                  ].map(([label, icon], index) => (
-                    <div
-                      key={label as string}
-                      className={`index-card p-3 flex flex-col items-center justify-center bg-white hover:rotate-0 transition-all duration-200 hover:scale-110 shadow-xs cursor-default ${
-                        ['rotate-[-8deg]', 'rotate-[10deg]', 'rotate-[4deg]', 'rotate-[-6deg]'][index]
-                      }`}
+              <div className="mt-8">
+                <h5 className="font-label-caps text-white/50 text-[10px] mb-4">BACKEND &amp; DATABASES</h5>
+                <div className="flex flex-wrap gap-2">
+                  {['FastAPI', 'Node.js', 'REST APIs', 'PostgreSQL', 'MongoDB'].map((db, idx) => (
+                    <motion.span
+                      whileHover={{ scale: 1.1, rotate: idx % 2 === 0 ? -3 : 3 }}
+                      key={db}
+                      className="skill-tag border-white/30 text-white cursor-default"
                     >
-                      {icon}
-                      <span className="text-[9px] font-bold font-label-caps">{label}</span>
-                    </div>
+                      {db}
+                    </motion.span>
                   ))}
                 </div>
               </div>
-              <div className="mt-8 flex items-center justify-between relative z-10">
-                <span className="font-handwriting text-2xl">Always learning something new...</span>
+            </div>
+
+            {/* Block 2: Frontend & Mobile */}
+            <div className="md:col-span-7 sketch-paper rotate-[0.8deg] md:mt-12 group">
+              <div className="hatching-shadow" />
+              <svg className="sketch-border" preserveAspectRatio="none" viewBox="0 0 600 400">
+                <path d="M15,10 Q300,15 585,5 T590,385 T20,395 T15,10" fill="none" stroke="white" strokeWidth="2" />
+              </svg>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div>
+                  <h4 className="font-headline-md text-3xl mb-6 text-white border-b border-white/30 pb-2">Frontend</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {['React', 'Next.js', 'Vite', 'Tailwind CSS', 'PostCSS'].map((item, idx) => (
+                      <motion.span
+                        whileHover={{ scale: 1.1, rotate: idx % 2 === 0 ? 3 : -3 }}
+                        key={item}
+                        className="skill-tag border-white/30 text-white cursor-default"
+                      >
+                        {item}
+                      </motion.span>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-headline-md text-3xl mb-6 text-white border-b border-white/30 pb-2">Mobile</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {['React Native', 'Flutter', 'Android Dev Kit'].map((item, idx) => (
+                      <motion.span
+                        whileHover={{ scale: 1.1, rotate: idx % 2 === 0 ? -3 : 3 }}
+                        key={item}
+                        className="skill-tag border-white/30 text-white cursor-default"
+                      >
+                        {item}
+                      </motion.span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="mt-12 pt-6 border-t border-white/10">
+                <h5 className="font-label-caps text-white/50 text-[10px] mb-4">PERFORMANCE &amp; SEO</h5>
+                <div className="flex flex-wrap gap-2">
+                  {['Technical SEO', 'Core Web Vitals', 'Semantic HTML', 'Structured Metadata'].map((item, idx) => (
+                    <motion.span
+                      whileHover={{ scale: 1.1, rotate: idx % 2 === 0 ? 3 : -3 }}
+                      key={item}
+                      className="skill-tag border-white/30 text-white cursor-default"
+                    >
+                      {item}
+                    </motion.span>
+                  ))}
+                </div>
               </div>
             </div>
+
+            {/* Block 3: AI & ML */}
+            <div className="md:col-span-12 sketch-paper rotate-[-0.3deg] group">
+              <div className="hatching-shadow" />
+              <svg className="sketch-border" preserveAspectRatio="none" viewBox="0 0 1000 350">
+                <path d="M10,20 Q500,5 990,15 T985,335 T15,340 T10,20" fill="none" stroke="white" strokeWidth="2.5" />
+              </svg>
+              <div className="flex flex-col md:flex-row gap-12">
+                <div className="md:w-1/3">
+                  <h4 className="font-headline-md text-4xl mb-4 text-white">AI &amp; Machine Learning</h4>
+                  <p className="font-handwriting text-2xl text-white/60">Training, fine-tuning, and architecting LLM-driven applications.</p>
+                  <div className="mt-8 flex gap-4">
+                    <div className="w-12 h-12 rounded border border-white/30 flex items-center justify-center rotate-3 bg-transparent">
+                      <span className="material-symbols-outlined text-white text-2xl">neurology</span>
+                    </div>
+                    <div className="w-12 h-12 rounded border border-white/30 flex items-center justify-center -rotate-6 bg-transparent">
+                      <span className="material-symbols-outlined text-white text-2xl">psychology</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="md:w-2/3 flex flex-wrap gap-3 items-center">
+                  {[
+                    'LangChain',
+                    'Hugging Face',
+                    'Groq API',
+                    'LLaMA 3',
+                    'Mixtral 8x7B',
+                    'Salesforce BLIP',
+                    'Unsloth',
+                    'LoRA / PEFT fine-tuning',
+                    'TRL',
+                    'Alpaca Pipelines',
+                    'RAG',
+                  ].map((item, idx) => (
+                    <motion.span
+                      whileHover={{ scale: 1.1, rotate: idx % 2 === 0 ? 3 : -3 }}
+                      key={item}
+                      className={`skill-tag text-white cursor-default ${
+                        item === 'LangChain' || item === 'LoRA / PEFT fine-tuning'
+                          ? '!border-white/50 bg-white/5'
+                          : 'border-white/30'
+                      }`}
+                    >
+                      {item}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Block 4: Infrastructure & Others */}
+            <div className="md:col-span-6 sketch-paper rotate-[1.5deg] group">
+              <div className="hatching-shadow" />
+              <svg className="sketch-border" preserveAspectRatio="none" viewBox="0 0 500 320">
+                <path d="M10,15 Q250,25 490,5 T485,305 T15,310 T10,15" fill="none" stroke="white" strokeWidth="2" />
+              </svg>
+              <h4 className="font-headline-md text-3xl mb-6 text-white border-b border-white/30 pb-2">Infrastructure</h4>
+              <div className="flex flex-wrap gap-2">
+                {['Vercel', 'Netlify', 'AWS', 'Cloudflare', 'Docker', 'CI/CD'].map((item, idx) => (
+                  <motion.span
+                    whileHover={{ scale: 1.1, rotate: idx % 2 === 0 ? 3 : -3 }}
+                    key={item}
+                    className="skill-tag border-white/30 text-white cursor-default"
+                  >
+                    {item}
+                  </motion.span>
+                ))}
+              </div>
+              <div className="mt-8">
+                <h5 className="font-label-caps text-white/50 text-[10px] mb-4">MISCELLANEOUS</h5>
+                <div className="flex flex-wrap gap-2">
+                  {['CRM systems', 'Cross-platform architecture', '.exe packaging'].map((item, idx) => (
+                    <motion.span
+                      whileHover={{ scale: 1.1, rotate: idx % 2 === 0 ? -3 : 3 }}
+                      key={item}
+                      className="skill-tag border-white/30 text-white cursor-default"
+                    >
+                      {item}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Block 5: Tools & Workflow */}
+            <div className="md:col-span-6 sketch-paper rotate-[-2deg] md:-mt-8 group">
+              <div className="hatching-shadow" />
+              <svg className="sketch-border" preserveAspectRatio="none" viewBox="0 0 500 320">
+                <path d="M5,10 Q250,5 495,15 T490,310 T10,305 T5,10" fill="none" stroke="white" strokeWidth="2" />
+              </svg>
+              <h4 className="font-headline-md text-3xl mb-6 text-white border-b border-white/30 pb-2">Tools &amp; Workflow</h4>
+              <ul className="font-handwriting text-2xl space-y-3">
+                {[
+                  'Git / GitHub',
+                  'Figma (UI/UX Design)',
+                  'ESLint & Prettier',
+                  'Vite Ecosystem',
+                  'VS Code Wizardry',
+                ].map((item, idx) => (
+                  <li
+                    key={item}
+                    className="flex items-center gap-3 text-white"
+                    style={{ transform: `rotate(${(idx % 2 === 0 ? 0.4 : -0.4)}deg)` }}
+                  >
+                    <span className="text-white/40">→</span> {item}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-6 flex justify-end">
+                <span className="font-handwriting text-white/30 text-xl italic">The Engine Room // 2026</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Animated Background Scribble (White) */}
+          <div className="absolute top-1/2 left-0 w-full h-1/2 opacity-5 pointer-events-none -z-0">
+            <svg className="w-full h-full" viewBox="0 0 1000 500">
+              <path d="M0,250 C100,200 200,300 300,250 C400,200 500,300 600,250 C700,200 800,300 900,250 L1000,250" fill="none" stroke="white" strokeWidth="1" />
+              <path d="M0,350 C150,300 250,400 400,350 C550,300 650,400 800,350 L1000,350" fill="none" stroke="white" strokeWidth="1" />
+            </svg>
           </div>
         </motion.div>
       </div>

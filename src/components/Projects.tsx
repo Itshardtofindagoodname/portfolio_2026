@@ -113,7 +113,11 @@ const achievements = [
   },
 ]
 
-const Projects = () => {
+interface ProjectsProps {
+  onSelectProject?: (key: string) => void
+}
+
+const Projects = ({ onSelectProject }: ProjectsProps) => {
   return (
     <section id="projects" className="paper-cut-section relative bg-white py-20 md:py-32 overflow-hidden border-y-2 border-black">
       <div className="absolute top-40 left-0 opacity-10 pointer-events-none select-none -rotate-12">
@@ -151,32 +155,30 @@ const Projects = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.5, delay: (index % 2) * 0.08 }}
-                className={`index-card next-gen-reveal p-8 relative bg-white ${project.rotate}`}
+                className={`project-snippet next-gen-reveal p-6 relative bg-white flex flex-col h-full ${project.rotate}`}
               >
                 {index % 2 === 0 ? <div className="tape-effect tape-tl" /> : <div className="tape-effect tape-tr" />}
-                <div className="flex justify-between items-center mb-6">
-                  <h3 className="font-headline-md text-2xl border-b-2 border-black pb-0.5 inline-block">
-                    <VaraHoverText text={project.title} fontSize={30} />
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="font-headline-md text-xl border-b-2 border-black pb-0.5 inline-block">
+                    {project.title}
                   </h3>
-                  <div className="w-10 h-10 flex items-center justify-center border-2 border-black rounded-full rotate-[12deg] bg-white">
-                    <span className="material-symbols-outlined text-xl text-primary">{project.icon}</span>
-                  </div>
+                  <span className="material-symbols-outlined text-lg opacity-40">{project.icon}</span>
                 </div>
-                <div className="aspect-video mb-6 rough-border overflow-hidden bg-white">
+                <div className="aspect-video mb-4 rough-border overflow-hidden bg-white">
                   <img
                     alt={`${project.title} project preview`}
                     className="w-full h-full object-cover grayscale opacity-80 hover:opacity-100 hover:scale-102 transition-all duration-300"
                     src={project.image}
                   />
                 </div>
-                <p className="font-handwriting text-2xl text-primary mb-6 leading-tight">
+                <p className="font-handwriting text-xl text-primary mb-4 leading-tight">
                   {project.desc}
                 </p>
-                <div className="flex flex-wrap gap-2 mb-7">
+                <div className="flex flex-wrap gap-1.5 mb-6">
                   {project.tags.map((tag, tagIndex) => (
                     <span
                       key={tag}
-                      className={`font-label-caps text-[10px] px-2 py-1 bg-black text-white ${
+                      className={`font-label-caps text-[9px] px-1.5 py-0.5 bg-black text-white ${
                         tagIndex % 2 === 0 ? 'rotate-2' : '-rotate-1'
                       }`}
                     >
@@ -184,16 +186,16 @@ const Projects = () => {
                     </span>
                   ))}
                 </div>
-                <DoodleButton
-                  href={project.repo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  variant="paper"
-                  className="!text-xl !px-5 !py-2"
-                >
-                  View Repo
-                  <span className="material-symbols-outlined text-sm">open_in_new</span>
-                </DoodleButton>
+                <div className="mt-auto flex justify-center">
+                  <button
+                    onClick={() => {
+                      onSelectProject?.(project.title.toLowerCase())
+                    }}
+                    className="scribble-button"
+                  >
+                    Understand Project
+                  </button>
+                </div>
               </motion.article>
             ))}
           </div>
