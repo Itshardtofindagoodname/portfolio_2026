@@ -52,10 +52,6 @@ const Contact = () => {
           </p>
 
           <div className="flex flex-wrap gap-4">
-            <DoodleButton href="mailto:hello@example.com" variant="ink">
-              Get in Touch
-              <span className="material-symbols-outlined text-lg">mail</span>
-            </DoodleButton>
             <DoodleButton href="/debarjun-thakur-resume.txt" download variant="paper">
               Download Resume
               <span className="material-symbols-outlined text-lg">download</span>
