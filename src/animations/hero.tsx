@@ -302,12 +302,66 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
 }
 
 const HeroAnimation = () => {
+  const copyRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const copy = copyRef.current
+    if (!copy) return
+
+    const context = gsap.context(() => {
+      gsap.fromTo(
+        '.hero-copy-item',
+        { autoAlpha: 0, y: 18 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.82,
+          stagger: 0.1,
+          ease: 'power3.out',
+          delay: 0.18,
+        },
+      )
+
+      gsap.to('.hero-doodle-line path', {
+        strokeDashoffset: 0,
+        duration: 1.1,
+        ease: 'power2.out',
+        delay: 0.45,
+      })
+    }, copy)
+
+    return () => context.revert()
+  }, [])
+
   return (
     <section className="hero-section relative min-h-screen overflow-hidden bg-white text-black">
-      <div className="absolute left-1/2 top-10 z-10 grid -translate-x-1/2 content-start justify-items-center gap-6 px-6 text-center text-black">
-        <span className="relative max-w-[50ch] text-xl uppercase leading-tight opacity-40 after:absolute">
-          Hi, I'm <strong className="font-bold">Debarjun Thakur</strong>, a frontend developer specializing in crafting engaging web experiences.
+      <div
+        ref={copyRef}
+        className="hero-copy absolute left-1/2 top-8 z-10 grid w-full max-w-5xl -translate-x-1/2 content-start justify-items-center gap-3 px-6 text-center text-black md:top-12"
+      >
+        <span className="hero-copy-item font-label-caps text-[10px] md:text-xs uppercase tracking-[0.28em] text-black/45">
+          frontend systems / motion / tactile interfaces
         </span>
+        <h1 className="hero-copy-item font-headline-xl text-5xl md:text-7xl lg:text-8xl font-bold leading-none tracking-normal">
+          Debarjun Thakur
+        </h1>
+        <p className="hero-copy-item max-w-[46ch] font-handwriting text-2xl md:text-3xl leading-tight text-black/65">
+          I build fast web experiences that feel like polished product work with a sketchbook soul.
+        </p>
+        <svg
+          aria-hidden="true"
+          className="hero-copy-item hero-doodle-line mt-1 h-8 w-52 opacity-55 md:w-72"
+          preserveAspectRatio="none"
+          viewBox="0 0 240 32"
+        >
+          <path
+            d="M5 20 C42 5 74 31 112 16 S180 8 235 20"
+            fill="none"
+            stroke="black"
+            strokeLinecap="round"
+            strokeWidth="3"
+          />
+        </svg>
       </div>
 
       <div className="absolute inset-x-0 bottom-0 h-full">

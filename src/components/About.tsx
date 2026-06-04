@@ -27,10 +27,17 @@ const AiLogo = () => (
 
 const About = () => {
   return (
-    <section id="about" className="paper-cut-section relative bg-dot-grid-pattern py-20 md:py-32 overflow-hidden">
-      <div className="absolute top-20 right-10 font-handwriting text-5xl opacity-5 -rotate-12 pointer-events-none select-none">
+    <section id="about" className="paper-cut-section relative bg-white py-20 md:py-32 overflow-hidden">
+      <div className="absolute top-20 right-10 font-handwriting text-5xl opacity-8 -rotate-12 pointer-events-none select-none">
         CODE SHIP REPEAT
       </div>
+      <div className="absolute left-6 top-1/3 hidden font-handwriting text-3xl opacity-15 -rotate-6 pointer-events-none select-none md:block">
+        messy notes, clean code
+      </div>
+      <svg className="absolute bottom-24 right-8 hidden h-28 w-44 opacity-15 pointer-events-none md:block" viewBox="0 0 160 90" fill="none">
+        <path d="M8 48 C38 12 72 82 104 36 S142 28 152 54" stroke="black" strokeLinecap="round" strokeWidth="3" />
+        <path d="M128 42 L152 54 L132 67" stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" />
+      </svg>
 
       <div className="max-w-7xl mx-auto w-full px-6 md:px-12 relative z-10">
         <motion.div

@@ -115,12 +115,19 @@ const achievements = [
 
 const Projects = () => {
   return (
-    <section id="projects" className="paper-cut-section relative bg-dot-grid-pattern py-20 md:py-32 overflow-hidden border-y-2 border-black">
+    <section id="projects" className="paper-cut-section relative bg-white py-20 md:py-32 overflow-hidden border-y-2 border-black">
       <div className="absolute top-40 left-0 opacity-10 pointer-events-none select-none -rotate-12">
         <svg className="w-48 h-48" viewBox="0 0 100 100">
           <path d="M10,10 Q50,90 90,10" fill="none" stroke="black" strokeWidth="1" />
         </svg>
       </div>
+      <div className="absolute right-8 top-28 hidden font-handwriting text-3xl opacity-15 rotate-6 pointer-events-none select-none md:block">
+        build / break / ship
+      </div>
+      <svg className="absolute left-8 bottom-36 hidden h-24 w-48 opacity-15 pointer-events-none md:block" viewBox="0 0 180 80" fill="none">
+        <path d="M8 42 C34 20 52 62 78 38 S122 14 164 45" stroke="black" strokeLinecap="round" strokeWidth="3" />
+        <path d="M148 32 L166 45 L145 55" stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" />
+      </svg>
 
       <div className="max-w-7xl mx-auto w-full px-6 md:px-12 relative z-10">
         <div className="flex flex-col md:flex-row items-baseline gap-4 mb-20 relative next-gen-reveal">
@@ -297,8 +304,8 @@ const Projects = () => {
             <div className="timeline-doodle" />
 
             <div className="relative mb-20 group">
-              <div className="absolute -left-[44px] md:-left-[54px] top-1.5 w-8 h-8 bg-white border-3 border-black rounded-full z-10 flex items-center justify-center shadow-xs">
-                <div className="w-3 h-3 bg-black rounded-full group-hover:scale-150 transition-transform" />
+              <div className="experience-number-marker absolute -left-[48px] md:-left-[60px] top-1 z-10">
+                01
               </div>
               <div className="index-card p-10 rotate-[-0.5deg] bg-white relative">
                 <div className="flex flex-col md:flex-row justify-between items-start mb-6 gap-4">
@@ -328,8 +335,8 @@ const Projects = () => {
             </div>
 
             <div className="relative group">
-              <div className="absolute -left-[44px] md:-left-[54px] top-1.5 w-8 h-8 bg-white border-3 border-black rounded-full z-10 flex items-center justify-center shadow-xs">
-                <div className="w-3 h-3 bg-black rounded-full group-hover:scale-150 transition-transform" />
+              <div className="experience-number-marker absolute -left-[48px] md:-left-[60px] top-1 z-10">
+                02
               </div>
               <div className="index-card p-10 rotate-[0.3deg] bg-white">
                 <div className="flex flex-col md:flex-row justify-between items-start mb-6 gap-4">

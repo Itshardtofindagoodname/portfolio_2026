@@ -22,13 +22,13 @@ const DoodleButton = ({
 
     gsap.killTweensOf([button, scribble, blot])
     gsap
-      .timeline({ defaults: { ease: 'elastic.out(1, 0.45)' } })
-      .to(button, { x: 2, y: -4, rotate: -1.2, scale: 1.035, duration: 0.45 }, 0)
+      .timeline({ defaults: { ease: 'power3.out' } })
+      .to(button, { x: 1, y: -2, rotate: -0.8, scale: 1.015, duration: 0.28 }, 0)
       .to(scribble, { scaleX: 1, opacity: 1, duration: 0.35 }, 0)
       .fromTo(
         blot,
         { scale: 0, opacity: 0, rotate: -18 },
-        { scale: 1, opacity: 1, rotate: 4, duration: 0.45 },
+        { scale: 1, opacity: 0.85, rotate: 2, duration: 0.28 },
         0.05,
       )
 
@@ -42,10 +42,10 @@ const DoodleButton = ({
 
     gsap.killTweensOf([button, scribble, blot])
     gsap
-      .timeline({ defaults: { ease: 'power3.out' } })
-      .to(button, { x: 0, y: 0, rotate: 0, scale: 1, duration: 0.3 }, 0)
-      .to(scribble, { scaleX: 0.18, opacity: 0.55, duration: 0.25 }, 0)
-      .to(blot, { scale: 0.2, opacity: 0, duration: 0.2 }, 0)
+      .timeline({ defaults: { ease: 'power2.out' } })
+      .to(button, { x: 0, y: 0, rotate: 0, scale: 1, duration: 0.32 }, 0)
+      .to(scribble, { scaleX: 0.18, opacity: 0.55, duration: 0.28 }, 0)
+      .to(blot, { scale: 0.25, opacity: 0, duration: 0.24 }, 0)
 
     onMouseLeave?.(event)
   }

@@ -3,11 +3,17 @@ import VaraHoverText from './VaraHoverText'
 const Reading = () => {
   return (
     <section id="reading" className="paper-cut-section relative bg-white text-primary border-y-2 border-primary py-8 overflow-hidden">
-      <div className="border-[1px] border-primary m-2 md:m-4 relative bg-white py-12 md:py-24">
-        <div className="absolute inset-0 bg-dot-grid-pattern-small opacity-30 pointer-events-none z-0"></div>
+      <div className="border-[1px] border-primary m-2 md:m-4 relative bg-white py-10 md:py-18">
+        <div className="absolute right-8 top-10 hidden font-handwriting text-3xl opacity-15 rotate-6 pointer-events-none select-none md:block">
+          margins are for side quests
+        </div>
+        <svg className="absolute left-8 bottom-14 hidden h-20 w-40 opacity-15 pointer-events-none md:block" viewBox="0 0 150 70" fill="none">
+          <path d="M8 38 C30 12 52 58 78 34 S118 18 142 42" stroke="black" strokeLinecap="round" strokeWidth="3" />
+          <path d="M126 31 L142 42 L124 52" stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" />
+        </svg>
 
-        <main className="flex-grow z-10 relative px-4 md:px-margin-page py-stack-lg max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-y-20 md:gap-y-12 md:gap-x-10">
-          <div className="col-span-1 md:col-span-12 mb-8 md:mb-14 relative next-gen-reveal">
+        <main className="flex-grow z-10 relative px-4 md:px-margin-page py-10 md:py-14 max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-y-10 md:gap-x-10">
+          <div className="col-span-1 md:col-span-12 mb-6 md:mb-8 relative next-gen-reveal">
             <h1 className="font-headline-xl text-5xl md:text-7xl uppercase leading-none tracking-normal">
               <VaraHoverText text="READING &" fontSize={58} />
               <span className="block font-handwriting lowercase italic text-secondary ml-12 mt-8 text-2xl md:text-3xl font-normal">
@@ -39,7 +45,7 @@ const Reading = () => {
               {/* Book 2 */}
               <div className="book-spine w-12 h-64 border-2 border-primary bg-primary text-on-primary flex items-center justify-center rotate-1 cursor-pointer shadow-[2px_2px_0_0_#000]">
                 <span className="book-spine-label font-body-md text-label-caps tracking-widest uppercase">
-                  Design of Everyday Things
+                  Morisaki Bookshop
                 </span>
               </div>
 
@@ -73,8 +79,8 @@ const Reading = () => {
           </section>
 
           {/* Right Column: Random Musings */}
-          <section className="col-span-1 md:col-span-5 md:col-start-8 relative min-h-[680px] mt-20 md:mt-0 next-gen-reveal">
-            <div className="flex items-center gap-4 border-b-2 border-primary pb-2 w-max mb-8 md:ml-4">
+          <section className="musing-board col-span-1 md:col-span-6 md:col-start-7 relative mt-8 md:mt-0 next-gen-reveal">
+            <div className="flex items-center gap-4 border-b-2 border-primary pb-2 w-max max-w-full mb-7 md:ml-4">
               <h2 className="font-label-caps text-label-caps uppercase tracking-[0.15em]">
                 Random Musings
               </h2>
@@ -83,59 +89,61 @@ const Reading = () => {
               </span>
             </div>
 
-            {/* Scrap 1 */}
-            <div className="paper-scrap musing-scrap w-64 p-6 absolute top-24 left-2 sm:left-8 md:left-0 rotate-[-8deg] next-gen-reveal">
-              <div className="tape"></div>
-              <p className="font-headline-md text-headline-md font-bold leading-tight">
-                CSS is <br />
-                <span
+            <div className="musing-scrap-grid relative">
+              {/* Scrap 1 */}
+              <div className="paper-scrap musing-scrap musing-scrap-large p-6 rotate-[-5deg]">
+                <div className="tape"></div>
+                <p className="font-headline-md text-headline-md font-bold leading-tight">
+                  CSS is <br />
+                  <span
+                    style={{ fontFamily: '"Bricolage Grotesque", sans-serif' }}
+                    className="italic font-normal text-secondary text-2xl"
+                  >
+                    Art.
+                  </span>
+                </p>
+                <div className="sketch-line"></div>
+                <p className="font-body-md text-body-md text-secondary mt-2">Stop treating it like a chore.</p>
+              </div>
+
+              {/* Scrap 2 */}
+              <div className="paper-scrap musing-scrap musing-scrap-small p-4 rotate-[6deg] bg-primary text-primary">
+                <div className="tape bg-surface-container-lowest"></div>
+                <p className="font-label-caps text-label-caps uppercase tracking-widest border-b border-on-primary pb-1 mb-2">
+                  2 AM Ideas
+                </p>
+                <ul
                   style={{ fontFamily: '"Bricolage Grotesque", sans-serif' }}
-                  className="italic font-normal text-secondary text-2xl"
+                  className="text-body-md list-none space-y-2 italic"
                 >
-                  Art.
+                  <li>- A button that sighs when clicked</li>
+                  <li>- Dark mode but it's just very squinty</li>
+                </ul>
+              </div>
+
+              {/* Scrap 3 */}
+              <div className="paper-scrap musing-scrap musing-scrap-medium p-5 rotate-[3deg]">
+                <div className="tape"></div>
+                <span className="material-symbols-outlined text-primary mb-2 text-4xl block">
+                  architecture
                 </span>
-              </p>
-              <div className="sketch-line"></div>
-              <p className="font-body-md text-body-md text-secondary mt-2">Stop treating it like a chore.</p>
-            </div>
+                <p className="font-body-lg text-body-lg">
+                  Form follows function, but sometimes form is just fun.
+                </p>
+              </div>
 
-            {/* Scrap 2 */}
-            <div className="paper-scrap musing-scrap w-48 p-4 absolute top-64 right-0 md:right-2 rotate-[9deg] bg-primary text-primary next-gen-reveal">
-              <div className="tape bg-surface-container-lowest"></div>
-              <p className="font-label-caps text-label-caps uppercase tracking-widest border-b border-on-primary pb-1 mb-2">
-                2 AM Ideas
-              </p>
-              <ul
-                style={{ fontFamily: '"Bricolage Grotesque", sans-serif' }}
-                className="text-body-md list-none space-y-2 italic"
-              >
-                <li>- A button that sighs when clicked</li>
-                <li>- Dark mode but it's just very squinty</li>
-              </ul>
-            </div>
-
-            {/* Scrap 3 */}
-            <div className="paper-scrap musing-scrap w-56 p-5 absolute bottom-24 left-4 md:left-14 rotate-[4deg] next-gen-reveal">
-              <div className="tape"></div>
-              <span className="material-symbols-outlined text-primary mb-2 text-4xl block">
-                architecture
-              </span>
-              <p className="font-body-lg text-body-lg">
-                Form follows function, but sometimes form is just fun.
-              </p>
-            </div>
-
-            {/* Scrap 4 */}
-            <div className="paper-scrap musing-scrap w-52 p-5 absolute bottom-4 right-2 md:right-8 rotate-[-6deg] next-gen-reveal">
-              <div className="tape"></div>
-              <p className="font-handwriting text-3xl leading-none">
-                tiny bugs deserve dramatic soundtracks.
-              </p>
+              {/* Scrap 4 */}
+              <div className="paper-scrap musing-scrap musing-scrap-small p-5 rotate-[-4deg]">
+                <div className="tape"></div>
+                <p className="font-handwriting text-3xl leading-none">
+                  tiny bugs deserve dramatic soundtracks.
+                </p>
+              </div>
             </div>
 
             {/* Floating Doodles */}
             <svg
-              className="doodle-float absolute top-44 left-1/2 -translate-x-1/2 opacity-25 pointer-events-none"
+              className="doodle-float absolute top-36 left-1/2 -translate-x-1/2 opacity-20 pointer-events-none"
               height="64"
               viewBox="0 0 80 64"
               width="80"
@@ -149,7 +157,7 @@ const Reading = () => {
               ></path>
             </svg>
             <svg
-              className="doodle-float absolute bottom-40 right-1/4 opacity-25 pointer-events-none"
+              className="doodle-float absolute bottom-8 right-1/4 opacity-20 pointer-events-none"
               height="40"
               viewBox="0 0 40 40"
               width="40"
@@ -158,7 +166,7 @@ const Reading = () => {
               <path d="M10 20 L30 20 M20 10 L20 30" fill="none" stroke="black" strokeWidth="2"></path>
             </svg>
             <svg
-              className="doodle-float absolute top-10 right-10 opacity-20 pointer-events-none"
+              className="doodle-float absolute top-2 right-8 opacity-15 pointer-events-none"
               height="44"
               viewBox="0 0 44 44"
               width="44"

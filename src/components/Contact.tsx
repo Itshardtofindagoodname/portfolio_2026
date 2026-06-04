@@ -32,6 +32,13 @@ const Contact = () => {
           strokeWidth="2"
         ></circle>
       </svg>
+      <div className="absolute right-8 top-20 hidden font-handwriting text-3xl opacity-15 rotate-6 pointer-events-none select-none md:block">
+        say hi, ship things
+      </div>
+      <svg className="absolute left-10 top-1/2 hidden h-20 w-36 opacity-15 pointer-events-none md:block" viewBox="0 0 130 70" fill="none">
+        <path d="M8 36 C28 12 46 58 70 32 S102 24 122 44" stroke="black" strokeLinecap="round" strokeWidth="3" />
+        <path d="M106 34 L122 44 L104 54" stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" />
+      </svg>
 
       <div className="max-w-4xl w-full px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10 flex-grow py-8">
         

@@ -74,6 +74,13 @@
   min-height: 100vh;
 }
 
+html,
+body,
+#root {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -100,7 +107,8 @@ html.lenis body {
 }
 
 .next-gen-reveal {
-  will-change: transform, opacity, filter;
+  opacity: 1;
+  transform: none;
 }
 
 .paper-cut-section {
@@ -320,12 +328,14 @@ html.lenis body {
   border-bottom-width: 5px;
   border-right-width: 5px;
   border-radius: 2px 4px 3px 6px / 6px 3px 4px 2px;
-  transition: all 0.2s ease;
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease;
 }
 
 .index-card:hover {
-  transform: translate(-3px, -3px) rotate(0deg) !important;
-  box-shadow: 8px 8px 0px black;
+  transform: translate(-2px, -2px) rotate(0deg) !important;
+  box-shadow: 6px 6px 0px black;
 }
 
 .index-card-wiggly {
@@ -334,12 +344,14 @@ html.lenis body {
   border-bottom-width: 6px;
   border-right-width: 6px;
   border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-  transition: all 0.2s ease;
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease;
 }
 
 .index-card-wiggly:hover {
-  transform: translate(-4px, -4px) rotate(0deg) !important;
-  box-shadow: 12px 12px 0px black;
+  transform: translate(-2px, -3px) rotate(0deg) !important;
+  box-shadow: 8px 8px 0px black;
 }
 
 .rough-cut {
@@ -376,41 +388,73 @@ html.lenis body {
   transform: rotate(-5deg);
   box-shadow: 6px 6px 0px black;
   clip-path: polygon(0% 0%, 100% 5%, 95% 95%, 5% 100%);
-  transition: transform 0.2s;
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease;
 }
 
 .award-sticker:hover {
-  transform: scale(1.02) rotate(0deg) !important;
+  transform: translateY(-2px) rotate(-1deg) !important;
 }
 
 .paper-scrap {
   background: #fff;
-  border: 1px solid #000;
+  border: 2px solid #000;
   box-shadow: 4px 4px 0px 0px #000;
   position: relative;
   transform-origin: 46% 58%;
   transition:
-    transform 0.5s cubic-bezier(0.18, 1.45, 0.36, 1),
-    box-shadow 0.35s ease,
-    clip-path 0.35s ease;
+    transform 0.24s ease,
+    box-shadow 0.24s ease;
 }
 
 .paper-scrap::after {
   content: '';
   position: absolute;
   inset: 9px;
-  border: 1px dashed rgba(0, 0, 0, 0.13);
+  border: 1px dashed rgba(0, 0, 0, 0.16);
   pointer-events: none;
 }
 
 .musing-scrap {
-  clip-path: polygon(1% 2%, 98% 0%, 100% 94%, 96% 100%, 3% 98%, 0% 8%);
+  border: 3px solid #000;
+  border-radius: 5px 3px 6px 4px / 4px 6px 3px 5px;
+  clip-path: none;
+  max-width: 100%;
+  padding-top: 2.5rem;
+  box-shadow: 6px 7px 0 #000;
+}
+
+.musing-scrap .tape {
+  display: none;
+}
+
+.musing-scrap::before {
+  content: '';
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  z-index: 2;
+  width: 76px;
+  height: 34px;
+  border: 3px solid #000;
+  border-radius: 10px 10px 4px 4px;
+  background:
+    linear-gradient(#fff 0 0) padding-box,
+    repeating-linear-gradient(90deg, #000 0 2px, transparent 2px 9px);
+  box-shadow: 3px 3px 0 #000;
+  transform: translateX(-50%) rotate(-1deg);
+}
+
+.musing-scrap::after {
+  inset: 16px 12px 12px;
+  border: 2px dashed rgba(0, 0, 0, 0.18);
+  border-radius: 3px;
 }
 
 .musing-scrap:hover {
-  transform: translate(-5px, -9px) rotate(var(--scrap-hover-rotate, 1.5deg)) skew(-1deg, 0.5deg) !important;
-  box-shadow: 9px 10px 0 #000;
-  clip-path: polygon(0% 4%, 100% 1%, 98% 97%, 92% 100%, 2% 96%, 1% 10%);
+  transform: translateY(-3px) rotate(var(--scrap-hover-rotate, 1deg)) !important;
+  box-shadow: 8px 9px 0 #000;
 }
 
 .musing-scrap:nth-of-type(2n):hover {
@@ -419,6 +463,63 @@ html.lenis body {
 
 .musing-scrap:nth-of-type(3n):hover {
   --scrap-hover-rotate: 2.8deg;
+}
+
+.musing-board {
+  min-width: 0;
+  overflow: hidden;
+  padding: 0.25rem 0.25rem 1.25rem;
+}
+
+.musing-scrap-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.35rem;
+  align-items: start;
+  justify-items: center;
+  width: 100%;
+  min-width: 0;
+  padding: 0.25rem 0.5rem 0.9rem;
+}
+
+.musing-scrap-large {
+  width: min(16rem, 100%);
+}
+
+.musing-scrap-medium {
+  width: min(13.5rem, 100%);
+}
+
+.musing-scrap-small {
+  width: min(12rem, 100%);
+}
+
+@media (min-width: 640px) {
+  .musing-scrap-grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 1.7rem 1.25rem;
+    justify-items: stretch;
+    padding-inline: 0.75rem;
+  }
+
+  .musing-scrap-large {
+    grid-row: span 2;
+    justify-self: start;
+  }
+
+  .musing-scrap-small:nth-child(2) {
+    justify-self: end;
+    margin-top: 0.75rem;
+  }
+
+  .musing-scrap-medium {
+    justify-self: center;
+    margin-left: 0.8rem;
+  }
+
+  .musing-scrap-small:nth-child(4) {
+    justify-self: end;
+  }
 }
 
 .tape {
@@ -474,7 +575,7 @@ html.lenis body {
   overflow: hidden;
   transform-origin: 50% 100%;
   transition:
-    transform 0.48s cubic-bezier(0.18, 1.45, 0.36, 1),
+    transform 0.34s ease,
     box-shadow 0.28s ease,
     filter 0.28s ease;
 }
@@ -499,8 +600,8 @@ html.lenis body {
 }
 
 .book-spine:hover {
-  transform: translateY(-16px) rotate(var(--book-hover-rotate, 1.5deg)) skewY(-1deg) !important;
-  box-shadow: 7px 8px 0 #000;
+  transform: translateY(-8px) rotate(var(--book-hover-rotate, 1deg)) !important;
+  box-shadow: 5px 6px 0 #000;
   filter: contrast(1.05);
 }
 
@@ -519,7 +620,7 @@ html.lenis body {
 }
 
 .doodle-float {
-  animation: doodleFloat 5.5s ease-in-out infinite;
+  animation: doodleFloat 7s ease-in-out infinite;
 }
 
 .doodle-float:nth-of-type(2n) {
@@ -532,37 +633,72 @@ html.lenis body {
   animation-delay: -2.2s;
 }
 
-.nav-menu-button {
-  border-radius: 62% 38% 55% 45% / 38% 58% 42% 62%;
-  transition:
-    transform 0.28s cubic-bezier(0.18, 1.45, 0.36, 1),
-    box-shadow 0.2s ease;
+.navbar-shell {
+  z-index: 10000;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
 }
 
-.nav-menu-button:hover {
-  transform: rotate(-4deg) translateY(-2px);
-  box-shadow: 5px 5px 0 #000;
+.navbar-brand {
+  max-width: min(100%, 20rem);
+  white-space: nowrap;
 }
 
-.mobile-nav-panel {
-  border-radius: 12px 5px 10px 7px / 5px 11px 6px 12px;
-  transform-origin: top right;
+.navbar-links {
+  max-width: 100%;
 }
 
 .nav-doodle-link:hover {
-  transform: translateY(-2px) rotate(-2deg);
+  transform: translateY(-1px) rotate(-1deg);
+}
+
+.experience-number-marker {
+  min-width: 2.4rem;
+  padding: 0.35rem 0.45rem;
+  border: 3px solid #000;
+  background: #fff;
+  box-shadow: 3px 3px 0 #000;
+  font-family: var(--font-label-caps);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-align: center;
+  transform: rotate(-4deg);
+}
+
+.hero-copy {
+  pointer-events: none;
+}
+
+.hero-copy-item {
+  opacity: 0;
+}
+
+.hero-doodle-line path {
+  stroke-dasharray: 260;
+  stroke-dashoffset: 260;
 }
 
 @keyframes doodleFloat {
   0%,
   100% {
-    transform: translate3d(0, 0, 0) rotate(-2deg);
+    transform: translate3d(0, 0, 0) rotate(-1deg);
   }
   34% {
-    transform: translate3d(7px, -9px, 0) rotate(3deg);
+    transform: translate3d(3px, -4px, 0) rotate(1.5deg);
   }
   67% {
-    transform: translate3d(-5px, 5px, 0) rotate(-4deg);
+    transform: translate3d(-3px, 3px, 0) rotate(-1.5deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
   }
 }
 
