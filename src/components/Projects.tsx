@@ -115,7 +115,7 @@ const achievements = [
 
 const Projects = () => {
   return (
-    <section id="projects" className="relative bg-dot-grid-pattern py-20 md:py-32 overflow-hidden border-t-2 border-black">
+    <section id="projects" className="paper-cut-section relative bg-dot-grid-pattern py-20 md:py-32 overflow-hidden border-y-2 border-black">
       <div className="absolute top-40 left-0 opacity-10 pointer-events-none select-none -rotate-12">
         <svg className="w-48 h-48" viewBox="0 0 100 100">
           <path d="M10,10 Q50,90 90,10" fill="none" stroke="black" strokeWidth="1" />

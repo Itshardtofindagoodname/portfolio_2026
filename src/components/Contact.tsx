@@ -6,7 +6,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="relative bg-background pt-20 md:pt-32 overflow-hidden border-t-2 border-black flex flex-col items-center justify-between min-h-[90vh]"
+      className="paper-cut-section relative bg-background pt-20 md:pt-32 overflow-hidden border-t-2 border-black flex flex-col items-center justify-between min-h-[90vh]"
     >
       {/* Decorative SVG Doodles */}
       <svg className="absolute top-10 left-10 w-16 h-16 pointer-events-none opacity-20" viewBox="0 0 100 100">

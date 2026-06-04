@@ -27,7 +27,7 @@ const AiLogo = () => (
 
 const About = () => {
   return (
-    <section id="about" className="relative bg-dot-grid-pattern py-20 md:py-32 overflow-hidden">
+    <section id="about" className="paper-cut-section relative bg-dot-grid-pattern py-20 md:py-32 overflow-hidden">
       <div className="absolute top-20 right-10 font-handwriting text-5xl opacity-5 -rotate-12 pointer-events-none select-none">
         CODE SHIP REPEAT
       </div>

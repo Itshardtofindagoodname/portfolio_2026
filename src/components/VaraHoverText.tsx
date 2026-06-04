@@ -13,10 +13,21 @@ const VaraHoverText = ({ text, className = '', fontSize = 30 }: VaraHoverTextPro
   const containerId = `vara-${rawId}`
   const containerRef = useRef<HTMLSpanElement>(null)
   const [isHovering, setIsHovering] = useState(false)
+  const [shouldDraw, setShouldDraw] = useState(false)
+
+  useEffect(() => {
+    if (isHovering) {
+      setShouldDraw(true)
+      return
+    }
+
+    const timeoutId = window.setTimeout(() => setShouldDraw(false), 260)
+    return () => window.clearTimeout(timeoutId)
+  }, [isHovering])
 
   useEffect(() => {
     const container = containerRef.current
-    if (!container || !isHovering) return
+    if (!container || !shouldDraw) return
 
     container.innerHTML = ''
     const vara = new Vara(
@@ -35,7 +46,7 @@ const VaraHoverText = ({ text, className = '', fontSize = 30 }: VaraHoverTextPro
       container.innerHTML = ''
       void vara
     }
-  }, [containerId, fontSize, isHovering, text])
+  }, [containerId, fontSize, shouldDraw, text])
 
   return (
     <span
@@ -43,12 +54,12 @@ const VaraHoverText = ({ text, className = '', fontSize = 30 }: VaraHoverTextPro
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      <span className={isHovering ? 'opacity-0' : 'opacity-100'}>{text}</span>
+      <span className={`vara-hover-fallback ${isHovering ? 'opacity-0' : 'opacity-100'}`}>{text}</span>
       <span
         ref={containerRef}
         id={containerId}
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 -top-1 min-h-[1.4em]"
+        className={`vara-hover-drawn pointer-events-none absolute inset-x-0 -top-1 min-h-[1.4em] ${isHovering ? 'opacity-100' : 'opacity-0'}`}
       />
     </span>
   )

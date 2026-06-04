@@ -2,11 +2,11 @@ import VaraHoverText from './VaraHoverText'
 
 const Reading = () => {
   return (
-    <section id="reading" className="relative bg-white text-primary border-t-2 border-primary py-8 overflow-hidden">
+    <section id="reading" className="paper-cut-section relative bg-white text-primary border-y-2 border-primary py-8 overflow-hidden">
       <div className="border-[1px] border-primary m-2 md:m-4 relative bg-white py-12 md:py-24">
         <div className="absolute inset-0 bg-dot-grid-pattern-small opacity-30 pointer-events-none z-0"></div>
 
-        <main className="flex-grow z-10 relative px-4 md:px-margin-page py-stack-lg max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-gutter">
+        <main className="flex-grow z-10 relative px-4 md:px-margin-page py-stack-lg max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-y-20 md:gap-y-12 md:gap-x-10">
           <div className="col-span-1 md:col-span-12 mb-8 md:mb-14 relative next-gen-reveal">
             <h1 className="font-headline-xl text-5xl md:text-7xl uppercase leading-none tracking-normal">
               <VaraHoverText text="READING &" fontSize={58} />
@@ -17,7 +17,7 @@ const Reading = () => {
           </div>
 
           {/* Left Column: Currently Reading */}
-          <section className="col-span-1 md:col-span-5 flex flex-col gap-stack-md mt-10 md:mt-0 next-gen-reveal">
+          <section className="col-span-1 md:col-span-4 flex flex-col gap-stack-md mt-10 md:mt-0 next-gen-reveal">
             <div className="flex items-center gap-4 border-b-2 border-primary pb-2 w-max">
               <h2 className="font-label-caps text-label-caps uppercase tracking-[0.15em]">
                 Currently Reading
@@ -28,57 +28,53 @@ const Reading = () => {
             </div>
 
             {/* Book Spines Container */}
-            <div className="flex items-end h-[400px] gap-2 md:gap-4 pl-4 border-l-2 border-primary relative select-none">
+            <div className="reading-shelf flex items-end h-[420px] gap-2 md:gap-4 pl-4 border-l-2 border-primary relative select-none">
               {/* Book 1 */}
-              <div className="w-16 h-72 border-2 border-primary bg-surface-container-lowest flex items-center justify-center transform -rotate-2 hover:-translate-y-2 transition-transform cursor-pointer shadow-[2px_2px_0_0_#000]">
-                <span className="font-headline-md text-body-md font-bold tracking-widest writing-vertical -rotate-90 whitespace-nowrap uppercase">
+              <div className="book-spine w-16 h-72 border-2 border-primary bg-surface-container-lowest flex items-center justify-center -rotate-2 cursor-pointer shadow-[2px_2px_0_0_#000]">
+                <span className="book-spine-label font-headline-md text-body-md font-bold tracking-widest uppercase">
                   Thinking, Fast &amp; Slow
                 </span>
               </div>
 
               {/* Book 2 */}
-              <div className="w-12 h-64 border-2 border-primary bg-primary text-on-primary flex items-center justify-center transform rotate-1 hover:-translate-y-2 transition-transform cursor-pointer shadow-[2px_2px_0_0_#000]">
-                <span className="font-body-md text-label-caps tracking-widest writing-vertical -rotate-90 whitespace-nowrap uppercase">
+              <div className="book-spine w-12 h-64 border-2 border-primary bg-primary text-on-primary flex items-center justify-center rotate-1 cursor-pointer shadow-[2px_2px_0_0_#000]">
+                <span className="book-spine-label font-body-md text-label-caps tracking-widest uppercase">
                   Design of Everyday Things
                 </span>
               </div>
 
               {/* Book 3 */}
-              <div className="w-20 h-80 sketch-border bg-surface-container-lowest flex items-center justify-center transform rotate-3 hover:-translate-y-2 transition-transform cursor-pointer shadow-[3px_3px_0_0_#000]">
+              <div className="book-spine w-20 h-80 sketch-border bg-surface-container-lowest flex items-center justify-center rotate-3 cursor-pointer shadow-[3px_3px_0_0_#000]">
                 <span
                   style={{ fontFamily: '"Bricolage Grotesque", sans-serif' }}
-                  className="text-body-lg font-bold tracking-widest writing-vertical -rotate-90 whitespace-nowrap italic"
+                  className="book-spine-label text-body-lg font-bold tracking-widest italic"
                 >
                   Steal Like an Artist
                 </span>
               </div>
 
               {/* Book 4 */}
-              <div className="w-10 h-56 border-2 border-primary bg-surface-container-lowest flex items-center justify-center transform -rotate-1 hover:-translate-y-2 transition-transform cursor-pointer border-dashed">
-                <span className="font-label-caps text-label-caps tracking-widest writing-vertical -rotate-90 whitespace-nowrap uppercase">
+              <div className="book-spine w-10 h-56 border-2 border-primary bg-surface-container-lowest flex items-center justify-center -rotate-1 cursor-pointer border-dashed">
+                <span className="book-spine-label font-label-caps text-label-caps tracking-widest uppercase">
                   Neuromancer
                 </span>
               </div>
 
               {/* Annotation on books */}
-              <div className="absolute -left-10 top-20 flex items-center gap-2">
+              <div className="absolute -left-8 top-16 flex items-center gap-2">
                 <span
                   style={{ fontFamily: '"Bricolage Grotesque", sans-serif' }}
-                  className="text-body-lg text-secondary italic"
+                  className="text-body-lg text-secondary italic rotate-[-12deg]"
                 >
                   favorite
                 </span>
-                <svg height="20" viewBox="0 0 30 20" width="30" className="opacity-60">
-                  <path d="M0 10 Q 15 20 30 10" fill="none" stroke="black" strokeLinecap="round" strokeWidth="1.5"></path>
-                  <path d="M20 5 L30 10 L20 15" fill="none" stroke="black" strokeLinecap="round" strokeWidth="1.5"></path>
-                </svg>
               </div>
             </div>
           </section>
 
           {/* Right Column: Random Musings */}
-          <section className="col-span-1 md:col-span-7 relative min-h-[500px] mt-16 md:mt-0 next-gen-reveal">
-            <div className="flex items-center gap-4 border-b-2 border-primary pb-2 w-max mb-8 md:ml-20">
+          <section className="col-span-1 md:col-span-5 md:col-start-8 relative min-h-[680px] mt-20 md:mt-0 next-gen-reveal">
+            <div className="flex items-center gap-4 border-b-2 border-primary pb-2 w-max mb-8 md:ml-4">
               <h2 className="font-label-caps text-label-caps uppercase tracking-[0.15em]">
                 Random Musings
               </h2>
@@ -88,7 +84,7 @@ const Reading = () => {
             </div>
 
             {/* Scrap 1 */}
-            <div className="paper-scrap w-64 p-6 absolute top-24 left-8 md:left-24 transform rotate-[-4deg] hover:rotate-0 hover:-translate-y-1 transition-all duration-200 next-gen-reveal">
+            <div className="paper-scrap musing-scrap w-64 p-6 absolute top-24 left-2 sm:left-8 md:left-0 rotate-[-8deg] next-gen-reveal">
               <div className="tape"></div>
               <p className="font-headline-md text-headline-md font-bold leading-tight">
                 CSS is <br />
@@ -104,7 +100,7 @@ const Reading = () => {
             </div>
 
             {/* Scrap 2 */}
-            <div className="paper-scrap w-48 p-4 absolute top-44 right-0 md:right-20 transform rotate-[6deg] hover:rotate-0 hover:-translate-y-1 transition-all duration-200 bg-primary text-primary next-gen-reveal">
+            <div className="paper-scrap musing-scrap w-48 p-4 absolute top-64 right-0 md:right-2 rotate-[9deg] bg-primary text-primary next-gen-reveal">
               <div className="tape bg-surface-container-lowest"></div>
               <p className="font-label-caps text-label-caps uppercase tracking-widest border-b border-on-primary pb-1 mb-2">
                 2 AM Ideas
@@ -119,7 +115,7 @@ const Reading = () => {
             </div>
 
             {/* Scrap 3 */}
-            <div className="paper-scrap w-56 p-5 absolute bottom-8 left-12 md:left-36 transform rotate-[-2deg] hover:rotate-0 hover:-translate-y-1 transition-all duration-200 next-gen-reveal">
+            <div className="paper-scrap musing-scrap w-56 p-5 absolute bottom-24 left-4 md:left-14 rotate-[4deg] next-gen-reveal">
               <div className="tape"></div>
               <span className="material-symbols-outlined text-primary mb-2 text-4xl block">
                 architecture
@@ -129,29 +125,46 @@ const Reading = () => {
               </p>
             </div>
 
+            {/* Scrap 4 */}
+            <div className="paper-scrap musing-scrap w-52 p-5 absolute bottom-4 right-2 md:right-8 rotate-[-6deg] next-gen-reveal">
+              <div className="tape"></div>
+              <p className="font-handwriting text-3xl leading-none">
+                tiny bugs deserve dramatic soundtracks.
+              </p>
+            </div>
+
             {/* Floating Doodles */}
             <svg
-              className="absolute top-64 left-1/2 transform -translate-x-1/2 opacity-25 pointer-events-none"
-              height="60"
-              viewBox="0 0 60 60"
-              width="60"
+              className="doodle-float absolute top-44 left-1/2 -translate-x-1/2 opacity-25 pointer-events-none"
+              height="64"
+              viewBox="0 0 80 64"
+              width="80"
             >
               <path
-                d="M30 10 L35 25 L50 25 L38 35 L42 50 L30 40 L18 50 L22 35 L10 25 L25 25 Z"
+                d="M8 45 C20 12 56 8 64 26 C72 44 43 56 30 43 C18 31 48 22 50 38"
                 fill="none"
                 stroke="black"
-                strokeLinejoin="round"
-                strokeWidth="2"
+                strokeLinecap="round"
+                strokeWidth="2.5"
               ></path>
             </svg>
             <svg
-              className="absolute bottom-32 right-1/4 opacity-25 pointer-events-none"
+              className="doodle-float absolute bottom-40 right-1/4 opacity-25 pointer-events-none"
               height="40"
               viewBox="0 0 40 40"
               width="40"
             >
               <circle cx="20" cy="20" fill="none" r="15" stroke="black" strokeDasharray="4 4" strokeWidth="2"></circle>
               <path d="M10 20 L30 20 M20 10 L20 30" fill="none" stroke="black" strokeWidth="2"></path>
+            </svg>
+            <svg
+              className="doodle-float absolute top-10 right-10 opacity-20 pointer-events-none"
+              height="44"
+              viewBox="0 0 44 44"
+              width="44"
+            >
+              <path d="M8 22 C8 8 34 8 34 22 C34 36 8 36 8 22 Z" fill="none" stroke="black" strokeDasharray="3 5" strokeWidth="2" />
+              <path d="M16 18 L17 18 M27 18 L28 18 M16 27 C20 31 25 31 29 27" fill="none" stroke="black" strokeLinecap="round" strokeWidth="2" />
             </svg>
           </section>
         </main>

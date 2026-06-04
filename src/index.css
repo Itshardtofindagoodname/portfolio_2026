@@ -103,6 +103,38 @@ html.lenis body {
   will-change: transform, opacity, filter;
 }
 
+.paper-cut-section {
+  isolation: isolate;
+}
+
+.paper-cut-section::before,
+.paper-cut-section::after {
+  content: '';
+  position: absolute;
+  left: -1%;
+  right: -1%;
+  z-index: 1;
+  height: 22px;
+  pointer-events: none;
+  background: #fff;
+  filter: drop-shadow(0 2px 0 #000);
+  clip-path: polygon(
+    0% 32%, 5% 45%, 10% 24%, 15% 48%, 20% 35%, 25% 56%,
+    30% 31%, 35% 46%, 40% 25%, 45% 52%, 50% 36%, 55% 58%,
+    60% 29%, 65% 50%, 70% 33%, 75% 55%, 80% 28%, 85% 49%,
+    90% 30%, 95% 47%, 100% 34%, 100% 0%, 0% 0%
+  );
+}
+
+.paper-cut-section::before {
+  top: -1px;
+}
+
+.paper-cut-section::after {
+  bottom: -1px;
+  transform: scaleY(-1);
+}
+
 .doodle-button {
   transform-origin: 48% 58%;
   border-radius: 255px 18px 225px 20px/20px 225px 18px 255px;
@@ -115,6 +147,28 @@ html.lenis body {
 
 .vara-hover-text svg {
   overflow: visible;
+}
+
+.vara-hover-fallback,
+.vara-hover-drawn {
+  display: inline-block;
+  transition:
+    opacity 0.26s ease,
+    transform 0.32s cubic-bezier(0.19, 1, 0.22, 1),
+    filter 0.26s ease;
+}
+
+.vara-hover-text:hover .vara-hover-fallback {
+  filter: blur(1px);
+  transform: translateY(-2px) rotate(-0.35deg);
+}
+
+.vara-hover-drawn {
+  transform: translateY(2px) rotate(0.35deg);
+}
+
+.vara-hover-text:hover .vara-hover-drawn {
+  transform: translateY(0) rotate(0deg);
 }
 
 .scribble-circle {
@@ -334,6 +388,37 @@ html.lenis body {
   border: 1px solid #000;
   box-shadow: 4px 4px 0px 0px #000;
   position: relative;
+  transform-origin: 46% 58%;
+  transition:
+    transform 0.5s cubic-bezier(0.18, 1.45, 0.36, 1),
+    box-shadow 0.35s ease,
+    clip-path 0.35s ease;
+}
+
+.paper-scrap::after {
+  content: '';
+  position: absolute;
+  inset: 9px;
+  border: 1px dashed rgba(0, 0, 0, 0.13);
+  pointer-events: none;
+}
+
+.musing-scrap {
+  clip-path: polygon(1% 2%, 98% 0%, 100% 94%, 96% 100%, 3% 98%, 0% 8%);
+}
+
+.musing-scrap:hover {
+  transform: translate(-5px, -9px) rotate(var(--scrap-hover-rotate, 1.5deg)) skew(-1deg, 0.5deg) !important;
+  box-shadow: 9px 10px 0 #000;
+  clip-path: polygon(0% 4%, 100% 1%, 98% 97%, 92% 100%, 2% 96%, 1% 10%);
+}
+
+.musing-scrap:nth-of-type(2n):hover {
+  --scrap-hover-rotate: -2deg;
+}
+
+.musing-scrap:nth-of-type(3n):hover {
+  --scrap-hover-rotate: 2.8deg;
 }
 
 .tape {
@@ -371,6 +456,114 @@ html.lenis body {
 
 .writing-vertical {
   writing-mode: vertical-rl;
+}
+
+.reading-shelf::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: -16px;
+  bottom: -5px;
+  height: 7px;
+  background: #000;
+  clip-path: polygon(0 15%, 12% 45%, 26% 18%, 42% 56%, 58% 22%, 74% 48%, 88% 20%, 100% 40%, 100% 100%, 0 100%);
+}
+
+.book-spine {
+  position: relative;
+  overflow: hidden;
+  transform-origin: 50% 100%;
+  transition:
+    transform 0.48s cubic-bezier(0.18, 1.45, 0.36, 1),
+    box-shadow 0.28s ease,
+    filter 0.28s ease;
+}
+
+.book-spine::before,
+.book-spine::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background: currentColor;
+  opacity: 0.15;
+}
+
+.book-spine::before {
+  left: 8px;
+}
+
+.book-spine::after {
+  right: 8px;
+}
+
+.book-spine:hover {
+  transform: translateY(-16px) rotate(var(--book-hover-rotate, 1.5deg)) skewY(-1deg) !important;
+  box-shadow: 7px 8px 0 #000;
+  filter: contrast(1.05);
+}
+
+.book-spine:nth-child(2n):hover {
+  --book-hover-rotate: -1.4deg;
+}
+
+.book-spine-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: none;
+  max-height: calc(100% - 32px);
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.doodle-float {
+  animation: doodleFloat 5.5s ease-in-out infinite;
+}
+
+.doodle-float:nth-of-type(2n) {
+  animation-duration: 7s;
+  animation-delay: -1.2s;
+}
+
+.doodle-float:nth-of-type(3n) {
+  animation-duration: 6.3s;
+  animation-delay: -2.2s;
+}
+
+.nav-menu-button {
+  border-radius: 62% 38% 55% 45% / 38% 58% 42% 62%;
+  transition:
+    transform 0.28s cubic-bezier(0.18, 1.45, 0.36, 1),
+    box-shadow 0.2s ease;
+}
+
+.nav-menu-button:hover {
+  transform: rotate(-4deg) translateY(-2px);
+  box-shadow: 5px 5px 0 #000;
+}
+
+.mobile-nav-panel {
+  border-radius: 12px 5px 10px 7px / 5px 11px 6px 12px;
+  transform-origin: top right;
+}
+
+.nav-doodle-link:hover {
+  transform: translateY(-2px) rotate(-2deg);
+}
+
+@keyframes doodleFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-2deg);
+  }
+  34% {
+    transform: translate3d(7px, -9px, 0) rotate(3deg);
+  }
+  67% {
+    transform: translate3d(-5px, 5px, 0) rotate(-4deg);
+  }
 }
 
 /* Scroll-triggered marker entry animation */
