@@ -104,7 +104,7 @@ const Reading = () => {
             </div>
 
             {/* Scrap 2 */}
-            <div className="paper-scrap w-48 p-4 absolute top-44 right-0 md:right-20 transform rotate-[6deg] hover:rotate-0 hover:-translate-y-1 transition-all duration-200 bg-primary text-on-primary next-gen-reveal">
+            <div className="paper-scrap w-48 p-4 absolute top-44 right-0 md:right-20 transform rotate-[6deg] hover:rotate-0 hover:-translate-y-1 transition-all duration-200 bg-primary text-primary next-gen-reveal">
               <div className="tape bg-surface-container-lowest"></div>
               <p className="font-label-caps text-label-caps uppercase tracking-widest border-b border-on-primary pb-1 mb-2">
                 2 AM Ideas
