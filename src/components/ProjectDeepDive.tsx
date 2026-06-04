@@ -24,206 +24,62 @@ interface ProjectData {
 }
 
 const projectRegistry: Record<string, ProjectData> = {
-  fastfox: {
-    title: 'FastFox',
-    filename: 'FastFox.md',
-    ver: 'VER 1.0.4',
-    releaseType: 'STABLE RELEASE',
-    marginalia: 'Optimized: Low-Latency CLI Orchestration',
-    intro: 'FastFox is a high-performance command-line orchestration tool designed to bridge the gap between natural language intent and system-level execution. By leveraging the low-latency inference capabilities of LLaMA 3 via Groq, FastFox transforms vague user requests into precise terminal commands, file manipulations, and code snippets in milliseconds.',
-    introQuote: "The terminal is the developer's canvas; FastFox is the intelligent brush that knows exactly which stroke to make next.",
-    introIcon: 'terminal',
-    stackTitle: 'The Engine',
-    stack: [
-      'Python 3.11+ (Core Logic)',
-      'Groq API (Inference Hub)',
-      'LLaMA 3 8B (Primary Logic)',
-      'Mixtral 8x7B (Script Generation)',
-      'Salesforce BLIP (Vision/Image Meta)'
-    ],
-    metricsTitle: 'Efficiency Benchmarks',
-    metrics: [
-      '< 1s Latency Per Query',
-      '94% Command Accuracy Rate',
-      'POSIX Compliant Script Generation',
-      'Sub-50ms Local Context Parsing'
-    ],
-    capabilities: [
-      'Predictive Autocomplete: Suggests the next most likely command based on local shell history and project context.',
-      'Contextual File Management: Automagically renames, moves, and categorizes hundreds of files using AI-generated metadata.',
-      'Safe Execution Mode: Dry-run previews with natural language explanations of what the command will do before execution.'
-    ],
-    whyBuilt: 'I spent too many hours digging through man pages or Googling specific find and sed flags. The existing solutions were either too slow (standard GPT-4 calls) or too disconnected from the local file system. The Motivation: Create a CLI tool that feels like an extension of the developer\'s thought process—minimal friction, zero context-switching, and instantaneous response times.',
-    howItWorks: [
-      'Capture & Contextualize: The CLI captures the user\'s natural language input and gathers local context (current directory structure, active environment variables, and recent shell history).',
-      'Streamed Inference: Context is formatted into a dense prompt and sent to Groq\'s LPU. The response is streamed back to provide immediate visual feedback.',
-      'Validation & Execution: Generated commands are parsed for safety. The user can toggle between \'Auto-pilot\' or \'Manual Confirmation\' before the script hits the shell.'
-    ],
-    architectureDiagram: `[ CLI / TYPER ]  -- (Natural Language) --> [ ORCHESTRATOR ]
-                                                   |
-                                                   +--> [ CONTEXT ENGINE ]
-                                                   |
-                                                   +--> [ LLM CLIENT (GROQ) ]
-                                                            |
-                                                            +--> [ SHELL KERNEL ]`,
-    learnt: [
-      'Latency Optimization: I learned that in CLI tools, a 500ms delay is the difference between a "tool" and an "impediment." Switching to Groq\'s hardware-accelerated LPU was a pivotal architectural pivot.',
-      'Prompt Engineering for Shells: Translating natural language into POSIX-compliant syntax while accounting for edge cases (like whitespace in filenames or platform-specific flags) required hundreds of iterations on the system instructions.',
-      'Safety First: Implementing a robust dry-run system is essential when dealing with AI-generated shell commands to prevent catastrophic data loss.'
-    ],
-    githubUrl: 'https://github.com/Itshardtofindagoodname/fastfox',
-    status: 'IN PRODUCTION'
-  },
-  vaultify: {
-    title: 'Vaultify',
-    filename: 'Vaultify.md',
-    ver: 'VER 1.0.4',
-    releaseType: 'STABLE RELEASE',
-    marginalia: 'Confidential: Zero-Knowledge Architecture',
-    intro: 'Vaultify is a zero-knowledge architectural blueprint for modern data preservation. Built on the principles of absolute privacy, it utilizes a decentralized node network to ensure that no single entity—not even the developers—can peek into your digital safe. It aims to bridge the gap between user-friendly cloud storage and hardline cryptographic security.',
-    introQuote: 'Think of it like a physical bank vault, but the keys are held only by the owner, and the vault exists in a thousand places at once.',
-    introIcon: 'lock_open',
-    stackTitle: 'The Stack',
-    stack: [
-      'Frontend: React 18, TypeScript, TailwindCSS',
-      'Backend: Rust (Axum Framework)',
-      'Encryption: AES-256-GCM + Argon2id',
-      'Storage: IPFS / Filecoin Integration'
-    ],
-    metricsTitle: 'Performance Wins',
-    metrics: [
-      '99.9% Uptime via Node Redundancy',
-      '< 200ms Time to First Byte (Global)',
-      'Zero plaintext data stored on disk',
-      '100/100 Lighthouse Security Score'
-    ],
-    capabilities: [
-      'Multi-Signature Auth: Requires multiple device verification for high-value access.',
-      'Offline Recovery: Deterministic key generation from physical seed phrases.',
-      'Biometric Handshakes: Local-only biometric verification before decryption.'
-    ],
-    whyBuilt: 'The motivation was simple: The modern web is broken. We trade our privacy for convenience every single day. Most "secure" cloud services still hold the master keys to your data, making them a single point of failure and a prime target for subpoena or breach. Vaultify was built as a response to the growing need for data sovereignty. I wanted to create a system where the provider is mathematically incapable of accessing user data, returning the power of digital ownership to the individual.',
-    howItWorks: [
-      'Key Derivation: Your password is put through Argon2id locally on the client. The server never sees the raw password or the derived key.',
-      'Client-Side Encryption: Data is encrypted using AES-256-GCM. A unique IV is generated for every single file.',
-      'Sharding: The encrypted blob is split into 10 fragments. Only 7 are needed to reconstruct the file (Reed-Solomon erasure coding).',
-      'Distribution: Fragments are distributed across the decentralized node network.'
-    ],
-    architectureDiagram: `[ CLIENT ]  <-- (TLS 1.3) --> [ API GATEWAY ]
-                                  |
-                                  +--> [ AUTH NODE ] (OIDC)
-                                  |
-                                  +--> [ SHARD MANAGER ]
-                                           |
-                                           +--> [ NODE A ]
-                                           +--> [ NODE B ]
-                                           +--> [ NODE C... ]`,
-    learnt: [
-      'Rust\'s Memory Safety: Using Rust for the backend eliminated entire classes of memory-related vulnerabilities that are common in C++.',
-      'The Complexity of "Simple" Crypto: Implementing AES-256-GCM correctly requires obsessive attention to detail, especially regarding Nonce reuse.',
-      'UX for Privacy: Security is only useful if people actually use it. Designing a recovery flow that is both secure and human-friendly was the hardest design challenge.'
-    ],
-    githubUrl: 'https://github.com/Itshardtofindagoodname/Vaultify-SIH',
-    status: 'IN PRODUCTION'
-  },
-  pragati: {
-    title: 'Pragati',
-    filename: 'PRAGATI.md',
-    ver: 'VER 2.1.0',
-    releaseType: 'STABLE RELEASE',
-    marginalia: 'Built for scaling transparency in large-scale public works.',
-    intro: 'PRAGATI (Pro-Active Governance And Timely Implementation) is a multi-purpose and multi-modal platform aimed at addressing common man\'s grievances, and simultaneously monitoring and reviewing important programs and projects of the Government. It was designed to bridge the gap between policy making and ground-level execution using modern data visualization and real-time reporting.',
-    introQuote: 'The platform bridges the gap between policy making and ground-level execution using modern data visualization and real-time reporting.',
-    introIcon: 'analytics',
-    stackTitle: 'The Stack',
-    stack: [
-      'Frontend: React / Redux for state management',
-      'Database: PostgreSQL for relational integrity',
-      'GIS: Leaflet.js for geospatial mapping',
-      'Backend: Node.js Microservices architecture',
-      'Caching: Redis for high-speed caching'
-    ],
-    metricsTitle: 'Metrics & Wins',
-    metrics: [
-      '40% Reduction in reporting latency',
-      '1200+ Active infrastructure sites tracked',
-      '99.9% Uptime for document verification',
-      '10k+ Concurrent data updates handled'
-    ],
-    capabilities: [
-      'Proprietary Dashboard: Translates complex geospatial data into actionable insights for high-level officials.',
-      'Automated Milestones: Real-time tracking against project deadlines.',
-      'Low-Bandwidth Optimization: Designed for field efficiency in remote areas.'
-    ],
-    whyBuilt: 'Before PRAGATI, infrastructure projects often suffered from "information silos." Field engineers reported data in disparate formats, leading to delays that were only identified months later. The motivation was simple: transparency through centralization. The goal was to create a "single source of truth" where a bottleneck in a highway project in one state could be immediately visible to the central monitoring committee, bypassing bureaucratic hurdles.',
-    howItWorks: [
-      'Data Ingestion: Field officers upload geo-tagged photos and progress reports via a low-bandwidth optimized mobile interface.',
-      'Validation: Reports undergo automated validation checks against project milestones stored in the database.',
-      'Visualization: Data is aggregated and rendered onto an interactive national map with drill-down capabilities.',
-      'Review Cycle: The system automatically flags "at-risk" projects based on predictive modeling of historical delay patterns.'
-    ],
-    architectureDiagram: `[ FIELD OFFICER ]  --> [ API GATEWAY ]
-                                     |
-                                     +--> [ VALIDATION ENGINE ]
-                                     |
-                                     +--> [ MAPPING SERVICE ]
-                                              |
-                                              +--> [ REDIS CACHE ]
-                                              +--> [ POSTGRES DB ]`,
-    learnt: [
-      'Performance over Flashiness: A dashboard that takes 10 seconds to load is useless in a high-stakes review meeting. Optimization is a core feature.',
-      'Data Integrity is King: When monitoring billions in infrastructure, a single bad data point can lead to catastrophic decision-making.',
-      'Graceful Degradation: The system had to work seamlessly on 3G networks in remote rural areas as well as it did on fiber in the capital.'
-    ],
-    githubUrl: 'https://github.com/Itshardtofindagoodname/Pragati-SIH',
-    status: 'IN PRODUCTION'
-  },
+  fastfox: { title: 'FastFox', filename: 'FastFox.md', ver: 'VER 2.1.0', releaseType: 'PUBLIC BETA', marginalia: 'AI-Powered Command Line Productivity', intro: 'FastFox is an AI-augmented command-line assistant that combines file organization, command generation, code assistance, and document analysis into a single workflow. Designed for developers and power users, it transforms the terminal into an intelligent workspace capable of understanding both files and intent.', introQuote: 'The fastest interface is still a blinking cursor—provided it understands what you mean.', introIcon: 'terminal', stackTitle: 'The Stack', stack: ['Core: Python', 'AI Models: Groq LLMs', 'Computer Vision: BLIP Image Captioning', 'Data Processing: Pandas, PyPDF2', 'System Integration: Win32 APIs'], metricsTitle: 'Performance Metrics', metrics: ['50+ Files Organized Per Batch', 'Multi-Format Document Processing', 'Sub-Second Command Suggestions', 'Unified AI Workflow Through CLI'], capabilities: ['AI File Organization: Automatically groups files based on semantic meaning rather than filenames.', 'Command Generation: Converts natural language instructions into executable terminal commands.', 'Code Assistance: Generates and explains code directly within terminal workflows.', 'Document Understanding: Extracts information from PDFs, spreadsheets, text files, and images.'], whyBuilt: 'Modern workflows force users to jump between file explorers, chatbots, terminals, and editors. FastFox was built to unify these actions inside a single command-line experience where AI becomes part of the operating environment rather than a separate destination.', howItWorks: ['Users issue commands through the FastFox CLI.', 'Files are processed through specialized handlers depending on format.', 'AI models analyze content, intent, and context.', 'Results are returned as executable actions, suggestions, or organized outputs.'], architectureDiagram: `[ USER ] | v [ FASTFOX CLI ] | +---+---+---+ | | | v v v [ FILE ] [ LLM ] [ IMAGE MODEL ] PROCESS ENGINE ENGINE | | | +----------+----------+ | v [ OUTPUT ]`, learnt: ['Good developer tooling prioritizes speed above almost everything else.', 'Natural-language interfaces become far more useful when connected to system actions.', 'The challenge of AI products often lies in orchestration rather than intelligence.'], githubUrl: 'https://github.com/Itshardtofindagoodname/fastfox', status: 'ACTIVE DEVELOPMENT' },
+  vaultify: { title: 'Vaultify', filename: 'Vaultify.md', ver: 'VER 1.0.0-SIH', releaseType: 'HACKATHON RELEASE', marginalia: 'Decentralized Legal Document Infrastructure', intro: 'Vaultify is a blockchain-powered document custody platform designed for legal workflows where trust, authority, and access control matter as much as the files themselves. The system enables clients, lawyers, and judicial authorities to securely exchange, manage, and verify sensitive legal records through programmable permissions.', introQuote: 'The problem with legal documents is not storage. It is proving who should be allowed to see them.', introIcon: 'gavel', stackTitle: 'The Stack', stack: ['Frontend: React, Vite, Tailwind CSS', 'Web3: Thirdweb SDK', 'State Management: React Context', 'Storage Layer: Decentralized File Handling', 'Role-Based Workflow Engine'], metricsTitle: 'System Metrics', metrics: ['3 Distinct Authority Roles Supported', 'Multi-Level Access Control Architecture', 'Secure Document Sharing Workflow', 'Blockchain-Backed Ownership Verification'], capabilities: ['Role-Aware Access: Different experiences for clients, lawyers, and judges ensure only relevant actions are exposed.', 'Authority Delegation: Users can grant and revoke access permissions without exposing entire document repositories.', 'Court Case Management: Documents can be associated with legal proceedings and accessed through controlled workflows.'], whyBuilt: 'Legal systems still rely heavily on fragmented communication channels and centralized repositories. Sensitive files often move through email chains, messaging apps, and multiple intermediaries. Vaultify was built to explore how programmable ownership and permission models could reduce ambiguity while preserving accountability.', howItWorks: ['Users authenticate through a Web3-enabled identity layer.', 'Documents are uploaded and linked to their respective legal entities.', 'Authorities can be assigned, updated, or revoked through permission controls.', 'Participants access only the information relevant to their role in the workflow.'], architectureDiagram: `[ CLIENT / LAWYER / JUDGE ] | v [ REACT FRONTEND ] | v [ WEB3 CONTEXT LAYER ] | +----------+----------+ | | v v [ FILE SYSTEM ] [ AUTHORITY ENGINE ] | | +----------+----------+ | v [ THIRDWEB / WEB3 ]`, learnt: ['Access control is often harder to design than authentication itself.', 'Legal workflows demand clear permission boundaries more than complex UI.', 'Blockchain integrations become powerful when used to enforce process, not just store data.'], githubUrl: 'https://github.com/Itshardtofindagoodname/Vaultify-SIH', status: 'COMPLETED' },
+  pragati: { title: 'Pragati', filename: 'Pragati.md', ver: 'VER 1.2.0-SIH', releaseType: 'INTELLIGENT GOVERNANCE RELEASE', marginalia: 'AI-Assisted Public Infrastructure Management', intro: 'Pragati is a governance platform built to coordinate citizens, contractors, and government departments through a unified workflow. By combining structured task management with AI-assisted dependency analysis, the system helps public projects move from complaint registration to execution with greater transparency.', introQuote: 'Infrastructure projects fail less from lack of effort and more from lack of coordination.', introIcon: 'account_tree', stackTitle: 'The Stack', stack: ['Frontend: Next.js, React', 'Backend: Node.js API Routes', 'Database: MongoDB, Mongoose', 'AI Layer: LangChain, Google Gemini', 'Authentication: JWT'], metricsTitle: 'Platform Metrics', metrics: ['AI-Assisted Task Dependency Analysis', 'Multi-Stakeholder Workflow Management', 'Citizen-to-Execution Tracking Pipeline', 'Role-Based Operational Dashboards'], capabilities: ['Complaint Management: Citizens can submit infrastructure-related concerns with supporting information.', 'Contractor Registry: Verified contractors participate in project execution workflows.', 'Department Coordination: Administrative units manage project assignments and approvals.', 'AI Scheduling Assistance: Gemini-powered analysis helps identify project dependencies and sequencing.'], whyBuilt: 'Public infrastructure projects often suffer from disconnected communication between departments, contractors, and citizens. Pragati was built to create a shared operational layer where issues can be tracked, resources coordinated, and dependencies analyzed before they become bottlenecks.', howItWorks: ['Citizens submit complaints and requests through the platform.', 'Administrative teams review and classify incoming issues.', 'Contractors and departments are assigned based on project scope.', 'AI evaluates dependencies between tasks and recommends execution order.'], architectureDiagram: `[ CITIZENS ] | v [ COMPLAINT SYSTEM ] | v [ MONGODB DATABASE ] | +------+------+------+ | | | v v v [ TASKS ] [ CONTRACTORS ] [ DEPARTMENTS ] | v [ GEMINI + LANGCHAIN ] | v [ DEPENDENCY ANALYSIS ]`, learnt: ['Real-world workflows are rarely linear and require flexible data models.', 'AI is most useful when augmenting decision-making instead of replacing it.', 'Government systems benefit significantly from visibility and accountability tooling.'], githubUrl: 'https://github.com/Itshardtofindagoodname/Pragati-SIH', status: 'COMPLETED' },
   profi: {
     title: 'Profi',
     filename: 'Profi.md',
-    ver: 'VER 0.8.2-BETA',
+    ver: 'VER 0.9.0-ALPHA',
     releaseType: 'EXPERIMENTAL RELEASE',
-    marginalia: 'Local-First LLM Orchestration',
-    intro: 'Profi is an experimental task management system designed to eliminate manual triage. It uses a local-first LLM architecture to analyze task descriptions, predict cognitive load, and automatically organize workflows based on "Flow State" compatibility.',
-    introQuote: 'Every pixel added to a productivity tool is a potential distraction. Brutalist design isn\'t just an aesthetic; it\'s a functional choice.',
+    marginalia: 'AI-Assisted Project Ideation Workspace',
+    intro: 'Profi is an experimental workspace for transforming raw ideas into actionable software plans. Combining conversational AI, document ingestion, and structured project generation, it acts as a bridge between inspiration and execution.',
+    introQuote: 'Ideas are cheap. Clarity is expensive.',
     introIcon: 'psychology',
     stackTitle: 'The Stack',
     stack: [
-      'Local LLM: Ollama / Llama 3 (8B)',
-      'Frontend: TypeScript, React, Tailwind CSS',
-      'Database: SQLite (Local-first persistence)',
-      'Inference: Sidecar Process Bridge'
+      'Frontend: React',
+      'AI Backend Integration',
+      'Document Upload Pipeline',
+      'Project Planning Engine',
+      'Local Persistence Layer'
     ],
-    metricsTitle: 'Performance Metrics',
+    metricsTitle: 'Workspace Metrics',
     metrics: [
-      '98% Triage Accuracy (Auto-Tagging)',
-      '< 1.2s LLM Latency (Local Optimized)',
-      'Zero Cloud Dependencies',
-      '40% Reduction in context-switching'
+      'AI-Generated Project Blueprints',
+      'Document & Link Ingestion Support',
+      'Interactive Planning Workflow',
+      'Rapid Idea-to-Spec Conversion'
     ],
     capabilities: [
-      'Semantic Ingestion: Users input tasks in a markdown-like scratchpad. Profi parses this text to extract intent, deadlines, and urgency.',
-      'Cognitive Load Analysis: The local LLM evaluates the technical complexity and emotional weight of the task, assigning a "Focus Weight" score.',
-      'Dynamic Scheduling: Tasks are auto-grouped into "Flow Cycles" (90-min deep work) and "Sprint Bursts" (15-min admin work) based on bio-rhythm settings.'
+      'Conversational ideation workflows.',
+      'Project plan generation from prompts.',
+      'Document-assisted knowledge ingestion.',
+      'Structured feature and roadmap creation.'
     ],
-    whyBuilt: 'Standard task managers are passive digital lists. They store information but offer no intelligence. I found myself spending more time dragging cards between "Doing" and "Done" than actually doing the work. The motivation was to build a tool that understands context. If I write "Refactor the authentication middleware," the system should know that\'s a high-energy task and shouldn\'t be scheduled next to a series of "Reply to emails" admin tasks.',
+    whyBuilt: 'Most project ideas die between inspiration and planning. Profi was built to reduce that gap by helping users structure concepts into executable software roadmaps.',
     howItWorks: [
-      'Semantic Ingestion: Users input tasks in a markdown-like scratchpad. Profi parses this text to extract intent, deadlines, and urgency.',
-      'Cognitive Load Analysis: The local LLM evaluates the technical complexity and emotional weight of the task, assigning a "Focus Weight" score.',
-      'Dynamic Scheduling: Tasks are auto-grouped into "Flow Cycles" (90-min deep work) and "Sprint Bursts" (15-min admin work) based on bio-rhythm settings.'
+      'Users submit ideas or supporting documents.',
+      'AI extracts requirements and project intent.',
+      'Structured plans, features, and implementation suggestions are generated.',
+      'Users iterate through conversational refinement.'
     ],
-    architectureDiagram: `[ USER INPUT ]  -- (Markdown) --> [ PARSING WORKER ]
-                                          |
-                                          +--> [ LOCAL LLM ] (Ollama)
-                                          |
-                                          +--> [ TASK ENGINE ]
-                                                   |
-                                                   +--> [ LOCAL DB ] (SQLite)
-                                                   +--> [ UI LAYER ]`,
+    architectureDiagram: `[ USER ]
+      |
+      v
+ [ REACT UI ]
+      |
+ +----+----+
+ |         |
+ v         v
+[ CHAT ] [ PLANNER ]
+      |
+      v
+ [ AI BACKEND ]`,
     learnt: [
-      'The LLM is a teammate: Prompting for "intent extraction" requires a different approach than standard chatbot interactions.',
-      'Latency kills productivity: Even 2 seconds of waiting feels like an eternity in deep work. Local optimization was the hardest part.',
-      'UI minimalism is essential: Every pixel added to a productivity tool is a distraction. Brutalism serves a functional focus.'
+      'Planning is often more difficult than implementation.',
+      'AI excels at reducing blank-page friction.',
+      'Simple interfaces encourage deeper exploration.'
     ],
     githubUrl: 'https://github.com/Itshardtofindagoodname/Profi',
     status: 'IN DEVELOPMENT'
@@ -231,51 +87,59 @@ const projectRegistry: Record<string, ProjectData> = {
   slash: {
     title: 'Slash',
     filename: 'Slash.md',
-    ver: 'VER 4.2.0-Alpha',
-    releaseType: 'STABLE RELEASE',
-    marginalia: "Wait, no Canvas API? That's wild.",
-    intro: 'Slash is a high-fidelity action engine built entirely within the constraints of a modern web browser\'s DOM, bypassing traditional heavy canvases for a more \'web-native\' experience. The project explores the limits of browser performance by treating every game entity—bullets, enemies, environment—as a standard DOM element or a Web Component. By leveraging WebAssembly for the core physics loop and CSS for the rendering pipeline, Slash achieves hardware-accelerated performance without the "black box" of a <canvas> element.',
-    introQuote: "The goal was to bridge the gap between 'Web App' and 'High Performance Game,' proving that the DOM is not just for forms and text.",
-    introIcon: 'bolt',
+    ver: 'VER 1.0.0',
+    releaseType: 'PLAYABLE RELEASE',
+    marginalia: 'Browser-Based Arcade Experiment',
+    intro: 'Slash is a lightweight browser game focused on responsive gameplay, instant accessibility, and pure client-side execution. Built with vanilla web technologies, it demonstrates how engaging interactive experiences can emerge without heavy frameworks.',
+    introQuote: 'Great games are measured in milliseconds, not megabytes.',
+    introIcon: 'sports_esports',
     stackTitle: 'The Stack',
     stack: [
-      'Core Logic: Rust + WebAssembly',
-      'State Sync: WebRTC (P2P Mesh)',
-      'Styling: Custom CSS Houdini Paint Worklets',
-      'Communication: SharedArrayBuffer for Workers'
+      'HTML5',
+      'CSS3',
+      'Vanilla JavaScript',
+      'Browser Rendering APIs'
     ],
-    metricsTitle: 'Performance Wins',
+    metricsTitle: 'Game Metrics',
     metrics: [
-      '~4ms Sub-frame Input Latency',
-      '2,000 active DOM elements @ 144fps',
-      '120kb Initial Load (Gzipped WASM)',
-      'Zero GPU Overhead: Purely CPU-optimized pathing'
+      'Zero Dependencies',
+      'Instant Browser Startup',
+      'Single-Page Architecture',
+      'Pure Client-Side Execution'
     ],
     capabilities: [
-      'DOM Native: Right Click > Inspect Element projectiles in mid-air.',
-      'Multi-threaded: Heavy lifting happens in a pool of 4 Web Workers.',
-      'Allocation-Free: Zero Garbage Collection overhead during the hot loop.'
+      'Real-time gameplay mechanics.',
+      'Interactive scoring systems.',
+      'Responsive browser controls.',
+      'Lightweight deployment footprint.'
     ],
-    whyBuilt: 'Modern web games are usually sequestered into a single canvas element. While performant, this breaks the fundamental nature of the web: accessibility, inspectability, and SEO. I wanted to build an engine where you could Right Click > Inspect Element a projectile in mid-air and change its velocity via the DevTools console. The goal was to bridge the gap between "Web App" and "High Performance Game," proving that the DOM is not just for forms and text, but a powerful (if misunderstood) rendering target.',
+    whyBuilt: 'Slash was built as an exploration of how far core web technologies can be pushed without relying on large frameworks or game engines.',
     howItWorks: [
-      'Input Capture: Raw mouse/keyboard events are piped directly into the WASM linear memory space via a shared buffer.',
-      'Spatial Hash Update: Physics engine (Rust) calculates collisions using a multi-threaded spatial grid.',
-      'DOM Reconciliation: A lightweight Diff-ing engine updates only the transform: translate3d properties of the entity Web Components.'
+      'Game state is managed entirely in-browser.',
+      'JavaScript controls rendering and interactions.',
+      'User actions drive score progression and gameplay loops.',
+      'Everything executes locally within the browser.'
     ],
-    architectureDiagram: `[ INPUT BUFFER ] --> [ WASM CORE ]
-                       |
-                       +--> [ SHARED ARRAY BUFFER ]
-                                |
-                                +--> [ WEB WORKERS ] (4 Nodes)
-                                         |
-                                         +--> [ DOM UPDATE ]`,
+    architectureDiagram: `[ PLAYER ]
+      |
+      v
+ [ INPUT LOOP ]
+      |
+      v
+ [ GAME LOGIC ]
+      |
+      v
+ [ RENDER ENGINE ]
+      |
+      v
+ [ SCORE SYSTEM ]`,
     learnt: [
-      'WASM Overhead: The overhead of crossing the JS/WASM boundary is real. Batching operations is crucial for maintaining frame rates.',
-      'Garbage Collection: High-performance code must be allocation-free during the hot loop to avoid stuttering.',
-      'CSS as Render Target: CSS Variables and translate3d are incredibly efficient ways to pass data from JS to the browser\'s compositor.'
+      'Performance becomes visible immediately in interactive systems.',
+      'Gameplay feel matters more than graphical complexity.',
+      'Vanilla JavaScript remains surprisingly capable for small games.'
     ],
     githubUrl: 'https://github.com/Itshardtofindagoodname/Slash',
-    status: 'IN PRODUCTION BETA'
+    status: 'COMPLETED'
   }
 }
 
