@@ -1,96 +1,6 @@
-import { motion, useInView } from 'framer-motion'
-import { useEffect, useLayoutEffect, useState, useRef } from 'react'
+import { motion } from 'framer-motion'
 import DoodleButton from './DoodleButton'
 import VaraHoverText from './VaraHoverText'
-
-const SvgFaceDrawing = () => {
-  const [pathD, setPathD] = useState<string | null>(null)
-  const pathRef = useRef<SVGPathElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(containerRef, { once: true, amount: 0.15 })
-  const [pathLength, setPathLength] = useState(0)
-  const [viewBox, setViewBox] = useState('0 0 1024 1024')
-  const [adjusted, setAdjusted] = useState(false)
-
-  useEffect(() => {
-    fetch('/screen.svg')
-      .then((res) => res.text())
-      .then((text) => {
-        const parser = new DOMParser()
-        const doc = parser.parseFromString(text, 'image/svg+xml')
-        const svgEl = doc.querySelector('svg')
-        const path = doc.querySelector('path')
-        if (svgEl) {
-          const vb = svgEl.getAttribute('viewBox')
-          if (vb) {
-            setViewBox(vb)
-          } else {
-            const w = svgEl.getAttribute('width')
-            const h = svgEl.getAttribute('height')
-            if (w && h) setViewBox(`0 0 ${parseFloat(w)} ${parseFloat(h)}`)
-          }
-        }
-        if (path) {
-          const d = path.getAttribute('d')
-          setPathD(d)
-        }
-      })
-      .catch((err) => console.error('Failed to load screen.svg', err))
-  }, [])
-
-  useLayoutEffect(() => {
-    if (!pathRef.current) return
-    const length = pathRef.current.getTotalLength()
-    setPathLength(length)
-
-    if (!adjusted) {
-      try {
-        const bbox = pathRef.current.getBBox()
-        // Slightly zoom in to make the artwork larger in the frame
-        const scaleUp = 1.12
-        const newWidth = bbox.width / scaleUp || 1024
-        const newHeight = bbox.height / scaleUp || 1024
-        const minX = bbox.x + (bbox.width - newWidth) / 2
-        const minY = bbox.y + (bbox.height - newHeight) / 2
-        setViewBox(`${minX} ${minY} ${newWidth} ${newHeight}`)
-        setAdjusted(true)
-      } catch (e) {
-        // getBBox can throw on some SVGs; silently ignore and keep original viewBox
-        // eslint-disable-next-line no-console
-        console.warn('Could not compute bbox for SVG path', e)
-      }
-    }
-  }, [pathD])
-
-  return (
-    <div ref={containerRef} className="w-full max-w-[380px] md:max-w-[500px] overflow-visible aspect-square flex items-center justify-center bg-white p-2">
-      {pathD ? (
-        <svg
-          viewBox={viewBox}
-          preserveAspectRatio="xMidYMid meet"
-          className="w-full h-full"
-          fill="none"
-          stroke="black"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <motion.path
-            ref={pathRef}
-            d={pathD}
-            strokeDasharray={pathLength || 10000}
-            strokeDashoffset={pathLength || 10000}
-            animate={isInView && pathLength > 0 ? { strokeDashoffset: 0 } : { strokeDashoffset: pathLength || 10000 }}
-            transition={{ duration: 4.5, ease: 'easeInOut' }}
-          />
-        </svg>
-      ) : (
-        <div/>
-      )}
-    </div>
-  )
-}
-
 
 const About = () => {
   return (
@@ -114,14 +24,20 @@ const About = () => {
           transition={{ duration: 0.6 }}
           className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center mb-32 next-gen-reveal"
         >
-          <div className="lg:col-span-6 relative order-2 lg:order-1 flex justify-center">
+          <div className="lg:col-span-6 relative order-2 lg:order-1 flex justify-center lg:justify-start">
             <div className="relative group transition-transform duration-300 hover:rotate-0 inline-block">
+              <div className="tape-effect tape-tl opacity-80" />
+              <div className="tape-effect tape-tr opacity-80" />
               <div className="tape-effect tape-bl opacity-60" />
 
               <div className="polaroid-frame rough-cut relative z-10 group-hover:shadow-2xl transition-shadow duration-300">
-                <SvgFaceDrawing />
+                <img
+                  alt="Debarjun Thakur"
+                  className="w-full max-w-[360px] md:max-w-[420px] aspect-[3/4] object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9QMiLqog5Hn1umNZ8t0xy64pWfRa9_Mn0NBTCk0USD_xonrbAqkLaZpBvhd3QmpRL9RVdPtzJfsig88FCDjKabmzGqfCc7EQbiBwIll8mOv48VHP5QxECuwl7N-j23GE5JBRn2mTcQ3UiRJC8hTSMhrpP2r3pOHptncL5JNC3rIPlIOxCkkfavkewsIzqSK6mG0qzXdAbQY8vQCxolhuPg3PIqra334P_En_qAjo14S2_Hcz4kdzS7ZfIBTOiMVo-qL25cVhVmmQ"
+                />
                 <div className="absolute bottom-4 left-0 right-0 text-center font-handwriting text-2xl text-primary opacity-60">
-                  Coffee time
+                  Me, thinking about CSS...
                 </div>
               </div>
             </div>
@@ -346,10 +262,11 @@ const About = () => {
                     <motion.span
                       whileHover={{ scale: 1.1, rotate: idx % 2 === 0 ? 3 : -3 }}
                       key={item}
-                      className={`skill-tag text-white cursor-default ${item === 'LangChain' || item === 'LoRA / PEFT fine-tuning'
-                        ? '!border-white/50 bg-white/5'
-                        : 'border-white/30'
-                        }`}
+                      className={`skill-tag text-white cursor-default ${
+                        item === 'LangChain' || item === 'LoRA / PEFT fine-tuning'
+                          ? '!border-white/50 bg-white/5'
+                          : 'border-white/30'
+                      }`}
                     >
                       {item}
                     </motion.span>
