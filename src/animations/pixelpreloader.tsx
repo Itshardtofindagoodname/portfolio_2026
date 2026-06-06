@@ -282,7 +282,7 @@ export function PixelPreloader({
                 <span className="preloader-highlight-container">
                   Frontend
                   <svg className="preloader-scribble-svg preloader-animate-pulse" preserveAspectRatio="none" viewBox="0 0 200 20">
-                    <path className="preloader-scribble-path" d="M5,12 C40,8 80,15 120,10 C160,5 195,12 195,12 M10,16 C50,14 100,18 150,15 C180,13 192,16 192,16" />
+                    <path className="preloader-scribble-path" style={{ animationDelay: '0.3s' }} d="M5,12 C40,8 80,15 120,10 C160,5 195,12 195,12 M10,16 C50,14 100,18 150,15 C180,13 192,16 192,16" />
                   </svg>
                 </span>
                 <span style={{ opacity: 0.45 }}>Engineer •</span>
@@ -291,7 +291,7 @@ export function PixelPreloader({
                 <span className="preloader-highlight-container">
                   AI Systems
                   <svg className="preloader-scribble-svg preloader-animate-pulse" style={{ animationDelay: '0.35s' }} preserveAspectRatio="none" viewBox="0 0 200 20">
-                    <path className="preloader-scribble-path" style={{ animationDelay: '0.35s' }} d="M5,10 C30,14 70,8 110,12 C150,16 195,9 195,9 M8,15 C45,12 95,17 145,14 C175,12 192,15 192,15" />
+                    <path className="preloader-scribble-path" style={{ animationDelay: '1s' }} d="M5,10 C30,14 70,8 110,12 C150,16 195,9 195,9 M8,15 C45,12 95,17 145,14 C175,12 192,15 192,15" />
                   </svg>
                 </span>
                 <span style={{ opacity: 1.0 }}>Builder</span>

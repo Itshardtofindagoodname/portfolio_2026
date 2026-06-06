@@ -417,16 +417,28 @@ const HeroAnimation = ({ isLoaded = true, loadingDuration = 0 }: HeroAnimationPr
         </svg>
       </div>
 
+      <style>
+        {`
+          .standing-out-image {
+            z-index: 2;
+          }
+          @media (max-width: 768px) {
+            .standing-out-image {
+              z-index: 4;
+              bottom: -30px !important;
+            }
+          }
+        `}
+      </style>
       <div className="absolute inset-x-0 bottom-0 h-full overflow-hidden">
         {/* standing_out guy behind crowd */}
         <img
           src="/standing_out.png"
           alt="Standing out from the crowd"
-          className="absolute left-1/2 -translate-x-1/2 object-contain pointer-events-none select-none"
+          className="absolute left-1/2 -translate-x-1/2 object-contain pointer-events-none select-none standing-out-image"
           style={{
-            zIndex: 1,
             bottom: '150px',
-            height: '324px',
+            height: '300px',
             width: 'auto',
           }}
         />
