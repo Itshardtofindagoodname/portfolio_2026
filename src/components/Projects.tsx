@@ -2,6 +2,13 @@ import { motion } from 'framer-motion'
 import DoodleButton from './DoodleButton'
 import VaraHoverText from './VaraHoverText'
 
+// Import local project images
+import fastfoxImage from '../assets/fastfox.png'
+import profiImage from '../assets/profi.png'
+import pragatiImage from '../assets/pragati.png'
+import vaultifyImage from '../assets/vaultify.png'
+import slashImage from '../assets/slash.png'
+
 const repoBase = 'https://github.com/Itshardtofindagoodname'
 
 const projects = [
@@ -9,8 +16,7 @@ const projects = [
     title: 'FastFox',
     icon: 'speed',
     repo: `${repoBase}/fastfox`,
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuDeuAUfvXzlhpizeSxY6N5UWtGFC6BSCNB3JId9m0fhfavtJP-nmsjneJlK-jQv4UCQ26VYzghEkZ6xcGLeUxOZ95QF7kl2I9UAwRvn8cT1Nl5_kSuCnUO7SW8TIfEkMCXsLTG7W61sp5IcLzWhdY21OKHFHT8VHwJkNeLYbuaqOeUOMQm39YuSzafY05EYy3nIiy0WuUfqdxJmotDv8AkdU6-mlBruC5YXmUpEsb-opG1zuyj2zxWtII_qKtYEGA5MeX7TTte_o-I',
+    image: fastfoxImage,
     desc: 'AI-powered CLI that uses Groq, LLaMA 3, Mixtral, and BLIP to organize files, suggest commands, generate code, and ship as a packaged desktop-ready tool.',
     tags: ['PYTHON', 'GROQ API', 'LLAMA 3'],
     rotate: 'rotate-[-1.5deg]',
@@ -19,8 +25,7 @@ const projects = [
     title: 'Profi',
     icon: 'work_outline',
     repo: `${repoBase}/Profi`,
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuAUdBez4wP33x86pzqpaMkYaEUYBHeY5I69UmK3GG15FXtIgJFFFCaWcTUAC7AqAXrzKlJxQERqxvd_t4hxtWlFWO-8fn1XmUC5JD9IfQftjzQNe_fPiwzswmxlCY5UkPLDrlvHlZ9dF4vThCpjEqpTOWkVasDafNOKk1oCU3pjmhpBXpgmdd-D6KBYAKp4awh8QR11ZupWn2F2SnUfG0q_6Qz0Vp87YXXRBwGf8gNRCPEQ2MonDGxzJBalrSALzpZAaUW1PyqpZCs',
+    image: profiImage,
     desc: 'AI-integrated task management system built with React, Vite, and Tailwind, focused on prioritization, workflow clarity, and clean component architecture.',
     tags: ['REACT', 'VITE', 'TAILWIND'],
     rotate: 'rotate-[1.2deg]',
@@ -29,8 +34,7 @@ const projects = [
     title: 'Pragati',
     icon: 'account_balance',
     repo: `${repoBase}/Pragati-SIH`,
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuAYkF7fn7m9_AKLx-IR9KERRoJHg_c-TvW25KLDhR1ex9bQ0FutrURqY49L9esvpGwaLFdgkKJ5Z-K69CDGhAYowV0YEMQZY7tmDbJrjFwJvqIm5oBfUN2TkArN_amTudj1ViZdfxE1y5oP49AAhJja93srcWuWQJ7r5XtEl8i5i7evnjlQn0djKVt5nz4XGXzVIspkFntn9J0fe1PqGQYMl_8389MoO2gYQ1aWKrkG0qxP1IJ0S_tY3m4OR8EpYhNiJm9wwtGlRJY',
+    image: pragatiImage,
     desc: 'Full-stack civic platform for Smart India Hackathon 2023, with complaint workflows, contractor management, REST APIs, MongoDB, and an AI assistant endpoint.',
     tags: ['NEXT.JS', 'MONGODB', 'REST API'],
     rotate: 'rotate-[-0.8deg]',
@@ -39,8 +43,7 @@ const projects = [
     title: 'Vaultify',
     icon: 'lock',
     repo: `${repoBase}/Vaultify-SIH`,
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBG6TGo32PIOjWVWuhIdcPa63n6-5g9-8hccysIqUnz76Fwt498POSnHcnuCdVZRBi4vyHlozRuiBDp8S-ARGkfG7RIsZPH6rX3QxQRgWBBaM8lDJZJj-SEWZbCvASV80PzEM6AsZeDuaUaRQbkA1-VYSFoywO4pCWuFF65J_jlkpGA9OqJNWiaoRrQiLk5XRhJTFxLtIH5ralM69hYd8zGyzgmihtTeOs0DRCE-XuGIrwqWALQD-2TQ0Csc1Y2kNcDnalRrQfIeZw',
+    image: vaultifyImage,
     desc: 'Secure document and asset-management frontend built with React and Tailwind, emphasizing accessible retrieval flows and scalable collaborative architecture.',
     tags: ['REACT', 'VITE', 'SECURITY'],
     rotate: 'rotate-[2deg] md:mt-12',
@@ -49,8 +52,7 @@ const projects = [
     title: 'Slash',
     icon: 'sports_esports',
     repo: `${repoBase}/Slash`,
-    image:
-      'https://lh3.googleusercontent.com/aida/AP1WRLtqsi4XySQsh6EjaLs961uM8lwQiOhfwkpUJVvUdLDa5A7T8Iulme_oOou1plBlTwrLMHaKyZhUE3UxnDiGknecCnLps-ASAWjH63DHMVpzLRIlqeAnyjEe9cDPbca9qSiA522jvgu3kaUV8hWpMZFV2zR6KO0TyakR6Wdae1AfFO9oyMJDa30OIGyqOsMcHacww9jY55YU5F6MlNQPjuMCGOSxuU4GB2-kNg2fPfEACdVNm-MVXsUb0A',
+    image: slashImage,
     desc: 'Browser-native game shipped without a game engine, using vanilla JavaScript, real-time input handling, a custom loop, and collision logic.',
     tags: ['JAVASCRIPT', 'HTML', 'CSS'],
     rotate: 'rotate-[-1.2deg] md:mt-12',

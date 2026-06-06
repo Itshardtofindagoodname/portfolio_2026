@@ -6,16 +6,16 @@ const Reading = () => {
 
   const books = [
     // Back Row
-    { id: 'b1', title: 'Everyday Things', height: 270, width: 60, left: 16, rotate: -2, isBack: true, bg: 'bg-white', textStyle: 'font-headline-md text-xs' },
-    { id: 'b2', title: 'Clean Code', height: 280, width: 64, left: 90, rotate: 1, isBack: true, bg: 'bg-primary text-on-primary', textStyle: 'font-mono text-[10px] font-bold' },
-    { id: 'b3', title: 'Refactoring', height: 260, width: 56, left: 168, rotate: -1.5, isBack: true, bg: 'bg-white', textStyle: 'font-body-md text-xs italic' },
-    { id: 'b4', title: 'Design Patterns', height: 300, width: 72, left: 242, rotate: 2, isBack: true, bg: 'bg-white border-dashed', textStyle: 'font-label-caps text-[9px] font-bold' },
+    { id: 'b1', title: 'Everyday Things', height: 270, width: 55, left: 10, rotate: -2, isBack: true, bg: 'bg-white', textStyle: 'font-headline-md text-[10px]' },
+    { id: 'b2', title: 'Clean Code', height: 280, width: 55, left: 62, rotate: 1, isBack: true, bg: 'bg-primary text-on-primary', textStyle: 'font-mono text-[9px] font-bold' },
+    { id: 'b3', title: 'Refactoring', height: 260, width: 55, left: 114, rotate: -1.5, isBack: true, bg: 'bg-white', textStyle: 'font-body-md text-[10px] italic' },
+    { id: 'b4', title: 'Design Patterns', height: 300, width: 55, left: 166, rotate: 2, isBack: true, bg: 'bg-white border-dashed', textStyle: 'font-label-caps text-[8px] font-bold' },
 
     // Front Row
-    { id: 'f1', title: 'Fast & Slow', height: 250, width: 58, left: 52, rotate: 1, isBack: false, bg: 'bg-white', textStyle: 'font-headline-md text-xs font-bold' },
-    { id: 'f2', title: 'Morisaki Bookshop', height: 230, width: 50, left: 128, rotate: -1, isBack: false, bg: 'bg-primary text-on-primary', textStyle: 'font-body-md text-[9px] tracking-wide' },
-    { id: 'f3', title: 'Steal Like Artist', height: 270, width: 68, left: 204, rotate: 3, isBack: false, bg: 'bg-white', textStyle: 'font-handwriting text-sm font-bold italic' },
-    { id: 'f4', title: 'Neuromancer', height: 200, width: 44, left: 280, rotate: -2, isBack: false, bg: 'bg-white border-dashed', textStyle: 'font-label-caps text-[8px]' },
+    { id: 'f1', title: 'Fast & Slow', height: 250, width: 55, left: 36, rotate: 1, isBack: false, bg: 'bg-white', textStyle: 'font-headline-md text-[10px] font-bold' },
+    { id: 'f2', title: 'Morisaki Bookshop', height: 230, width: 55, left: 88, rotate: -1, isBack: false, bg: 'bg-primary text-on-primary', textStyle: 'font-body-md text-[8px] tracking-wide' },
+    { id: 'f3', title: 'Steal Like Artist', height: 270, width: 55, left: 140, rotate: 3, isBack: false, bg: 'bg-white', textStyle: 'font-handwriting text-xs font-bold italic' },
+    { id: 'f4', title: 'Neuromancer', height: 210, width: 55, left: 192, rotate: -2, isBack: false, bg: 'bg-white border-dashed', textStyle: 'font-label-caps text-[8px]' },
   ]
 
   return (
@@ -29,7 +29,7 @@ const Reading = () => {
           <path d="M126 31 L142 42 L124 52" stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" />
         </svg>
 
-        <main className="flex-grow z-10 relative px-4 md:px-margin-page py-10 md:py-14 max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-y-10 md:gap-x-10">
+        <main className="flex-grow z-10 relative px-4 md:px-margin-page py-10 md:py-14 max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-y-10 md:gap-x-20">
           <div className="col-span-1 md:col-span-12 mb-6 md:mb-8 relative next-gen-reveal">
             <h1 className="font-headline-xl text-5xl md:text-7xl uppercase leading-none tracking-normal">
               <VaraHoverText text="READING &" fontSize={58} />
@@ -57,13 +57,13 @@ const Reading = () => {
                 return (
                   <div
                     key={book.id}
-                    className={`book-spine absolute border-2 border-primary cursor-pointer transition-all duration-300 shadow-[2px_2px_0_0_#000] flex items-center justify-center ${book.bg}`}
+                    className={`book-spine absolute border-2 border-primary cursor-pointer transition-all duration-300 shadow-[2px_2px_0_0_#000] flex justify-center items-start pt-6 ${book.bg}`}
                     style={{
                       height: `${book.height}px`,
                       width: `${book.width}px`,
                       left: `${book.left}px`,
                       bottom: book.isBack ? '18px' : '0px',
-                      transform: `translateY(${isPulled ? -35 : 0}px) rotate(${book.rotate}deg)`,
+                      transform: `translateY(${isPulled ? -80 : 0}px) rotate(${book.rotate}deg)`,
                       zIndex: isPulled ? 40 : (book.isBack ? 1 : 10),
                       opacity: book.isBack && !isPulled ? 0.76 : 1.0,
                       filter: book.isBack && !isPulled ? 'brightness(0.9)' : 'none',
@@ -79,6 +79,11 @@ const Reading = () => {
                 )
               })}
 
+              {/* Rack Front Cover */}
+              <div className="absolute bottom-0 left-0 right-0 h-[140px] bg-white border-t-4 border-primary z-20 flex items-center justify-center pointer-events-none">
+                <span className="font-handwriting text-xl text-secondary opacity-40 select-none">MY RACK</span>
+              </div>
+
               {/* Annotation on books */}
               <div className="absolute -left-8 top-16 flex items-center gap-2 pointer-events-none">
                 <span
@@ -93,7 +98,7 @@ const Reading = () => {
 
           {/* Right Column: Random Musings */}
           <section className="musing-board col-span-1 md:col-span-8 relative mt-8 md:mt-0 next-gen-reveal">
-            <div className="flex items-center gap-4 border-b-2 border-primary pb-2 w-max max-w-full mb-7 md:ml-4">
+            <div className="flex items-center gap-4 border-b-2 border-primary pb-2 w-max max-w-full mb-7 md:ml-auto md:mr-4">
               <h2 className="font-label-caps text-label-caps uppercase tracking-[0.15em]">
                 Random Musings
               </h2>
@@ -153,7 +158,7 @@ const Reading = () => {
                 </p>
               </div>
 
-              {/* Scrap 5 (NEW) */}
+              {/* Scrap 5 */}
               <div className="paper-scrap musing-scrap musing-scrap-medium p-5 rotate-[-2.5deg]">
                 <div className="tape"></div>
                 <p className="font-label-caps text-xs uppercase tracking-widest border-b border-primary pb-1 mb-2">
@@ -164,7 +169,7 @@ const Reading = () => {
                 </p>
               </div>
 
-              {/* Scrap 6 (NEW) */}
+              {/* Scrap 6 */}
               <div className="paper-scrap musing-scrap musing-scrap-small p-5 rotate-[4deg] bg-primary text-on-primary">
                 <div className="tape bg-surface-container-lowest"></div>
                 <span className="material-symbols-outlined text-on-primary mb-2 text-3xl block">
@@ -172,6 +177,25 @@ const Reading = () => {
                 </span>
                 <p className="font-handwriting text-2xl leading-tight text-white">
                   Messy sketchbook layouts inspire clean digital systems. Always carry paper.
+                </p>
+              </div>
+
+              {/* Scrap 7 */}
+              <div className="paper-scrap musing-scrap musing-scrap-medium p-5 rotate-[-1.5deg]">
+                <div className="tape"></div>
+                <p className="font-handwriting text-3xl leading-none">
+                  Sometimes the best debugger is a good night's sleep.
+                </p>
+              </div>
+
+              {/* Scrap 8 */}
+              <div className="paper-scrap musing-scrap musing-scrap-small p-5 rotate-[2deg] bg-primary text-on-primary">
+                <div className="tape bg-surface-container-lowest"></div>
+                <p className="font-label-caps text-xs uppercase tracking-widest border-b border-on-primary pb-1 mb-2">
+                  Commit Messages
+                </p>
+                <p className="font-body-md text-secondary leading-snug italic text-white">
+                  git commit -m "fixed stuff" is a love letter to your future self.
                 </p>
               </div>
             </div>

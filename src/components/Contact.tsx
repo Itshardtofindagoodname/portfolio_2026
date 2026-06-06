@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import DoodleButton from './DoodleButton'
 import VaraHoverText from './VaraHoverText'
+import contactUsImage from '../assets/contact_us.png'
 
 const Contact = () => {
   return (
@@ -104,7 +105,7 @@ const Contact = () => {
           <img
             alt="Debarjun Waving Illustration"
             className="w-full max-w-sm object-cover group-hover:scale-102 transition-transform duration-500 ease-in-out"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa0LScYfJCHU1blQjJA3sRzYqxg5yTAZSOeJOm17Yp9WpZa-DCnpyQNBQE67Vm0cQpCf6xa1phDEV0pGJsHqRAcuac4JDtdmtuF2z13dNKBANAWE0OfFWE5-j6-RzMq2aDSAHDAdV23n8Yr-EdOfK318vS4OAYVx8GQCDC1TVgiyVmPY03KvUkzpZN26l1oqXkCN69-XTbBa_6jiAssc6a1k-4l73NWYuhi1PT2PdeNuyAibkYOI0M9eu4r59En2wFe_XxU7R4Sig"
+            src={contactUsImage}
           />
           <div className="absolute inset-0 border-4 border-black border-dashed opacity-10 pointer-events-none"></div>
         </motion.div>

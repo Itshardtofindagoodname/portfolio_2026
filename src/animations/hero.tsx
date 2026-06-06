@@ -366,7 +366,7 @@ const HeroAnimation = () => {
         <span className="hero-copy-item font-label-caps text-[10px] md:text-xs uppercase tracking-[0.28em] text-black/45">
           frontend systems / motion / tactile interfaces
         </span>
-        <h1 className="hero-copy-item font-headline-xl text-4xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-normal max-w-4xl">
+        <h1 className="hero-copy-item font-headline-xl text-3xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-normal max-w-4xl">
           If you want someone<br />
           who <span className="relative inline-block px-3">
             stands out
@@ -381,7 +381,7 @@ const HeroAnimation = () => {
             </svg>
           </span>
         </h1>
-        <p className="hero-copy-item max-w-[46ch] font-handwriting text-2xl md:text-3xl leading-tight text-black/65 mt-2">
+        <p className="hero-copy-item max-w-[46ch] font-handwriting text-xl md:text-2xl leading-tight text-black/65 mt-2">
           I build fast web experiences that feel like polished product work with a sketchbook soul.
         </p>
         <svg
@@ -405,8 +405,13 @@ const HeroAnimation = () => {
         <img
           src="/standing_out.png"
           alt="Standing out from the crowd"
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[45vh] md:h-[55vh] lg:h-[62vh] w-auto object-contain pointer-events-none select-none"
-          style={{ zIndex: 1, transform: 'translateX(-50%) translateY(2%)' }}
+          className="absolute left-1/2 -translate-x-1/2 object-contain pointer-events-none select-none"
+          style={{
+            zIndex: 1,
+            bottom: '150px',
+            height: '324px',
+            width: 'auto',
+          }}
         />
         <CrowdCanvas src={allPeepsImage} rows={15} cols={7} />
       </div>

@@ -39,6 +39,7 @@ const VaraHoverText = ({ text, className = '', fontSize = 30 }: VaraHoverTextPro
         fontSize,
         strokeWidth: 1.45,
         color: '#000000',
+        width: 600,
       },
     )
 
@@ -59,7 +60,7 @@ const VaraHoverText = ({ text, className = '', fontSize = 30 }: VaraHoverTextPro
         ref={containerRef}
         id={containerId}
         aria-hidden="true"
-        className={`vara-hover-drawn pointer-events-none absolute inset-x-0 -top-1 min-h-[1.4em] ${isHovering ? 'opacity-100' : 'opacity-0'}`}
+        className={`vara-hover-drawn pointer-events-none absolute left-0 -top-1 w-[600px] min-h-[1.4em] ${isHovering ? 'opacity-100' : 'opacity-0'}`}
       />
     </span>
   )

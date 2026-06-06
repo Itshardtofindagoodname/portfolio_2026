@@ -5,10 +5,10 @@ import VaraHoverText from './VaraHoverText'
 
 const SvgFaceDrawing = () => {
   const [pathD, setPathD] = useState<string | null>(null)
+  const [pathLength, setPathLength] = useState(0)
   const pathRef = useRef<SVGPathElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(containerRef, { once: true, amount: 0.15 })
-  const [pathLength, setPathLength] = useState(0)
 
   useEffect(() => {
     fetch('/screen.svg')
@@ -18,8 +18,7 @@ const SvgFaceDrawing = () => {
         const doc = parser.parseFromString(text, 'image/svg+xml')
         const path = doc.querySelector('path')
         if (path) {
-          const d = path.getAttribute('d')
-          setPathD(d)
+          setPathD(path.getAttribute('d'))
         }
       })
       .catch((err) => console.error('Failed to load screen.svg', err))
@@ -27,13 +26,12 @@ const SvgFaceDrawing = () => {
 
   useEffect(() => {
     if (pathRef.current) {
-      const length = pathRef.current.getTotalLength()
-      setPathLength(length)
+      setPathLength(pathRef.current.getTotalLength())
     }
   }, [pathD])
 
   return (
-    <div ref={containerRef} className="w-full max-w-[340px] md:max-w-[400px] aspect-square flex items-center justify-center bg-white p-2">
+    <div ref={containerRef} className="w-full max-w-[420px] md:max-w-[500px] aspect-square flex items-center justify-center bg-white p-2">
       {pathD ? (
         <svg
           viewBox="0 0 1024 1024"
@@ -43,14 +41,21 @@ const SvgFaceDrawing = () => {
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
+          style={{ opacity: pathLength > 0 ? 1 : 0 }}
         >
-          <motion.path
-            ref={pathRef}
-            d={pathD}
-            initial={{ strokeDasharray: pathLength || 10000, strokeDashoffset: pathLength || 10000 }}
-            animate={isInView && pathLength > 0 ? { strokeDashoffset: 0 } : {}}
-            transition={{ duration: 4.5, ease: 'easeInOut' }}
-          />
+          {pathLength > 0 ? (
+            <motion.path
+              key={pathLength}
+              ref={pathRef}
+              d={pathD}
+              initial={{ strokeDashoffset: pathLength }}
+              animate={isInView ? { strokeDashoffset: 0 } : {}}
+              transition={{ duration: 4.5, ease: 'easeInOut' }}
+              style={{ strokeDasharray: pathLength }}
+            />
+          ) : (
+            <path ref={pathRef} d={pathD} />
+          )}
         </svg>
       ) : (
         <div className="text-secondary font-handwriting text-xl h-full flex items-center justify-center">Sketching...</div>
@@ -82,10 +87,8 @@ const About = () => {
           transition={{ duration: 0.6 }}
           className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center mb-32 next-gen-reveal"
         >
-          <div className="lg:col-span-6 relative order-2 lg:order-1 flex justify-center lg:justify-start">
+          <div className="lg:col-span-6 relative order-2 lg:order-1 flex justify-center">
             <div className="relative group transition-transform duration-300 hover:rotate-0 inline-block">
-              <div className="tape-effect tape-tl opacity-80" />
-              <div className="tape-effect tape-tr opacity-80" />
               <div className="tape-effect tape-bl opacity-60" />
 
               <div className="polaroid-frame rough-cut relative z-10 group-hover:shadow-2xl transition-shadow duration-300">

@@ -26,6 +26,7 @@ declare module 'vara' {
     autoAnimation?: boolean
     queued?: boolean
     letterSpacing?: number | Record<string, number>
+    width?: number
   }
 
   export interface VaraRenderedText {
