@@ -122,7 +122,7 @@ const Reading = () => {
               </div>
 
               {/* Scrap 2 - 2 AM Ideas */}
-              <div className="paper-scrap musing-scrap musing-scrap-small p-4 rotate-[6deg] bg-primary text-on-primary">
+              <div className="paper-scrap musing-scrap musing-scrap-small p-4 rotate-[6deg] bg-on-primary text-primary">
                 <div className="tape bg-surface-container-lowest"></div>
                 <p className="font-label-caps text-label-caps uppercase tracking-widest border-b border-on-primary pb-1 mb-2">
                   2 AM Ideas
