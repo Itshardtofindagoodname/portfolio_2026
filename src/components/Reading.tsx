@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import VaraHoverText from './VaraHoverText'
 
 const Reading = () => {
   const [pulledBook, setPulledBook] = useState<string | null>(null)
