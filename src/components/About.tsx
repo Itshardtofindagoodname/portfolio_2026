@@ -1,5 +1,5 @@
 import { motion, useInView } from 'framer-motion'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useLayoutEffect, useState, useRef } from 'react'
 import DoodleButton from './DoodleButton'
 import VaraHoverText from './VaraHoverText'
 
@@ -9,6 +9,8 @@ const SvgFaceDrawing = () => {
   const containerRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(containerRef, { once: true, amount: 0.15 })
   const [pathLength, setPathLength] = useState(0)
+  const [viewBox, setViewBox] = useState('0 0 1024 1024')
+  const [adjusted, setAdjusted] = useState(false)
 
   useEffect(() => {
     fetch('/screen.svg')
@@ -16,7 +18,18 @@ const SvgFaceDrawing = () => {
       .then((text) => {
         const parser = new DOMParser()
         const doc = parser.parseFromString(text, 'image/svg+xml')
+        const svgEl = doc.querySelector('svg')
         const path = doc.querySelector('path')
+        if (svgEl) {
+          const vb = svgEl.getAttribute('viewBox')
+          if (vb) {
+            setViewBox(vb)
+          } else {
+            const w = svgEl.getAttribute('width')
+            const h = svgEl.getAttribute('height')
+            if (w && h) setViewBox(`0 0 ${parseFloat(w)} ${parseFloat(h)}`)
+          }
+        }
         if (path) {
           const d = path.getAttribute('d')
           setPathD(d)
@@ -25,18 +38,36 @@ const SvgFaceDrawing = () => {
       .catch((err) => console.error('Failed to load screen.svg', err))
   }, [])
 
-  useEffect(() => {
-    if (pathRef.current) {
-      const length = pathRef.current.getTotalLength()
-      setPathLength(length)
+  useLayoutEffect(() => {
+    if (!pathRef.current) return
+    const length = pathRef.current.getTotalLength()
+    setPathLength(length)
+
+    if (!adjusted) {
+      try {
+        const bbox = pathRef.current.getBBox()
+        // Slightly zoom in to make the artwork larger in the frame
+        const scaleUp = 1.12
+        const newWidth = bbox.width / scaleUp || 1024
+        const newHeight = bbox.height / scaleUp || 1024
+        const minX = bbox.x + (bbox.width - newWidth) / 2
+        const minY = bbox.y + (bbox.height - newHeight) / 2
+        setViewBox(`${minX} ${minY} ${newWidth} ${newHeight}`)
+        setAdjusted(true)
+      } catch (e) {
+        // getBBox can throw on some SVGs; silently ignore and keep original viewBox
+        // eslint-disable-next-line no-console
+        console.warn('Could not compute bbox for SVG path', e)
+      }
     }
   }, [pathD])
 
   return (
-    <div ref={containerRef} className="w-full max-w-[380px] md:max-w-[460px] aspect-square flex items-center justify-center bg-white p-2">
+    <div ref={containerRef} className="w-full max-w-[380px] md:max-w-[500px] overflow-visible aspect-square flex items-center justify-center bg-white p-2">
       {pathD ? (
         <svg
-          viewBox="0 0 1024 1024"
+          viewBox={viewBox}
+          preserveAspectRatio="xMidYMid meet"
           className="w-full h-full"
           fill="none"
           stroke="black"
@@ -47,13 +78,14 @@ const SvgFaceDrawing = () => {
           <motion.path
             ref={pathRef}
             d={pathD}
-            initial={{ strokeDasharray: pathLength || 10000, strokeDashoffset: pathLength || 10000 }}
-            animate={isInView && pathLength > 0 ? { strokeDashoffset: 0 } : {}}
+            strokeDasharray={pathLength || 10000}
+            strokeDashoffset={pathLength || 10000}
+            animate={isInView && pathLength > 0 ? { strokeDashoffset: 0 } : { strokeDashoffset: pathLength || 10000 }}
             transition={{ duration: 4.5, ease: 'easeInOut' }}
           />
         </svg>
       ) : (
-        <div className="text-secondary font-handwriting text-xl h-full flex items-center justify-center">Sketching...</div>
+        <div/>
       )}
     </div>
   )
@@ -89,7 +121,7 @@ const About = () => {
               <div className="polaroid-frame rough-cut relative z-10 group-hover:shadow-2xl transition-shadow duration-300">
                 <SvgFaceDrawing />
                 <div className="absolute bottom-4 left-0 right-0 text-center font-handwriting text-2xl text-primary opacity-60">
-                  Me, thinking about that one bug at a random time of the day...
+                  Coffee time
                 </div>
               </div>
             </div>
