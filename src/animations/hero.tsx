@@ -1,5 +1,5 @@
 import { gsap } from 'gsap'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import allPeepsImage from '../assets/all-peeps.png'
 
 interface CrowdCanvasProps {
@@ -301,12 +301,29 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
   )
 }
 
-const HeroAnimation = () => {
+interface HeroAnimationProps {
+  isLoaded?: boolean
+  loadingDuration?: number
+}
+
+const HeroAnimation = ({ isLoaded = true, loadingDuration = 0 }: HeroAnimationProps) => {
   const copyRef = useRef<HTMLDivElement>(null)
+  const [shouldAnimate, setShouldAnimate] = useState(false)
+
+  useEffect(() => {
+    if (!isLoaded) return
+
+    const animationDelay = loadingDuration
+    const timer = setTimeout(() => {
+      setShouldAnimate(true)
+    }, animationDelay)
+
+    return () => clearTimeout(timer)
+  }, [isLoaded, loadingDuration])
 
   useEffect(() => {
     const copy = copyRef.current
-    if (!copy) return
+    if (!copy || !shouldAnimate) return
 
     const context = gsap.context(() => {
       gsap.fromTo(
@@ -355,7 +372,7 @@ const HeroAnimation = () => {
     }, copy)
 
     return () => context.revert()
-  }, [])
+  }, [shouldAnimate])
 
   return (
     <section className="hero-section relative min-h-screen overflow-hidden bg-white text-black">
@@ -368,12 +385,12 @@ const HeroAnimation = () => {
         </span>
         <h1 className="hero-copy-item font-headline-xl text-3xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-normal max-w-4xl">
           If you want someone<br />
-          who <span className="relative inline-block px-3">
+          who <span className="relative inline-block px-3 italic">
             stands out
-            <svg className="absolute -inset-x-4 -inset-y-2 w-[120%] h-[140%] pointer-events-none overflow-visible" viewBox="0 0 220 80" fill="none">
+            <svg className="absolute -inset-x-4 md:-inset-x-8 -inset-y-4 md:-inset-y-8 w-[120%] h-[180%] md:h-[200%] pointer-events-none overflow-visible" viewBox="0 0 220 80" fill="none">
               <path className="hero-circle-path" d="M10,40 C10,15 90,5 180,15 C215,22 215,55 180,68 C90,78 10,65 10,40 Z M15,35 C30,12 110,8 190,18" stroke="black" strokeWidth="3.5" strokeLinecap="round" />
             </svg>
-          </span> from the crowd,<br />
+          </span> from the crowd, 
           <span className="relative inline-block pb-2 px-1">
             you have me.
             <svg className="absolute left-0 right-0 -bottom-2 h-4 w-full pointer-events-none overflow-visible" preserveAspectRatio="none" viewBox="0 0 200 20" fill="none">

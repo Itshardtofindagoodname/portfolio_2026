@@ -40,7 +40,7 @@ const styleTagContent = `
     stroke-linejoin: round;
     stroke-dasharray: 600;
     stroke-dashoffset: 600;
-    animation: preloader-draw 1.0s ease-in-out forwards;
+    animation: preloader-draw 1s ease-in-out forwards;
   }
   @keyframes preloader-draw {
     to {
@@ -170,10 +170,10 @@ export function PixelPreloader({
   const tileSpecs = useMemo(() => createTileSpecs(totalTiles), [totalTiles])
 
   useEffect(() => {
-    // Automatically transition from text writing to fading after 1.35 seconds
+    // Automatically transition from text writing to fading after 2.5 seconds (extended for longer underline animations)
     const timer = setTimeout(() => {
       setPhase('fadingText')
-    }, 1350)
+    }, 1500)
 
     return () => clearTimeout(timer)
   }, [])

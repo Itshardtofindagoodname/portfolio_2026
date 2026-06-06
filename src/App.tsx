@@ -86,7 +86,7 @@ function App() {
         ) : (
           <>
             <main className="home-page" id="home">
-              <HeroAnimation />
+              <HeroAnimation isLoaded={isLoaded} loadingDuration={0} />
             </main>
 
             {isLoaded && (
