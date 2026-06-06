@@ -5,10 +5,10 @@ import VaraHoverText from './VaraHoverText'
 
 const SvgFaceDrawing = () => {
   const [pathD, setPathD] = useState<string | null>(null)
-  const [pathLength, setPathLength] = useState(0)
   const pathRef = useRef<SVGPathElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(containerRef, { once: true, amount: 0.15 })
+  const [pathLength, setPathLength] = useState(0)
 
   useEffect(() => {
     fetch('/screen.svg')
@@ -18,7 +18,8 @@ const SvgFaceDrawing = () => {
         const doc = parser.parseFromString(text, 'image/svg+xml')
         const path = doc.querySelector('path')
         if (path) {
-          setPathD(path.getAttribute('d'))
+          const d = path.getAttribute('d')
+          setPathD(d)
         }
       })
       .catch((err) => console.error('Failed to load screen.svg', err))
@@ -26,12 +27,13 @@ const SvgFaceDrawing = () => {
 
   useEffect(() => {
     if (pathRef.current) {
-      setPathLength(pathRef.current.getTotalLength())
+      const length = pathRef.current.getTotalLength()
+      setPathLength(length)
     }
   }, [pathD])
 
   return (
-    <div ref={containerRef} className="w-full max-w-[420px] md:max-w-[500px] aspect-square flex items-center justify-center bg-white p-2">
+    <div ref={containerRef} className="w-full max-w-[380px] md:max-w-[460px] aspect-square flex items-center justify-center bg-white p-2">
       {pathD ? (
         <svg
           viewBox="0 0 1024 1024"
@@ -41,21 +43,14 @@ const SvgFaceDrawing = () => {
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-          style={{ opacity: pathLength > 0 ? 1 : 0 }}
         >
-          {pathLength > 0 ? (
-            <motion.path
-              key={pathLength}
-              ref={pathRef}
-              d={pathD}
-              initial={{ strokeDashoffset: pathLength }}
-              animate={isInView ? { strokeDashoffset: 0 } : {}}
-              transition={{ duration: 4.5, ease: 'easeInOut' }}
-              style={{ strokeDasharray: pathLength }}
-            />
-          ) : (
-            <path ref={pathRef} d={pathD} />
-          )}
+          <motion.path
+            ref={pathRef}
+            d={pathD}
+            initial={{ strokeDasharray: pathLength || 10000, strokeDashoffset: pathLength || 10000 }}
+            animate={isInView && pathLength > 0 ? { strokeDashoffset: 0 } : {}}
+            transition={{ duration: 4.5, ease: 'easeInOut' }}
+          />
         </svg>
       ) : (
         <div className="text-secondary font-handwriting text-xl h-full flex items-center justify-center">Sketching...</div>
