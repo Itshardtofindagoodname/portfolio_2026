@@ -297,7 +297,7 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
   }, [src, rows, cols])
 
   return (
-    <canvas ref={canvasRef} className="absolute bottom-0 h-[90vh] w-full" />
+    <canvas ref={canvasRef} className="absolute bottom-0 h-[90vh] w-full" style={{ zIndex: 2 }} />
   )
 }
 
@@ -328,6 +328,30 @@ const HeroAnimation = () => {
         ease: 'power2.out',
         delay: 0.45,
       })
+
+      // Animate hand-drawn circle around "stands out"
+      gsap.fromTo(
+        '.hero-circle-path',
+        { strokeDasharray: 600, strokeDashoffset: 600 },
+        {
+          strokeDashoffset: 0,
+          duration: 1.2,
+          ease: 'power2.out',
+          delay: 0.75,
+        }
+      )
+
+      // Animate hand-drawn yellow underline under "you have me."
+      gsap.fromTo(
+        '.hero-gold-underline-path',
+        { strokeDasharray: 600, strokeDashoffset: 600 },
+        {
+          strokeDashoffset: 0,
+          duration: 1.0,
+          ease: 'power2.out',
+          delay: 1.15,
+        }
+      )
     }, copy)
 
     return () => context.revert()
@@ -342,10 +366,22 @@ const HeroAnimation = () => {
         <span className="hero-copy-item font-label-caps text-[10px] md:text-xs uppercase tracking-[0.28em] text-black/45">
           frontend systems / motion / tactile interfaces
         </span>
-        <h1 className="hero-copy-item font-headline-xl text-5xl md:text-7xl lg:text-8xl font-bold leading-none tracking-normal">
-          Debarjun Thakur
+        <h1 className="hero-copy-item font-headline-xl text-4xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-normal max-w-4xl">
+          If you want someone<br />
+          who <span className="relative inline-block px-3">
+            stands out
+            <svg className="absolute -inset-x-4 -inset-y-2 w-[120%] h-[140%] pointer-events-none overflow-visible" viewBox="0 0 220 80" fill="none">
+              <path className="hero-circle-path" d="M10,40 C10,15 90,5 180,15 C215,22 215,55 180,68 C90,78 10,65 10,40 Z M15,35 C30,12 110,8 190,18" stroke="black" strokeWidth="3.5" strokeLinecap="round" />
+            </svg>
+          </span> from the crowd,<br />
+          <span className="relative inline-block pb-2 px-1">
+            you have me.
+            <svg className="absolute left-0 right-0 -bottom-2 h-4 w-full pointer-events-none overflow-visible" preserveAspectRatio="none" viewBox="0 0 200 20" fill="none">
+              <path className="hero-gold-underline-path" d="M5,12 C40,8 80,15 120,10 C160,5 195,12 195,12 M10,16 C50,14 100,18 150,15 C180,13 192,16 192,16" stroke="#ffd23f" strokeWidth="4" strokeLinecap="round" />
+            </svg>
+          </span>
         </h1>
-        <p className="hero-copy-item max-w-[46ch] font-handwriting text-2xl md:text-3xl leading-tight text-black/65">
+        <p className="hero-copy-item max-w-[46ch] font-handwriting text-2xl md:text-3xl leading-tight text-black/65 mt-2">
           I build fast web experiences that feel like polished product work with a sketchbook soul.
         </p>
         <svg
@@ -364,10 +400,17 @@ const HeroAnimation = () => {
         </svg>
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 h-full">
+      <div className="absolute inset-x-0 bottom-0 h-full overflow-hidden">
+        {/* standing_out guy behind crowd */}
+        <img
+          src="/standing_out.png"
+          alt="Standing out from the crowd"
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[45vh] md:h-[55vh] lg:h-[62vh] w-auto object-contain pointer-events-none select-none"
+          style={{ zIndex: 1, transform: 'translateX(-50%) translateY(2%)' }}
+        />
         <CrowdCanvas src={allPeepsImage} rows={15} cols={7} />
       </div>
-      <div className="torn-hero-edge" aria-hidden="true" />
+      <div className="torn-hero-edge" aria-hidden="true" style={{ zIndex: 3 }} />
     </section>
   )
 }

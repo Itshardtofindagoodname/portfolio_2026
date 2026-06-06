@@ -1,6 +1,23 @@
+import { useState } from 'react'
 import VaraHoverText from './VaraHoverText'
 
 const Reading = () => {
+  const [pulledBook, setPulledBook] = useState<string | null>(null)
+
+  const books = [
+    // Back Row
+    { id: 'b1', title: 'Everyday Things', height: 270, width: 60, left: 16, rotate: -2, isBack: true, bg: 'bg-white', textStyle: 'font-headline-md text-xs' },
+    { id: 'b2', title: 'Clean Code', height: 280, width: 64, left: 90, rotate: 1, isBack: true, bg: 'bg-primary text-on-primary', textStyle: 'font-mono text-[10px] font-bold' },
+    { id: 'b3', title: 'Refactoring', height: 260, width: 56, left: 168, rotate: -1.5, isBack: true, bg: 'bg-white', textStyle: 'font-body-md text-xs italic' },
+    { id: 'b4', title: 'Design Patterns', height: 300, width: 72, left: 242, rotate: 2, isBack: true, bg: 'bg-white border-dashed', textStyle: 'font-label-caps text-[9px] font-bold' },
+
+    // Front Row
+    { id: 'f1', title: 'Fast & Slow', height: 250, width: 58, left: 52, rotate: 1, isBack: false, bg: 'bg-white', textStyle: 'font-headline-md text-xs font-bold' },
+    { id: 'f2', title: 'Morisaki Bookshop', height: 230, width: 50, left: 128, rotate: -1, isBack: false, bg: 'bg-primary text-on-primary', textStyle: 'font-body-md text-[9px] tracking-wide' },
+    { id: 'f3', title: 'Steal Like Artist', height: 270, width: 68, left: 204, rotate: 3, isBack: false, bg: 'bg-white', textStyle: 'font-handwriting text-sm font-bold italic' },
+    { id: 'f4', title: 'Neuromancer', height: 200, width: 44, left: 280, rotate: -2, isBack: false, bg: 'bg-white border-dashed', textStyle: 'font-label-caps text-[8px]' },
+  ]
+
   return (
     <section id="reading" className="paper-cut-section relative bg-white text-primary border-y-2 border-primary py-8 overflow-hidden">
       <div className="border-[1px] border-primary m-2 md:m-4 relative bg-white py-10 md:py-18">
@@ -33,41 +50,37 @@ const Reading = () => {
               </span>
             </div>
 
-            {/* Book Spines Container */}
-            <div className="reading-shelf flex items-end h-[420px] gap-2 md:gap-4 pl-4 border-l-2 border-primary relative select-none">
-              {/* Book 1 */}
-              <div className="book-spine w-16 h-72 border-2 border-primary bg-surface-container-lowest flex items-center justify-center -rotate-2 cursor-pointer shadow-[2px_2px_0_0_#000]">
-                <span className="book-spine-label font-headline-md text-body-md font-bold tracking-widest uppercase">
-                  Thinking, Fast &amp; Slow
-                </span>
-              </div>
-
-              {/* Book 2 */}
-              <div className="book-spine w-12 h-64 border-2 border-primary bg-primary text-on-primary flex items-center justify-center rotate-1 cursor-pointer shadow-[2px_2px_0_0_#000]">
-                <span className="book-spine-label font-body-md text-label-caps tracking-widest uppercase">
-                  Morisaki Bookshop
-                </span>
-              </div>
-
-              {/* Book 3 */}
-              <div className="book-spine w-20 h-80 sketch-border bg-surface-container-lowest flex items-center justify-center rotate-3 cursor-pointer shadow-[3px_3px_0_0_#000]">
-                <span
-                  style={{ fontFamily: '"Bricolage Grotesque", sans-serif' }}
-                  className="book-spine-label text-body-lg font-bold tracking-widest italic"
-                >
-                  Steal Like an Artist
-                </span>
-              </div>
-
-              {/* Book 4 */}
-              <div className="book-spine w-10 h-56 border-2 border-primary bg-surface-container-lowest flex items-center justify-center -rotate-1 cursor-pointer border-dashed">
-                <span className="book-spine-label font-label-caps text-label-caps tracking-widest uppercase">
-                  Neuromancer
-                </span>
-              </div>
+            {/* Double-Row Book Spines Container */}
+            <div className="reading-shelf flex items-end h-[420px] pl-4 border-l-2 border-primary relative select-none min-w-[350px]">
+              {books.map((book) => {
+                const isPulled = pulledBook === book.id
+                return (
+                  <div
+                    key={book.id}
+                    className={`book-spine absolute border-2 border-primary cursor-pointer transition-all duration-300 shadow-[2px_2px_0_0_#000] flex items-center justify-center ${book.bg}`}
+                    style={{
+                      height: `${book.height}px`,
+                      width: `${book.width}px`,
+                      left: `${book.left}px`,
+                      bottom: book.isBack ? '18px' : '0px',
+                      transform: `translateY(${isPulled ? -35 : 0}px) rotate(${book.rotate}deg)`,
+                      zIndex: isPulled ? 40 : (book.isBack ? 1 : 10),
+                      opacity: book.isBack && !isPulled ? 0.76 : 1.0,
+                      filter: book.isBack && !isPulled ? 'brightness(0.9)' : 'none',
+                    }}
+                    onClick={() => setPulledBook(pulledBook === book.id ? null : book.id)}
+                    onMouseEnter={() => setPulledBook(book.id)}
+                    onMouseLeave={() => setPulledBook(null)}
+                  >
+                    <span className={`book-spine-label font-bold tracking-widest uppercase ${book.textStyle}`}>
+                      {book.title}
+                    </span>
+                  </div>
+                )
+              })}
 
               {/* Annotation on books */}
-              <div className="absolute -left-8 top-16 flex items-center gap-2">
+              <div className="absolute -left-8 top-16 flex items-center gap-2 pointer-events-none">
                 <span
                   style={{ fontFamily: '"Bricolage Grotesque", sans-serif' }}
                   className="text-body-lg text-secondary italic rotate-[-12deg]"
@@ -79,7 +92,7 @@ const Reading = () => {
           </section>
 
           {/* Right Column: Random Musings */}
-          <section className="musing-board col-span-1 md:col-span-6 md:col-start-7 relative mt-8 md:mt-0 next-gen-reveal">
+          <section className="musing-board col-span-1 md:col-span-8 relative mt-8 md:mt-0 next-gen-reveal">
             <div className="flex items-center gap-4 border-b-2 border-primary pb-2 w-max max-w-full mb-7 md:ml-4">
               <h2 className="font-label-caps text-label-caps uppercase tracking-[0.15em]">
                 Random Musings
@@ -89,7 +102,7 @@ const Reading = () => {
               </span>
             </div>
 
-            <div className="musing-scrap-grid relative">
+            <div className="musing-scrap-grid relative grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
               {/* Scrap 1 */}
               <div className="paper-scrap musing-scrap musing-scrap-large p-6 rotate-[-5deg]">
                 <div className="tape"></div>
@@ -107,7 +120,7 @@ const Reading = () => {
               </div>
 
               {/* Scrap 2 */}
-              <div className="paper-scrap musing-scrap musing-scrap-small p-4 rotate-[6deg] bg-primary text-primary">
+              <div className="paper-scrap musing-scrap musing-scrap-small p-4 rotate-[6deg] bg-primary text-on-primary">
                 <div className="tape bg-surface-container-lowest"></div>
                 <p className="font-label-caps text-label-caps uppercase tracking-widest border-b border-on-primary pb-1 mb-2">
                   2 AM Ideas
@@ -137,6 +150,28 @@ const Reading = () => {
                 <div className="tape"></div>
                 <p className="font-handwriting text-3xl leading-none">
                   tiny bugs deserve dramatic soundtracks.
+                </p>
+              </div>
+
+              {/* Scrap 5 (NEW) */}
+              <div className="paper-scrap musing-scrap musing-scrap-medium p-5 rotate-[-2.5deg]">
+                <div className="tape"></div>
+                <p className="font-label-caps text-xs uppercase tracking-widest border-b border-primary pb-1 mb-2">
+                  AI + Code
+                </p>
+                <p className="font-body-md text-secondary leading-snug">
+                  LLMs are the new compilers. Your prompts are high-level instructions. Learn to compile well.
+                </p>
+              </div>
+
+              {/* Scrap 6 (NEW) */}
+              <div className="paper-scrap musing-scrap musing-scrap-small p-5 rotate-[4deg] bg-primary text-on-primary">
+                <div className="tape bg-surface-container-lowest"></div>
+                <span className="material-symbols-outlined text-on-primary mb-2 text-3xl block">
+                  edit
+                </span>
+                <p className="font-handwriting text-2xl leading-tight text-white">
+                  Messy sketchbook layouts inspire clean digital systems. Always carry paper.
                 </p>
               </div>
             </div>

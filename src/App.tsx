@@ -45,6 +45,22 @@ function App() {
     return () => window.removeEventListener('hashchange', handleHashChange)
   }, [])
 
+  useEffect(() => {
+    if (!activeProject) {
+      const hash = window.location.hash
+      if (hash && hash !== '#home' && !hash.startsWith('#/project/')) {
+        const id = hash.replace('#', '')
+        const timer = setTimeout(() => {
+          const el = document.getElementById(id)
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' })
+          }
+        }, 150)
+        return () => clearTimeout(timer)
+      }
+    }
+  }, [activeProject])
+
   return (
     <ReactLenis
       root
@@ -58,7 +74,7 @@ function App() {
     >
       <LenisScrollBridge />
       <div className="app-shell flex flex-col">
-        <Navbar />
+        {isLoaded && <Navbar />}
 
         {activeProject ? (
           <ProjectDeepDive

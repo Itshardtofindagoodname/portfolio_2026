@@ -1,6 +1,64 @@
-import { motion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
+import { useEffect, useState, useRef } from 'react'
 import DoodleButton from './DoodleButton'
 import VaraHoverText from './VaraHoverText'
+
+const SvgFaceDrawing = () => {
+  const [pathD, setPathD] = useState<string | null>(null)
+  const pathRef = useRef<SVGPathElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const isInView = useInView(containerRef, { once: true, amount: 0.15 })
+  const [pathLength, setPathLength] = useState(0)
+
+  useEffect(() => {
+    fetch('/screen.svg')
+      .then((res) => res.text())
+      .then((text) => {
+        const parser = new DOMParser()
+        const doc = parser.parseFromString(text, 'image/svg+xml')
+        const path = doc.querySelector('path')
+        if (path) {
+          const d = path.getAttribute('d')
+          setPathD(d)
+        }
+      })
+      .catch((err) => console.error('Failed to load screen.svg', err))
+  }, [])
+
+  useEffect(() => {
+    if (pathRef.current) {
+      const length = pathRef.current.getTotalLength()
+      setPathLength(length)
+    }
+  }, [pathD])
+
+  return (
+    <div ref={containerRef} className="w-full max-w-[340px] md:max-w-[400px] aspect-square flex items-center justify-center bg-white p-2">
+      {pathD ? (
+        <svg
+          viewBox="0 0 1024 1024"
+          className="w-full h-full"
+          fill="none"
+          stroke="black"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <motion.path
+            ref={pathRef}
+            d={pathD}
+            initial={{ strokeDasharray: pathLength || 10000, strokeDashoffset: pathLength || 10000 }}
+            animate={isInView && pathLength > 0 ? { strokeDashoffset: 0 } : {}}
+            transition={{ duration: 4.5, ease: 'easeInOut' }}
+          />
+        </svg>
+      ) : (
+        <div className="text-secondary font-handwriting text-xl h-full flex items-center justify-center">Sketching...</div>
+      )}
+    </div>
+  )
+}
+
 
 const About = () => {
   return (
@@ -31,13 +89,9 @@ const About = () => {
               <div className="tape-effect tape-bl opacity-60" />
 
               <div className="polaroid-frame rough-cut relative z-10 group-hover:shadow-2xl transition-shadow duration-300">
-                <img
-                  alt="Debarjun Thakur"
-                  className="w-full max-w-[360px] md:max-w-[420px] aspect-[3/4] object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9QMiLqog5Hn1umNZ8t0xy64pWfRa9_Mn0NBTCk0USD_xonrbAqkLaZpBvhd3QmpRL9RVdPtzJfsig88FCDjKabmzGqfCc7EQbiBwIll8mOv48VHP5QxECuwl7N-j23GE5JBRn2mTcQ3UiRJC8hTSMhrpP2r3pOHptncL5JNC3rIPlIOxCkkfavkewsIzqSK6mG0qzXdAbQY8vQCxolhuPg3PIqra334P_En_qAjo14S2_Hcz4kdzS7ZfIBTOiMVo-qL25cVhVmmQ"
-                />
+                <SvgFaceDrawing />
                 <div className="absolute bottom-4 left-0 right-0 text-center font-handwriting text-2xl text-primary opacity-60">
-                  Me, thinking about CSS...
+                  Me, thinking about that one bug at a random time of the day...
                 </div>
               </div>
             </div>
@@ -95,7 +149,8 @@ const About = () => {
                   </div>
                 ))}
               </div>
-              <div className="pt-6">
+
+              <div className="pt-6">
                 <DoodleButton href="#contact" variant="ink" className="font-handwriting">
                   Get in Touch
                   <span className="material-symbols-outlined text-lg">arrow_right_alt</span>
@@ -261,11 +316,10 @@ const About = () => {
                     <motion.span
                       whileHover={{ scale: 1.1, rotate: idx % 2 === 0 ? 3 : -3 }}
                       key={item}
-                      className={`skill-tag text-white cursor-default ${
-                        item === 'LangChain' || item === 'LoRA / PEFT fine-tuning'
-                          ? '!border-white/50 bg-white/5'
-                          : 'border-white/30'
-                      }`}
+                      className={`skill-tag text-white cursor-default ${item === 'LangChain' || item === 'LoRA / PEFT fine-tuning'
+                        ? '!border-white/50 bg-white/5'
+                        : 'border-white/30'
+                        }`}
                     >
                       {item}
                     </motion.span>
