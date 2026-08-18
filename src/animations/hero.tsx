@@ -405,7 +405,7 @@ const HeroAnimation = () => {
           alt="Standing out from the crowd"
           className="absolute left-1/2 -translate-x-1/2 object-contain pointer-events-none select-none standing-out-image"
           style={{
-            bottom: '150px',
+            bottom: '120px',
             height: '300px',
             width: 'auto',
           }}
