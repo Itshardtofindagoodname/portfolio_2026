@@ -2,13 +2,6 @@ import { motion } from 'framer-motion'
 import DoodleButton from './DoodleButton'
 import VaraHoverText from './VaraHoverText'
 
-// Import local project images
-import fastfoxImage from '../assets/fastfox.png'
-import profiImage from '../assets/profi.png'
-import pragatiImage from '../assets/pragati.png'
-import vaultifyImage from '../assets/vaultify.png'
-import slashImage from '../assets/slash.png'
-
 const repoBase = 'https://github.com/Itshardtofindagoodname'
 
 const projects = [
@@ -16,25 +9,43 @@ const projects = [
     title: 'FastFox',
     icon: 'speed',
     repo: `${repoBase}/fastfox`,
-    image: fastfoxImage,
+    marginalia: 'AI-powered CLI assistant',
     desc: 'AI-powered CLI that uses Groq, LLaMA 3, Mixtral, and BLIP to organize files, suggest commands, generate code, and ship as a packaged desktop-ready tool.',
     tags: ['PYTHON', 'GROQ API', 'LLAMA 3'],
     rotate: 'rotate-[-1.5deg]',
   },
   {
-    title: 'Profi',
-    icon: 'work_outline',
-    repo: `${repoBase}/Profi`,
-    image: profiImage,
-    desc: 'AI-integrated task management system built with React, Vite, and Tailwind, focused on prioritization, workflow clarity, and clean component architecture.',
-    tags: ['REACT', 'VITE', 'TAILWIND'],
+    title: 'GitGud',
+    icon: 'history_edu',
+    repo: `${repoBase}/gitgud`,
+    marginalia: 'Fabricated repo histories',
+    desc: 'AI-fabricated GitHub repository history generator that writes complete multi-file codebases with Groq and Gemini, then publishes realistic backdated commit histories via the GitHub API.',
+    tags: ['REACT', 'GROQ', 'GEMINI'],
     rotate: 'rotate-[1.2deg]',
   },
   {
+    title: 'Tornedo',
+    icon: 'download',
+    repo: `${repoBase}/Tornedo`,
+    marginalia: 'Federated torrent client',
+    desc: 'Local-first, terminal-native torrent search and download client that federates 10+ sources, dedupes and ranks results, and ships a crash-recovering WebTorrent engine.',
+    tags: ['TYPESCRIPT', 'INK', 'WEBTORRENT'],
+    rotate: 'rotate-[-0.8deg]',
+  },
+  {
+    title: 'Profi',
+    icon: 'psychology',
+    repo: `${repoBase}/Profi`,
+    marginalia: 'AI-assisted project ideation',
+    desc: 'Experimental workspace that turns raw ideas into actionable software plans with conversational AI, document ingestion, and structured project generation.',
+    tags: ['REACT', 'VITE', 'TAILWIND'],
+    rotate: 'rotate-[0.6deg]',
+  },
+  {
     title: 'Pragati',
-    icon: 'account_balance',
+    icon: 'account_tree',
     repo: `${repoBase}/Pragati-SIH`,
-    image: pragatiImage,
+    marginalia: 'AI-assisted infrastructure governance',
     desc: 'Full-stack civic platform for Smart India Hackathon 2023, with complaint workflows, contractor management, REST APIs, MongoDB, and an AI assistant endpoint.',
     tags: ['NEXT.JS', 'MONGODB', 'REST API'],
     rotate: 'rotate-[-0.8deg]',
@@ -43,7 +54,7 @@ const projects = [
     title: 'Vaultify',
     icon: 'lock',
     repo: `${repoBase}/Vaultify-SIH`,
-    image: vaultifyImage,
+    marginalia: 'Blockchain document custody',
     desc: 'Secure document and asset-management frontend built with React and Tailwind, emphasizing accessible retrieval flows and scalable collaborative architecture.',
     tags: ['REACT', 'VITE', 'SECURITY'],
     rotate: 'rotate-[2deg] md:mt-12',
@@ -52,10 +63,19 @@ const projects = [
     title: 'Slash',
     icon: 'sports_esports',
     repo: `${repoBase}/Slash`,
-    image: slashImage,
+    marginalia: 'Browser-native arcade game',
     desc: 'Browser-native game shipped without a game engine, using vanilla JavaScript, real-time input handling, a custom loop, and collision logic.',
     tags: ['JAVASCRIPT', 'HTML', 'CSS'],
     rotate: 'rotate-[-1.2deg] md:mt-12',
+  },
+  {
+    title: 'Cairn',
+    icon: 'travel_explore',
+    repo: `${repoBase}/Cairn`,
+    marginalia: 'Google for open data & ML',
+    desc: 'Federated dataset, model, paper, and code search engine that fans out to 8 sources in parallel, streams results over SSE, and scores reproducibility transparently.',
+    tags: ['NEXT.JS', 'SSE', 'TF-IDF'],
+    rotate: 'rotate-[1.6deg] md:mt-12',
   },
 ]
 
@@ -138,7 +158,7 @@ const Projects = ({ onSelectProject }: ProjectsProps) => {
       <div className="max-w-7xl mx-auto w-full px-6 md:px-12 relative z-10">
         <div className="flex flex-col md:flex-row items-baseline gap-4 mb-20 relative next-gen-reveal">
           <h2 className="font-handwriting text-headline-xl text-5xl md:text-6xl marker-highlight leading-none">
-            <VaraHoverText text="Top 5 Projects" fontSize={44} />
+            <VaraHoverText text="Top 8 Projects" fontSize={44} />
           </h2>
           <span className="font-handwriting text-2xl text-primary/40">
             / shipped, hacked, tuned, repeated
@@ -160,19 +180,12 @@ const Projects = ({ onSelectProject }: ProjectsProps) => {
                 className={`project-snippet next-gen-reveal p-6 relative bg-white flex flex-col h-full ${project.rotate}`}
               >
                 {index % 2 === 0 ? <div className="tape-effect tape-tl" /> : <div className="tape-effect tape-tr" />}
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="font-headline-md text-xl border-b-2 border-black pb-0.5 inline-block">
-                    {project.title}
-                  </h3>
-                  <span className="material-symbols-outlined text-lg opacity-40">{project.icon}</span>
-                </div>
-                <div className="aspect-video mb-4 rough-border overflow-hidden bg-white">
-                  <img
-                    alt={`${project.title} project preview`}
-                    className="w-full h-full object-cover grayscale opacity-80 hover:opacity-100 hover:scale-102 transition-all duration-300"
-                    src={project.image}
-                  />
-                </div>
+                <h3 className="font-headline-md text-2xl border-b-2 border-black pb-0.5 inline-block mb-2">
+                  {project.title}
+                </h3>
+                <span className="block font-handwriting text-lg text-primary mb-4 leading-tight">
+                  {project.marginalia}
+                </span>
                 <p className="font-handwriting text-xl text-primary mb-4 leading-tight">
                   {project.desc}
                 </p>

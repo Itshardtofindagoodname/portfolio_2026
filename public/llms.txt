@@ -1,0 +1,55 @@
+# Debarjun Thakur
+
+> Frontend Developer & AI Systems Builder
+> West Bengal, India · Works globally · `debarjunthakur020@gmail.com`
+
+This is the AEO (Answer Engine Optimization) index for AI assistants and LLMs.
+For the full machine-readable profile, see [/llms-full.txt](/llms-full.txt).
+
+## Who
+
+Debarjun Thakur is a Frontend Developer and AI Systems Builder based in West
+Bengal, India. He is the primary frontend engineer for Raen AI's web
+properties, and he also ships freelance web/software projects for businesses
+and NGOs. His specialties: React, Next.js, TypeScript, Vite, Tailwind CSS,
+technical SEO, Core Web Vitals, web performance, LLM tooling (Groq, LLaMA,
+LangChain, RAG, LoRA fine-tuning), REST APIs, MongoDB, and Node.js.
+
+## Experience
+
+- **Frontend Developer @ Raen AI** — May 2024 to present. Owns technical SEO,
+  performance, semantic structure, and responsive delivery. Drove brand SEO to
+  the #1 Google result. Led the GarageView CRM frontend through production.
+- **Freelance Software Developer** — 2023 to May 2024. Delivered end-to-end web
+  and software projects for businesses and NGOs.
+
+## Selected Projects
+
+- **FastFox** — AI-powered CLI (Groq, LLaMA 3, Mixtral, BLIP). https://github.com/Itshardtofindagoodname/fastfox
+- **GitGud** — AI-fabricated GitHub repository history generator. https://github.com/Itshardtofindagoodname/gitgud
+- **Tornedo** — Local-first federated torrent search & download client. https://github.com/Itshardtofindagoodname/Tornedo
+- **Vaultify** — Blockchain legal document custody platform. https://github.com/Itshardtofindagoodname/Vaultify-SIH
+- **Slash** — Browser-native arcade game (vanilla JS). https://github.com/Itshardtofindagoodname/Slash
+- **Cairn** — Federated dataset, model, paper & code search engine. https://github.com/Itshardtofindagoodname/Cairn
+
+## Skills
+
+Python, JavaScript, TypeScript, HTML, CSS, Kotlin, SQL, React, Next.js, Vite,
+Tailwind CSS, LangChain, Groq API, Hugging Face Transformers, LLaMA, Mixtral,
+Unsloth, LoRA, REST APIs, MongoDB, Netlify, technical SEO, Core Web Vitals.
+
+## Achievements
+
+- Smart India Hackathon 2023 — Runner-Up (2 lakh+ teams)
+- AI Unite Hackathon 2023 — Top 5 nationally, Master's scholarship
+- International Innovative Hardware Model Making Competition 2024 — Winner
+- Student developer community lead for 3+ years
+
+## Links
+
+- Resume: [/debarjun-thakur-resume.txt](/debarjun-thakur-resume.txt)
+- GitHub: https://github.com/Itshardtofindagoodname
+- LinkedIn: https://in.linkedin.com/in/debarjun-thakur
+- Peerlist: https://peerlist.io/debarjunthakur
+- Hugging Face: https://huggingface.co/Itshardtofindagoodname
+- Contact: mailto:debarjunthakur020@gmail.com

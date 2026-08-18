@@ -136,7 +136,7 @@ const Reading = () => {
               </div>
 
               {/* Scrap 3 - Architecture */}
-              <div className="paper-scrap musing-scrap musing-scrap-medium p-5 rotate-[3deg]">
+              <div className="paper-scrap musing-scrap musing-scrap-medium p-5 rotate-[3deg] sm:mr-80">
                 <div className="tape"></div>
                 <span className="material-symbols-outlined text-primary mb-2 text-4xl block">
                   architecture

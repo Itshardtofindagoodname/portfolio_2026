@@ -1,5 +1,5 @@
 import { gsap } from 'gsap'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import allPeepsImage from '../assets/all-peeps.png'
 
 interface CrowdCanvasProps {
@@ -301,44 +301,14 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
   )
 }
 
-interface HeroAnimationProps {
-  isLoaded?: boolean
-  loadingDuration?: number
-}
-
-const HeroAnimation = ({ isLoaded = true, loadingDuration = 0 }: HeroAnimationProps) => {
+const HeroAnimation = () => {
   const copyRef = useRef<HTMLDivElement>(null)
-  const [shouldAnimate, setShouldAnimate] = useState(false)
-
-  useEffect(() => {
-    if (!isLoaded) return
-
-    const animationDelay = loadingDuration
-    const timer = setTimeout(() => {
-      setShouldAnimate(true)
-    }, animationDelay)
-
-    return () => clearTimeout(timer)
-  }, [isLoaded, loadingDuration])
 
   useEffect(() => {
     const copy = copyRef.current
-    if (!copy || !shouldAnimate) return
+    if (!copy) return
 
     const context = gsap.context(() => {
-      gsap.fromTo(
-        '.hero-copy-item',
-        { autoAlpha: 0, y: 18 },
-        {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.82,
-          stagger: 0.1,
-          ease: 'power3.out',
-          delay: 0.18,
-        },
-      )
-
       gsap.to('.hero-doodle-line path', {
         strokeDashoffset: 0,
         duration: 1.1,
@@ -346,7 +316,6 @@ const HeroAnimation = ({ isLoaded = true, loadingDuration = 0 }: HeroAnimationPr
         delay: 0.45,
       })
 
-      // Animate hand-drawn circle around "stands out"
       gsap.fromTo(
         '.hero-circle-path',
         { strokeDasharray: 600, strokeDashoffset: 600 },
@@ -355,10 +324,9 @@ const HeroAnimation = ({ isLoaded = true, loadingDuration = 0 }: HeroAnimationPr
           duration: 1.2,
           ease: 'power2.out',
           delay: 0.75,
-        }
+        },
       )
 
-      // Animate hand-drawn yellow underline under "you have me."
       gsap.fromTo(
         '.hero-gold-underline-path',
         { strokeDasharray: 600, strokeDashoffset: 600 },
@@ -367,12 +335,12 @@ const HeroAnimation = ({ isLoaded = true, loadingDuration = 0 }: HeroAnimationPr
           duration: 1.0,
           ease: 'power2.out',
           delay: 1.15,
-        }
+        },
       )
     }, copy)
 
     return () => context.revert()
-  }, [shouldAnimate])
+  }, [])
 
   return (
     <section className="hero-section relative min-h-screen overflow-hidden bg-white text-black">

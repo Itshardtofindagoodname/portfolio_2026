@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useLenis } from 'lenis/react'
 import { motion } from 'framer-motion'
 import projectRegistryRaw from '../data/projects.json'
 
@@ -32,14 +33,19 @@ interface ProjectDeepDiveProps {
   onBack: () => void
 }
 
-const projectKeys = ['fastfox', 'profi', 'pragati', 'vaultify', 'slash']
+const projectKeys = ['fastfox', 'gitgud', 'tornedo', 'profi', 'pragati', 'vaultify', 'slash', 'cairn']
 
 const ProjectDeepDive = ({ projectKey, onBack }: ProjectDeepDiveProps) => {
   const project = projectRegistry[projectKey] || projectRegistry.fastfox
+  const lenis = useLenis()
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [projectKey])
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true, force: true })
+    } else {
+      window.scrollTo(0, 0)
+    }
+  }, [projectKey, lenis])
 
   const onNextProject = () => {
     const currentIndex = projectKeys.indexOf(projectKey)

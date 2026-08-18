@@ -1,0 +1,126 @@
+# Debarjun Thakur — Full Profile
+
+> Machine-readable full profile for AI assistants, search engines, and answer
+> engines. Facts only, in plain text.
+
+## Identity
+
+- Name: Debarjun Thakur
+- GitHub username: Itshardtofindagoodname
+- Role: Frontend Developer, AI Systems Builder
+- Location: West Bengal, India (works globally)
+- Email: debarjunthakur020@gmail.com
+- Education: Asansol Engineering College (Computer Science & Engineering)
+
+## Summary
+
+Debarjun Thakur is a Frontend Developer and AI Systems Builder who engineers
+fast web experiences that feel like polished product work with a sketchbook
+soul. He specializes in frontend systems, motion and tactile interfaces,
+technical SEO, Core Web Vitals, and AI-powered tooling. He is the primary
+frontend engineer for Raen AI's web presence and has shipped production
+products, CRM portals, auth flows, and real-time interfaces. He also runs a
+student developer community and has competed at a national level in India.
+
+## Professional Experience
+
+### Frontend Developer, Raen AI — May 2024 to Present
+
+- Primary frontend engineer for Raen AI web properties: marketing pages,
+  product interfaces, and internal platforms.
+- Drove technical SEO across structured metadata, Core Web Vitals, semantic
+  hierarchy, and indexing strategy; helped Raen AI rank #1 on Google for its
+  primary brand keyword.
+- Owned website performance optimization: load time, asset delivery, rendering
+  efficiency, and responsive behavior.
+- Led frontend development of the GarageView CRM web portal including
+  authentication flows, real-time data interfaces, and responsive production
+  delivery.
+
+### Freelance Software Developer — 2023 to May 2024
+
+- Delivered end-to-end web and software projects for private businesses and
+  NGOs.
+- Managed requirements, scoping, development, testing, and client handoff
+  independently across concurrent client codebases.
+
+## Projects
+
+### FastFox
+
+AI-powered command-line productivity assistant. Uses Groq, LLaMA 3, Mixtral
+8x7B, and Salesforce BLIP to organize files, generate terminal commands,
+generate/explain code, and analyze documents (PDFs, spreadsheets, text,
+images). Stack: Python, Groq LLMs, BLIP, Pandas, PyPDF2, Win32 APIs.
+https://github.com/Itshardtofindagoodname/fastfox
+
+### GitGud
+
+AI-fabricated GitHub repository history generator. Writes complete multi-file
+codebases using Groq and Gemini LLMs, then fabricates realistic backdated
+commit histories and publishes them to GitHub via the REST API. Handles empty
+repositories, preset and custom date ranges.
+https://github.com/Itshardtofindagoodname/gitgud
+
+### Tornedo
+
+Local-first, terminal-native, federated torrent search and download client.
+Federates 10+ sources concurrently with fault isolation, dedupes and ranks
+results, ships a crash-recovering WebTorrent engine with resume/seeding, and a
+configurable Ink + React TUI. State lives in local SQLite.
+https://github.com/Itshardtofindagoodname/Tornedo
+
+### Vaultify
+
+Blockchain-powered legal document custody platform with role-based access
+control for clients, lawyers, and judges. React + Vite + Tailwind, Thirdweb
+SDK, decentralized file handling. https://github.com/Itshardtofindagoodname/Vaultify-SIH
+
+### Slash
+
+Browser-native arcade game shipped without a game engine, built with vanilla
+JavaScript, HTML, and CSS. https://github.com/Itshardtofindagoodname/Slash
+
+### Cairn
+
+Federated dataset, model, paper, and code search engine ("Google for open data
+and ML"). Fans out to Hugging Face, arXiv, GitHub, Zenodo, Semantic Scholar,
+data.gov, OpenML, and Kaggle in parallel, streams results over SSE, ranks with
+explainable weighted signals, and scores reproducibility. Next.js + TypeScript.
+https://github.com/Itshardtofindagoodname/Cairn
+
+## Skills
+
+- Languages: Python, JavaScript, TypeScript, HTML, CSS, Kotlin, SQL, Dart
+- Frontend: React, Next.js, Vite, Tailwind CSS, PostCSS, React Native, Flutter
+- Performance & SEO: technical SEO, Core Web Vitals, semantic HTML, structured
+  metadata
+- Backend & databases: FastAPI, Node.js, REST APIs, PostgreSQL, MongoDB
+- AI & ML: LangChain, Hugging Face, Groq API, LLaMA 3, Mixtral 8x7B, Unsloth,
+  LoRA/PEFT fine-tuning, TRL, RAG, Salesforce BLIP
+- Infrastructure: Vercel, Netlify, AWS, Cloudflare, Docker, CI/CD
+- Tools: Git/GitHub, Figma, ESLint & Prettier
+
+## Achievements
+
+- Smart India Hackathon 2023 — Runner-Up (selected from 2 lakh+ teams)
+- AI Unite Hackathon 2023 — Top 5 nationally; received a Master's scholarship
+  and AI-track recognition
+- International Innovative Hardware Model Making Competition 2024 — Winner
+- 10+ additional competition wins across software, AI, and hardware
+- Student developer community lead for 3+ years
+
+## Resume
+
+https://debarjunthakur.vercel.app/debarjun-thakur-resume.txt
+
+## Profiles
+
+- GitHub: https://github.com/Itshardtofindagoodname
+- LinkedIn: https://in.linkedin.com/in/debarjun-thakur
+- Peerlist: https://peerlist.io/debarjunthakur
+- Hugging Face: https://huggingface.co/Itshardtofindagoodname
+
+## Contact
+
+Email: debarjunthakur020@gmail.com

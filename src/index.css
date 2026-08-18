@@ -78,7 +78,7 @@ html,
 body,
 #root {
   max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 * {
@@ -665,7 +665,7 @@ a[class*="border-b"]:hover {
 }
 
 .navbar-shell {
-  z-index: 10000;
+  z-index: 50;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
 }
 
@@ -701,7 +701,7 @@ a[class*="border-b"]:hover {
 }
 
 .hero-copy-item {
-  opacity: 0;
+  opacity: 1;
 }
 
 .hero-doodle-line path {

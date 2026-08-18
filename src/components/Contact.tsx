@@ -73,10 +73,10 @@ const Contact = () => {
             </svg>
             
             {[
-              { label: 'EMAIL', href: 'mailto:hello@example.com' },
-              { label: 'GITHUB', href: 'https://github.com' },
-              { label: 'LINKEDIN', href: 'https://linkedin.com' },
-              { label: 'TWITTER', href: 'https://twitter.com' },
+              { label: 'EMAIL', href: 'mailto:debarjunthakur020@gmail.com' },
+              { label: 'GITHUB', href: 'https://github.com/Itshardtofindagoodname' },
+              { label: 'LINKEDIN', href: 'https://in.linkedin.com/in/debarjun-thakur' },
+              { label: 'PEERLIST', href: 'https://peerlist.io/debarjunthakur' },
             ].map((link) => (
               <a
                 key={link.label}

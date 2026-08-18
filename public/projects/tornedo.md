@@ -1,0 +1,247 @@
+# tornedo
+
+Local-first, terminal-native, federated torrent **search** and **download** client.
+
+Search many torrent sites at once, get one clean, ranked, de-duplicated result
+set, and download with a fast native engine — all without an account, a cloud,
+or any telemetry. State lives in a local SQLite database and survives restarts.
+
+```
+tornedo search "dune"          # one federated search, every source
+tornedo search "cyberpunk" --json | jq .results
+tornedo magnet "magnet:?xt=urn:btih:..."
+tornedo                        # terminal UI
+```
+
+## Highlights
+
+- **Federated search** — every enabled source runs concurrently with its own
+  timeout and fault isolation; a slow or dead source never blocks the others.
+  Results stream in as each source settles. Transient failures (timeouts,
+  outages, 5xx) are retried once with a short backoff; parse failures never are.
+- **Smart results** — titles are parsed into structured metadata (quality,
+  codec, audio, HDR, editions, languages, season/episode ranges, game platform
+  and version…), identical torrents from different sites are merged, everything
+  is deterministically ranked, and releases group by title/year/season with each
+  quality as a variant.
+- **Intelligent search** — every query is analyzed (media type, title,
+  artist/album, year, quality, season/episode) without ever over-asserting: a
+  confident parse boosts matching releases and prefers the sources that carry
+  that media type; an ambiguous query degrades to a plain search.
+- **Fast downloads** — WebTorrent engine behind a thin abstraction, persistent
+  queue, resume support, per-torrent and global speed limits, seeding.
+- **Crash recovery** — a run marker in the SQLite database tells startup whether
+  the previous run ended cleanly. If it crashed, interrupted downloads are
+  reconciled (progress preserved, pieces re-verified) and the UI shows exactly
+  what was resumed, completed and failed.
+- **Terminal UI** — an elegant, component-driven TUI built on **Ink + React**:
+  search, results with category/sort/filter controls, live source status,
+  details, downloads with a full action menu, and help. Every keybinding is
+  configurable and shown on-screen.
+- **Headless** — everything the UI can do is available as commands with
+  `--json` output.
+- **Self-diagnostics** — `tornedo doctor` inspects the config, database,
+  download directory, disk space, engine, network, DHT, trackers and sources,
+  and reports each check with an actionable fix.
+- **Watch mode** — drop `.torrent` or `.magnet`/magnet-URI files into a folder
+  and they are added automatically.
+- **Private by design** — no accounts, no tracking, no analytics. Config and
+  database live on your machine.
+
+## Install & build
+
+Requires Node.js >= 22.
+
+```sh
+npm install
+npm run build        # compiles TypeScript to dist/
+npm run dev -- search "dune"   # run from source without building
+```
+
+The CLI entry point is `dist/cli.js`; `npm link` exposes the `tornedo` command.
+
+## Commands
+
+```
+tornedo search <query>     Search every enabled source (streams results)
+tornedo search <query> --category Music
+tornedo downloads          List the queue and active torrents
+tornedo magnet <uri>       Add a torrent by magnet URI (waits for completion)
+tornedo infohash <hash>    Add a torrent by bare infohash
+tornedo file <path>        Add a .torrent file
+tornedo watch <dir>        Watch a directory for .torrent / magnet files
+tornedo config             Show / set configuration
+tornedo sources            List sources and their enabled state
+tornedo sources --check    Diagnose Torznab / Internet Archive providers
+tornedo doctor             Run self-diagnostics (config, DB, disk, network…)
+tornedo doctor --check     Include live endpoint capability probes
+tornedo doctor --json      Machine-readable report
+tornedo tui                Terminal UI (default when no command)
+```
+
+Common flags: `--json` (machine-readable output on stdout only), `--source <id>`
+(repeatable), `--category <cat>`, `--limit <n>`, `--dir <dir>`, `--seed` /
+`--no-seed`, `--no-wait`, `-q/--quiet`. See `tornedo help`.
+
+## Terminal UI
+
+| Key | Action |
+| --- | --- |
+| `↑/k` `↓/j` | navigate |
+| `enter` / `d` | download selected |
+| `D` | download to a chosen directory (then `p`/`r`/`x`/`s`/`m`/`o` manage it) |
+| `c` | category scope for the current results |
+| `t` | sort order for the current results |
+| `ctrl+f` | refine the results with a filter (min/max size, source, resolution, codec, audio, language, quality) |
+| `i` | toggle details pane |
+| `/` | search again |
+| `v` | downloads view |
+| `p` / `r` | pause / resume selected download |
+| `x` | remove selected download |
+| `s` | toggle seeding |
+| `m` | action menu for the selected download (cancel, delete files, open folder…) |
+| `y` | show selected magnet |
+| `o` | open selected magnet in your default handler |
+| `?` | help |
+| `q` | quit |
+
+Keybindings are configurable under `keybindings` in the config file.
+
+## Sources
+
+Enable/disable any source (`tornedo sources`, then
+`tornedo config set sources.<id> true|false`). Built-in adapters: **FitGirl
+Repacks** (games), **YTS** (movies), **The Pirate Bay** (movies/TV/music),
+**1337x** (movies/TV/music), **LimeTorrents**, **TorrentGalaxy**, and
+**TorrentDownloads** (music), **EZTV** (TV), **Nyaa** (anime), **SubsPlease**
+(anime), and a **BitTorrented** general feed. Sources that report real swarm
+health (seeders) are ranked preferentially.
+
+User-configured providers are first-class sources:
+
+- **Torznab/Newznab** — point at any local indexer (Prowlarr, Jackett, nZEDb,
+  …). Tornedo discovers what the endpoint supports (`?t=caps`) and never
+  guesses; an endpoint without a `music` capability reports
+  `unsupported` instead of returning empty results. Configure under
+  `torznabProviders` and verify with `tornedo sources --check`.
+- **Internet Archive** — public audio items via the archive.org JSON APIs.
+  Only items with downloadable audio files are surfaced. Not a torrent swarm;
+  the UI explains why an `ia://` item cannot be queued into the torrent engine.
+  Configure under `internetArchive` (disabled by default).
+
+For music searches the robust providers above are the recommended path — the
+HTML indexers above are fast-path fallbacks and fail loudly (never silently
+empty) when their page structure changes.
+
+## Configuration
+
+`tornedo config` prints the effective config as JSON. Files live at:
+
+- Config: `<config-dir>/tornedo/config.json`
+- Database: `<data-dir>/tornedo/tornedo.sqlite` (SQLite, WAL)
+
+Set `TORNEDO_STATE_DIR` to relocate both (also used by the test suite).
+
+| Key | Meaning |
+| --- | --- |
+| `downloadDir` | where completed data lands |
+| `maxActiveDownloads` | concurrent active downloads (`0` = unlimited) |
+| `maxDownloadSpeed` / `maxUploadSpeed` | global limits in B/s (`0` = unlimited) |
+| `sourceTimeoutMs` | per-source search timeout |
+| `sources` | `sourceId -> enabled` map |
+| `seedAfterComplete` | default seeding behavior |
+| `diskSpaceWarningMb` | minimum free space (MiB) flagged by `tornedo doctor` |
+| `recoveryAutoResume` | resume interrupted downloads automatically after a crash |
+| `ranking.*` | ranking weights (seeders, quality, health, size) |
+| `keybindings.*` | action -> key names (see `tornedo help`) |
+| `watchIntervalMs` | watch-mode poll interval |
+| `torznabProviders[]` | user-configured Torznab/Newznab endpoints (see below) |
+| `internetArchive` | Internet Archive provider settings (below) |
+
+### Torznab providers
+
+`torznabProviders` is an array of objects; each entry adds one source:
+
+```json
+{
+  "torznabProviders": [
+    {
+      "id": "prowlarr",
+      "name": "Prowlarr",
+      "baseUrl": "http://localhost:9117/api/v1",
+      "apiKey": "your-api-key",
+      "enabled": true,
+      "categories": ["Music", "Movie", "TV"],
+      "timeoutMs": 15000,
+      "priority": 1
+    }
+  ]
+}
+```
+
+| Field | Meaning |
+| --- | --- |
+| `id` | stable id (defaults to `torznab:<index>`) |
+| `name` | label shown in source lists |
+| `baseUrl` | base URL of the Torznab API (required) |
+| `apiKey` | `apikey` query param (empty for open endpoints) |
+| `enabled` | participates in searches |
+| `categories` | media categories to search (empty = whatever the endpoint reports) |
+| `timeoutMs` | per-request timeout (defaults to `sourceTimeoutMs`) |
+| `priority` | lower runs first when several providers are configured |
+
+`tornedo sources --check` fetches each endpoint's `?t=caps` and reports which
+query modes (`search` / `music` / `movie` / `tv`) it really supports.
+
+### Internet Archive
+
+```json
+{ "internetArchive": { "enabled": false, "timeoutMs": 15000, "maxResults": 30 } }
+```
+
+| Field | Meaning |
+| --- | --- |
+| `enabled` | participate in searches |
+| `timeoutMs` | per-request timeout |
+| `maxResults` | max items returned per search |
+
+Enable it with `tornedo config set internetArchive.enabled true`. Nested keys
+are settable as dotted paths; add/remove Torznab entries by editing
+`config.json` (arrays cannot be appended from the CLI).
+
+## Development
+
+```sh
+npm run typecheck    # strict TypeScript, no emit
+npm test             # unit + integration (fake sources, no network)
+npm run test:bench   # throughput benchmarks
+npm run build
+```
+
+The test suite never touches your real config or database (`TORNEDO_STATE_DIR`
+points at a temp directory). The search engine, download manager, and CLI are
+covered end-to-end with fake sources and a fake torrent client.
+
+## Architecture
+
+```
+src/
+  model/       domain types (search, torrent, source)
+  config/      config schema + OS paths
+  database/    SQLite schema, migrations, store
+  torrent/     TorrentClient abstraction, WebTorrent engine, parsing
+  downloads/   download manager (queue, scheduler, seeding, crash recovery)
+  sources/     source adapters + shared net/rss helpers
+  search/      federated search engine (fault-isolated, concurrent, retrying)
+  media/       query analysis, title/audio parsing, classification, entity building
+  results/     dedupe, ranking, grouping, filtering, sorting
+  diagnostics/ self-diagnostics used by `tornedo doctor`
+  app/         Application wiring + session-based search service
+  watch/       watch-mode service
+  cli/         commands + arg parsing
+  ui/          Ink/React terminal UI (views, components, key handling)
+```
+
+## License
+
+MIT. See [LICENSE](LICENSE) and [NOTICE](NOTICE).

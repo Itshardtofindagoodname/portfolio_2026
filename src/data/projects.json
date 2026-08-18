@@ -182,6 +182,151 @@
     "githubUrl": "https://github.com/Itshardtofindagoodname/Profi",
     "status": "IN DEVELOPMENT"
   },
+  "gitgud": {
+    "title": "GitGud",
+    "filename": "GitGud.md",
+    "ver": "VER 1.0.0",
+    "releaseType": "AI TOOLING RELEASE",
+    "marginalia": "AI-Fabricated GitHub Repository History Generator",
+    "intro": "GitGud is an AI-fabricated GitHub repository history generator. It dynamically creates commits and code structures using LLMs (Groq and Gemini) and publishes them directly to GitHub through the GitHub REST API, turning a blank repository into a realistic, backdated commit history in minutes.",
+    "introQuote": "History is written by whoever commits first — or, if you build GitGud, whoever generates the commits.",
+    "introIcon": "history_edu",
+    "stackTitle": "The Stack",
+    "stack": [
+      "Frontend: React, Vite",
+      "AI Clients: Groq & Gemini LLMs",
+      "GitHub REST API Integration",
+      "Git Object & Ref Management",
+      "Node.js Runtime"
+    ],
+    "metricsTitle": "Capability Metrics",
+    "metrics": [
+      "Full Repository History Fabrication",
+      "Empty-Repo Auto-Initialization",
+      "Preset & Custom Date Ranges",
+      "Multi-LLM Model Support"
+    ],
+    "capabilities": [
+      "Dynamic Code Generation: Automatically creates multi-file project concepts and writes complete, placeholder code using LLM clients.",
+      "Empty-Repository Initialization: Detects when a target GitHub repository has no commits, creates an initial empty commit, and bootstraps the branch before fabricating subsequent history.",
+      "Backdated & Custom Timestamps: Stamps every commit realistically with user-controlled distribution.",
+      "Date Range Selection: Choose preset ranges like Today, Last Week, Last Month, or Last Year, or provide explicit custom start and end dates."
+    ],
+    "whyBuilt": "GitHub profiles are judged at a glance by their contribution graphs and commit histories, yet meaningful repositories often start from a single commit. GitGud was built to explore how AI could synthesize believable repository histories — combining LLM-generated code with git object tooling to fabricate a living, timestamped codebase.",
+    "howItWorks": [
+      "Users authenticate with a GitHub token and configure Groq or Gemini API keys in the dashboard.",
+      "GitGud generates multi-file project concepts with complete working code using LLM clients.",
+      "The tool builds git tree objects, writes commits, and pushes them to the target repository via the GitHub REST API.",
+      "Commit timestamps are distributed across the selected date range for a realistic history."
+    ],
+    "architectureDiagram": "[ USER ]\n      |\n      v\n[ GITGUD DASHBOARD ]\n      |\n      v\n[ LLM CLIENTS ] --( code + concepts )--> [ REPO BUILDER ]\n      |\n      v\n[ GITHUB REST API ]\n      |\n      v\n[ TARGET REPOSITORY ]",
+    "learnt": [
+      "The Git object model is surprisingly approachable once you treat commits as graph nodes.",
+      "AI-generated code needs structure and validation before it becomes a believable repository.",
+      "Realistic defaults — timestamps, messages, branches — make synthetic output feel authentic."
+    ],
+    "githubUrl": "https://github.com/Itshardtofindagoodname/gitgud",
+    "status": "ACTIVE DEVELOPMENT"
+  },
+  "tornedo": {
+    "title": "Tornedo",
+    "filename": "Tornedo.md",
+    "ver": "VER 1.0.0",
+    "releaseType": "TERMINAL-NATIVE RELEASE",
+    "marginalia": "Local-First Federated Torrent Search & Download Client",
+    "intro": "Tornedo is a local-first, terminal-native, federated torrent search and download client. It queries many torrent sites at once, merges results into one clean, ranked, de-duplicated set, and downloads with a fast native engine — all without an account, a cloud, or any telemetry. State lives in a local SQLite database and survives restarts.",
+    "introQuote": "Search everything at once. Download with one keypress. Keep it all on your machine.",
+    "introIcon": "download",
+    "stackTitle": "The Stack",
+    "stack": [
+      "Runtime: Node.js >= 22",
+      "Language: TypeScript",
+      "TUI: Ink + React",
+      "Torrent Engine: WebTorrent",
+      "Storage: SQLite (WAL)",
+      "Source Adapters: Torznab, HTML Indexers, Internet Archive"
+    ],
+    "metricsTitle": "System Metrics",
+    "metrics": [
+      "10+ Built-in Torrent Sources",
+      "Fault-Isolated Federated Search",
+      "Crash Recovery With Resume",
+      "Configurable Keybindings & Flags"
+    ],
+    "capabilities": [
+      "Federated Search: every enabled source runs concurrently with its own timeout and fault isolation, so a slow or dead source never blocks the others; results stream in as each source settles.",
+      "Smart Results: titles parsed into structured metadata, identical torrents merged, deterministic ranking, and releases grouped by title/year/season with each quality as a variant.",
+      "Fast Downloads: WebTorrent engine behind a thin abstraction, persistent queue, resume support, per-torrent and global speed limits, and seeding.",
+      "Crash Recovery: a run marker in the SQLite database reconciles interrupted downloads on startup, preserving progress and re-verifying pieces.",
+      "Terminal UI: an Ink + React component-driven TUI with search, results filters, live source status, downloads, and a full action menu.",
+      "Headless Mode: everything the UI can do is available as commands with --json output.",
+      "Self-Diagnostics: tornedo doctor inspects config, database, disk, engine, network, DHT, trackers, and sources."
+    ],
+    "whyBuilt": "Torrent search usually means hopping between sketchy sites, dodging fake download buttons, and deduplicating results by hand. Tornedo was built to collapse that into a single terminal command — federating sources, merging duplicates, and downloading through one engine without ever sending data to a cloud.",
+    "howItWorks": [
+      "Users run a single search command that fans out to every enabled source concurrently.",
+      "Each source adapter normalizes and returns results, streamed in as they settle.",
+      "Results are parsed, deduplicated, deterministically ranked, and grouped by title, year, and season.",
+      "Selected torrents are queued into the WebTorrent engine with resume and seeding support."
+    ],
+    "architectureDiagram": "[ TORNEDO CLI ]\n       |\n       v\n[ FEDERATED SEARCH ]\n   |   |   |   \\\n  [YTS] [1337x] [Nyaa] ... [TORZNAB PROV]\n   \\   |   |   /\n       v\n[ RESULT ENGINE ]  -->  (parse, dedupe, rank, group)\n       |\n       v\n[ DOWNLOAD MANAGER ]\n       |\n       v\n[ WEBTORRENT ] + [ SQLITE STATE ]",
+    "learnt": [
+      "Fault isolation is what makes federated search trustworthy — one dead source must never sink the query.",
+      "A rich terminal UI is achievable with component frameworks when keybindings stay configurable.",
+      "Crash recovery earns trust more than any feature list when software manages long-running state."
+    ],
+    "githubUrl": "https://github.com/Itshardtofindagoodname/Tornedo",
+    "status": "ACTIVE DEVELOPMENT"
+  },
+  "cairn": {
+    "title": "Cairn",
+    "filename": "Cairn.md",
+    "ver": "VER 1.0.0",
+    "releaseType": "RESEARCH ENGINE RELEASE",
+    "marginalia": "Federated Dataset, Model, Paper & Code Search Engine",
+    "intro": "Cairn is a federated dataset, model, paper, and code search engine — Google for open data and ML. One search bar fans out to Hugging Face, arXiv, GitHub, Zenodo, Semantic Scholar, data.gov, OpenML, and Kaggle in parallel, streams results back live over SSE, ranks every result with an explainable multi-signal score, and gives each one a transparent Reproducibility Score.",
+    "introQuote": "One search bar, every open-data repository, ranked by whether it's actually worth downloading.",
+    "introIcon": "travel_explore",
+    "stackTitle": "The Stack",
+    "stack": [
+      "Framework: Next.js + React",
+      "Language: TypeScript",
+      "Streaming: SSE over fetch",
+      "Cache: SQLite + in-process LRU",
+      "UI: Radix UI + Framer Motion",
+      "AI: Groq (optional, Discuss mode)"
+    ],
+    "metricsTitle": "Engine Metrics",
+    "metrics": [
+      "8 Integrated Data Sources",
+      "Explainable 0-100 Reproducibility Score",
+      "TF-IDF Relevance Ranking",
+      "Cross-User Cached Insights (21d)"
+    ],
+    "capabilities": [
+      "Streaming Fan-Out: each source resolves independently in a Promise.allSettled fan-out over fetch-based SSE, so a slow or failing API never blocks the others.",
+      "Reproducibility Score: a transparent 0-100 score from metadata, license, liveness, and maintenance signals, with a hover breakdown of every component.",
+      "Ranking Engine: relevance (hand-implemented TF-IDF), authority (log10-scaled popularity), and recency (half-life decay) blended with explicit weights.",
+      "Dedupe & Merge: exact DOI/arXiv matches, Jaccard title overlap, and author overlap collapse duplicates into single cards.",
+      "Discuss Mode: optional Groq-powered intent expansion with a silent fallback to Basic mode when the AI is unavailable.",
+      "Provider Scope & Type Filters: server-side filtering persisted in the URL for shareable, instant searches."
+    ],
+    "whyBuilt": "Discovering open datasets and models means searching across fragmented repositories, then judging quality by gut feel. Cairn was built to make that a single action — fanning out across every major open-data source, streaming results live, and scoring each result's reproducibility transparently.",
+    "howItWorks": [
+      "A query fans out in parallel to every integrated source through a Next.js route handler.",
+      "Each source pushes its normalized, ranked results as they arrive via SSE.",
+      "Results are deduplicated, merged, and scored with the weighted ranking engine.",
+      "Every card displays a Reproducibility Score that settles as liveness and maintenance probes resolve."
+    ],
+    "architectureDiagram": "[ BROWSER ]\n     |\n     v\n[ /api/search  Next.js Route Handler ]\n     |   (Promise.allSettled fan-out)\n  +--+--+--+--+--+--+--+\n  |  |  |  |  |  |  |  |\n HF arXiv GH Zenodo SS data.gov OpenML Kaggle\n  |  |  |  |  |  |  |  |\n  +--+--+--+--+--+--+--+\n     |\n     v\n[ LRU ] -> [ SQLite Cache ]\n     |\n     v\n[ Rank / Dedupe / Repro Score ] -> SSE -> UI",
+    "learnt": [
+      "Live-streamed results change how users perceive speed — first bytes beat total bytes.",
+      "Transparency in scoring builds more trust than higher accuracy alone.",
+      "Hand-written algorithms can beat black-box ML for ranking when the signals are well-defined."
+    ],
+    "githubUrl": "https://github.com/Itshardtofindagoodname/Cairn",
+    "status": "ACTIVE DEVELOPMENT"
+  },
   "slash": {
     "title": "Slash",
     "filename": "Slash.md",

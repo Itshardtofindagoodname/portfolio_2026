@@ -74,7 +74,7 @@ function App() {
     >
       <LenisScrollBridge />
       <div className="app-shell flex flex-col">
-        {isLoaded && <Navbar />}
+        <Navbar />
 
         {activeProject ? (
           <ProjectDeepDive
@@ -85,9 +85,9 @@ function App() {
           />
         ) : (
           <>
-            <main className="home-page" id="home">
-              <HeroAnimation isLoaded={isLoaded} loadingDuration={0} />
-            </main>
+<main className="home-page" id="home">
+  <HeroAnimation />
+</main>
 
             {isLoaded && (
               <>
