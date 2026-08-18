@@ -47,7 +47,7 @@ Unsloth, LoRA, REST APIs, MongoDB, Netlify, technical SEO, Core Web Vitals.
 
 ## Links
 
-- Resume: [/debarjun-thakur-resume.txt](/debarjun-thakur-resume.txt)
+- Resume: [/Resume.pdf](/Resume.pdf)
 - GitHub: https://github.com/Itshardtofindagoodname
 - LinkedIn: https://in.linkedin.com/in/debarjun-thakur
 - Peerlist: https://peerlist.io/debarjunthakur

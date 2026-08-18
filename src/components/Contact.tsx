@@ -60,7 +60,7 @@ const Contact = () => {
           </p>
 
           <div className="flex flex-wrap gap-4">
-            <DoodleButton href="/debarjun-thakur-resume.txt" download variant="paper">
+            <DoodleButton href="/Resume.pdf" download variant="paper">
               Download Resume
               <span className="material-symbols-outlined text-lg">download</span>
             </DoodleButton>
