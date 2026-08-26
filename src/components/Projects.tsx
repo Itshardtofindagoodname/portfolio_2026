@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import DoodleButton from './DoodleButton'
 import VaraHoverText from './VaraHoverText'
 
@@ -13,6 +13,7 @@ const projects = [
     desc: 'AI-powered CLI that uses Groq, LLaMA 3, Mixtral, and BLIP to organize files, suggest commands, generate code, and ship as a packaged desktop-ready tool.',
     tags: ['PYTHON', 'GROQ API', 'LLAMA 3'],
     rotate: 'rotate-[-1.5deg]',
+    mobileRotate: 'sm:rotate-[-1.5deg] rotate-[-0.7deg]',
   },
   {
     title: 'GitGud',
@@ -22,6 +23,7 @@ const projects = [
     desc: 'AI-fabricated GitHub repository history generator that writes complete multi-file codebases with Groq and Gemini, then publishes realistic backdated commit histories via the GitHub API.',
     tags: ['REACT', 'GROQ', 'GEMINI'],
     rotate: 'rotate-[1.2deg]',
+    mobileRotate: 'sm:rotate-[1.2deg] rotate-[0.6deg]',
   },
   {
     title: 'Tornedo',
@@ -31,6 +33,7 @@ const projects = [
     desc: 'Local-first, terminal-native torrent search and download client that federates 10+ sources, dedupes and ranks results, and ships a crash-recovering WebTorrent engine.',
     tags: ['TYPESCRIPT', 'INK', 'WEBTORRENT'],
     rotate: 'rotate-[-0.8deg]',
+    mobileRotate: 'sm:rotate-[-0.8deg] rotate-[-0.4deg]',
   },
   {
     title: 'Profi',
@@ -40,6 +43,7 @@ const projects = [
     desc: 'Experimental workspace that turns raw ideas into actionable software plans with conversational AI, document ingestion, and structured project generation.',
     tags: ['REACT', 'VITE', 'TAILWIND'],
     rotate: 'rotate-[0.6deg]',
+    mobileRotate: 'sm:rotate-[0.6deg] rotate-[0.4deg]',
   },
   {
     title: 'Pragati',
@@ -49,6 +53,7 @@ const projects = [
     desc: 'Full-stack civic platform for Smart India Hackathon 2023, with complaint workflows, contractor management, REST APIs, MongoDB, and an AI assistant endpoint.',
     tags: ['NEXT.JS', 'MONGODB', 'REST API'],
     rotate: 'rotate-[-0.8deg]',
+    mobileRotate: 'sm:rotate-[-0.8deg] rotate-[-0.5deg]',
   },
   {
     title: 'Vaultify',
@@ -58,6 +63,7 @@ const projects = [
     desc: 'Secure document and asset-management frontend built with React and Tailwind, emphasizing accessible retrieval flows and scalable collaborative architecture.',
     tags: ['REACT', 'VITE', 'SECURITY'],
     rotate: 'rotate-[2deg] md:mt-12',
+    mobileRotate: 'sm:rotate-[2deg] rotate-[0.7deg]',
   },
   {
     title: 'Slash',
@@ -67,6 +73,7 @@ const projects = [
     desc: 'Browser-native game shipped without a game engine, using vanilla JavaScript, real-time input handling, a custom loop, and collision logic.',
     tags: ['JAVASCRIPT', 'HTML', 'CSS'],
     rotate: 'rotate-[-1.2deg] md:mt-12',
+    mobileRotate: 'sm:rotate-[-1.2deg] rotate-[-0.6deg]',
   },
   {
     title: 'Cairn',
@@ -76,6 +83,7 @@ const projects = [
     desc: 'Federated dataset, model, paper, and code search engine that fans out to 8 sources in parallel, streams results over SSE, and scores reproducibility transparently.',
     tags: ['NEXT.JS', 'SSE', 'TF-IDF'],
     rotate: 'rotate-[1.6deg] md:mt-12',
+    mobileRotate: 'sm:rotate-[1.6deg] rotate-[0.6deg]',
   },
 ]
 
@@ -111,27 +119,27 @@ const achievements = [
   {
     title: 'Smart India Hackathon 2023 - Runner-Up',
     desc: "Runner-up at one of Asia's most competitive hackathons, selected from more than 2 lakh teams.",
-    rot: 'rotate-[-1.5deg]',
+    rot: 'rotate-[-1.2deg] sm:rotate-[-1.5deg]',
   },
   {
     title: 'AI Unite Hackathon 2023 - Top 5',
     desc: "Ranked top 5 nationally and received a Master's scholarship plus AI-track recognition.",
-    rot: 'rotate-[2deg] ml-4',
+    rot: 'rotate-[1.2deg] sm:rotate-[2deg] sm:ml-4',
   },
   {
     title: 'International Hardware Model Making 2024 - Winner',
     desc: 'Won first place in an international hardware innovation competition.',
-    rot: 'rotate-[-2.5deg]',
+    rot: 'rotate-[-1.5deg] sm:rotate-[-2.5deg]',
   },
   {
     title: '10+ Additional Competition Wins',
     desc: 'Consistent placements across software, AI, and hardware competitions.',
-    rot: 'rotate-[1.5deg] ml-2',
+    rot: 'rotate-[1deg] sm:rotate-[1.5deg] sm:ml-2',
   },
   {
     title: 'Student Developer Community Lead - 3+ Years',
     desc: 'Founded and runs a student developer community focused on mentoring and open source.',
-    rot: 'rotate-[-3deg]',
+    rot: 'rotate-[-1.8deg] sm:rotate-[-3deg]',
   },
 ]
 
@@ -140,100 +148,136 @@ interface ProjectsProps {
 }
 
 const Projects = ({ onSelectProject }: ProjectsProps) => {
+  const shouldReduceMotion = useReducedMotion()
+
   return (
-    <section id="projects" className="paper-cut-section relative bg-white py-20 md:py-32 overflow-hidden border-y-2 border-black">
-      <div className="absolute top-40 left-0 opacity-10 pointer-events-none select-none -rotate-12">
-        <svg className="w-48 h-48" viewBox="0 0 100 100">
+    <section id="projects" className="paper-cut-section relative bg-white py-12 sm:py-16 md:py-20 lg:py-32 overflow-hidden border-y-2 border-black">
+      <div className="absolute top-40 left-0 opacity-10 pointer-events-none select-none -rotate-12 hidden sm:block">
+        <svg className="w-48 h-48" viewBox="0 0 100 100" aria-hidden="true">
           <path d="M10,10 Q50,90 90,10" fill="none" stroke="black" strokeWidth="1" />
         </svg>
       </div>
       <div className="absolute right-8 top-28 hidden font-handwriting text-3xl opacity-15 rotate-6 pointer-events-none select-none md:block">
         build / break / ship
       </div>
-      <svg className="absolute left-8 bottom-36 hidden h-24 w-48 opacity-15 pointer-events-none md:block" viewBox="0 0 180 80" fill="none">
+      <svg className="absolute left-8 bottom-36 hidden h-24 w-48 opacity-15 pointer-events-none md:block" viewBox="0 0 180 80" fill="none" aria-hidden="true">
         <path d="M8 42 C34 20 52 62 78 38 S122 14 164 45" stroke="black" strokeLinecap="round" strokeWidth="3" />
         <path d="M148 32 L166 45 L145 55" stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" />
       </svg>
 
-      <div className="max-w-7xl mx-auto w-full px-6 md:px-12 relative z-10">
-        <div className="flex flex-col md:flex-row items-baseline gap-4 mb-20 relative next-gen-reveal">
-          <h2 className="font-handwriting text-headline-xl text-5xl md:text-6xl marker-highlight leading-none">
-            <VaraHoverText text="Top 8 Projects" fontSize={44} />
+      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-12 relative z-10">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap md:flex-row items-start sm:items-baseline gap-2 sm:gap-4 mb-10 sm:mb-14 md:mb-20 relative">
+          <h2 className="font-handwriting text-headline-xl text-[2.1rem] xs:text-4xl sm:text-5xl md:text-6xl marker-highlight leading-none max-w-full break-words">
+            <span className="inline-block max-w-full overflow-hidden">
+              <VaraHoverText text="Top 8 Projects" fontSize={44} />
+            </span>
           </h2>
-          <span className="font-handwriting text-2xl text-primary/40">
+          <span className="font-handwriting text-lg sm:text-xl md:text-2xl text-primary/40 leading-tight">
             / shipped, hacked, tuned, repeated
           </span>
-          <div className="absolute -top-10 right-0 font-handwriting text-xl rotate-6 opacity-30 hidden md:block">
-            "Code goes here!"
+          <div className="absolute -top-10 right-0 font-handwriting text-xl rotate-6 opacity-30 hidden md:block pointer-events-none">
+            &quot;Code goes here!&quot;
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-32">
-          <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-12">
-            {projects.map((project, index) => (
-              <motion.article
-                key={project.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.5, delay: (index % 2) * 0.08 }}
-                className={`project-snippet next-gen-reveal p-6 relative bg-white flex flex-col h-full ${project.rotate}`}
-              >
-                {index % 2 === 0 ? <div className="tape-effect tape-tl" /> : <div className="tape-effect tape-tr" />}
-                <h3 className="font-headline-md text-2xl border-b-2 border-black pb-0.5 inline-block mb-2">
-                  {project.title}
-                </h3>
-                <span className="block font-handwriting text-lg text-primary mb-4 leading-tight">
-                  {project.marginalia}
-                </span>
-                <p className="font-handwriting text-xl text-primary mb-4 leading-tight">
-                  {project.desc}
-                </p>
-                <div className="flex flex-wrap gap-1.5 mb-6">
-                  {project.tags.map((tag, tagIndex) => (
-                    <span
-                      key={tag}
-                      className={`font-label-caps text-[9px] px-1.5 py-0.5 bg-black text-white ${
-                        tagIndex % 2 === 0 ? 'rotate-2' : '-rotate-1'
-                      }`}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 md:gap-12 items-start mb-16 sm:mb-20 md:mb-32">
+          <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 md:gap-12 min-w-0">
+            {projects.map((project, index) => {
+              // unique per-card toss vector: alternate X offset + rotate
+              const fromX = index % 2 === 0 ? -22 : 22
+              const targetRot = project.rotate.match(/-?[\d.]+/)?.[0] ?? '0'
+              return (
+                <motion.article
+                  key={project.title}
+                  initial={
+                    shouldReduceMotion
+                      ? { opacity: 0 }
+                      : { opacity: 0, y: 22, x: fromX, rotate: Number(targetRot) * 1.6, scale: 0.96 }
+                  }
+                  whileInView={{ opacity: 1, y: 0, x: 0, rotate: Number(targetRot), scale: 1 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={
+                    shouldReduceMotion
+                      ? { duration: 0.3, delay: (index % 2) * 0.06 }
+                      : {
+                          duration: 0.62,
+                          delay: (index % 3) * 0.07 + Math.floor(index / 2) * 0.04,
+                          ease: [0.22, 1, 0.32, 1],
+                        }
+                  }
+                  className={`project-snippet p-5 sm:p-6 relative bg-white flex flex-col h-full min-w-0 overflow-visible will-change-transform ${project.mobileRotate} ${project.rotate.includes('mt-12') ? '' : ''}`}
+                  style={{ transformOrigin: '50% 38%' }}
+                >
+                  {index % 2 === 0 ? <div className="tape-effect tape-tl" aria-hidden="true" /> : <div className="tape-effect tape-tr" aria-hidden="true" />}
+                  <h3 className="font-headline-md text-xl sm:text-2xl border-b-2 border-black pb-0.5 inline-block mb-2 self-start max-w-full break-words leading-tight">
+                    {project.title}
+                  </h3>
+                  <span className="block font-handwriting text-base sm:text-lg text-primary mb-3 sm:mb-4 leading-tight break-words">
+                    {project.marginalia}
+                  </span>
+                  <p className="font-handwriting text-lg sm:text-xl text-primary mb-4 leading-snug break-words">
+                    {project.desc}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 mb-5 sm:mb-6">
+                    {project.tags.map((tag, tagIndex) => (
+                      <span
+                        key={tag}
+                        className={`tag-pop font-label-caps text-[9px] sm:text-[10px] px-1.5 py-0.5 bg-black text-white ${tagIndex % 2 === 0 ? 'rotate-2' : '-rotate-1'}`}
+                        style={
+                          {
+                            ['--i' as string]: tagIndex,
+                            ['--tag-rot' as string]: tagIndex % 2 === 0 ? '2deg' : '-1deg',
+                          } as React.CSSProperties
+                        }
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="mt-auto flex justify-center pt-2">
+                    <button
+                      onClick={() => {
+                        onSelectProject?.(project.title.toLowerCase())
+                      }}
+                      className="scribble-button text-base sm:text-[1.25rem] touch-manipulation"
                     >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <div className="mt-auto flex justify-center">
-                  <button
-                    onClick={() => {
-                      onSelectProject?.(project.title.toLowerCase())
-                    }}
-                    className="scribble-button"
-                  >
-                    Understand Project
-                  </button>
-                </div>
-              </motion.article>
-            ))}
+                      Understand Project
+                    </button>
+                  </div>
+                </motion.article>
+              )
+            })}
           </div>
 
-          <aside className="lg:col-span-4 space-y-12">
+          <aside className="lg:col-span-4 space-y-8 sm:space-y-12 min-w-0">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: '-50px' }}
-              className="wiggly-border next-gen-reveal p-8 bg-white rotate-[1.5deg] relative shadow-md"
+              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96, rotate: 1.8, y: 10 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 1.5, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={shouldReduceMotion ? { duration: 0.3 } : { duration: 0.55, ease: [0.22, 1, 0.32, 1] }}
+              className="wiggly-border p-6 sm:p-8 bg-white rotate-[1deg] sm:rotate-[1.5deg] relative shadow-md min-w-0 overflow-visible will-change-transform"
             >
-              <div className="tape-effect tape-tr !bg-black/10" />
-              <h4 className="font-label-caps text-secondary mb-6 tracking-widest border-b-2 border-black pb-2">
+              <div className="tape-effect tape-tr !bg-black/10" aria-hidden="true" />
+              <h4 className="font-label-caps text-secondary mb-5 sm:mb-6 tracking-widest border-b-2 border-black pb-2 text-xs sm:text-sm">
                 HONOURABLE MENTIONS
               </h4>
-              <ul className="font-handwriting text-xl space-y-6">
-                {mentions.map((item) => (
-                  <li key={item.title} className="group">
-                    <div className="flex items-start gap-2">
-                      <span className="material-symbols-outlined mt-1 text-primary/70 text-base">edit</span>
-                      <div>
-                        <p className="font-bold leading-tight">{item.title}</p>
-                        <p className="font-handwriting text-base opacity-75 leading-snug mt-1">
+              <ul className="font-handwriting text-lg sm:text-xl space-y-5 sm:space-y-6">
+                {mentions.map((item, idx) => (
+                  <motion.li
+                    key={item.title}
+                    initial={shouldReduceMotion ? false : { opacity: 0, x: 8 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: '-30px' }}
+                    transition={{ duration: 0.38, delay: idx * 0.04, ease: [0.22, 1, 0.32, 1] }}
+                    className="group min-w-0"
+                  >
+                    <div className="flex items-start gap-2 min-w-0">
+                      <span className="material-symbols-outlined mt-1 text-primary/70 text-base shrink-0" aria-hidden="true">
+                        edit
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-bold leading-tight text-[1.05rem] sm:text-lg break-words">{item.title}</p>
+                        <p className="font-handwriting text-sm sm:text-base opacity-75 leading-snug mt-1 break-words">
                           {item.desc}
                         </p>
                         <DoodleButton
@@ -241,30 +285,30 @@ const Projects = ({ onSelectProject }: ProjectsProps) => {
                           target="_blank"
                           rel="noopener noreferrer"
                           variant="underline"
-                          className="!text-lg mt-2"
+                          className="!text-base sm:!text-lg mt-2"
                         >
                           View Repo
                         </DoodleButton>
                       </div>
                     </div>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
 
-              <div className="mt-10 pt-6 border-t-2 border-black border-dashed relative">
-                <p className="font-handwriting text-base opacity-90 leading-relaxed flex flex-wrap items-center gap-x-2 gap-y-3">
-                  If you want to see more on what I'm working on
-                  <span className="relative inline-flex min-h-16 min-w-36 items-center justify-center">
+              <div className="mt-8 sm:mt-10 pt-6 border-t-2 border-black border-dashed relative">
+                <p className="font-handwriting text-sm sm:text-base opacity-90 leading-relaxed flex flex-wrap items-center gap-x-2 gap-y-3 break-words">
+                  If you want to see more on what I&apos;m working on
+                  <span className="relative inline-flex min-h-14 min-w-32 sm:min-h-16 sm:min-w-36 items-center justify-center">
                     <DoodleButton
                       href={`${repoBase}?tab=repositories`}
                       target="_blank"
                       rel="noopener noreferrer"
                       variant="underline"
-                      className="click-here-button !text-xl z-10"
+                      className="click-here-button !text-lg sm:!text-xl z-10"
                     >
                       click here
                     </DoodleButton>
-                    <svg className="scribble-circle" preserveAspectRatio="none" viewBox="0 0 100 100">
+                    <svg className="scribble-circle" preserveAspectRatio="none" viewBox="0 0 100 100" aria-hidden="true">
                       <path
                         d="M10,50 C10,20 40,10 70,15 C100,20 95,60 80,85 C65,110 20,100 10,70 C0,40 30,20 60,25"
                         fill="none"
@@ -278,24 +322,26 @@ const Projects = ({ onSelectProject }: ProjectsProps) => {
               </div>
             </motion.div>
 
-            <div className="space-y-6">
-              <h4 className="font-headline-md marker-highlight text-2xl">
-                Achievements
-              </h4>
-              <div className="flex flex-col gap-6">
+            <div className="space-y-4 sm:space-y-6 min-w-0">
+              <h4 className="font-headline-md marker-highlight text-xl sm:text-2xl">Achievements</h4>
+              <div className="flex flex-col gap-4 sm:gap-6">
                 {achievements.map((item, index) => (
                   <motion.div
                     key={item.title}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: '-50px' }}
-                    transition={{ duration: 0.4, delay: index * 0.05 }}
-                    className={`award-sticker next-gen-reveal bg-white ${item.rot}`}
+                    initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: 14, rotate: Number(item.rot.match(/-?[\d.]+/)?.[0] ?? 0) * 0.7, scale: 0.97 }}
+                    whileInView={{ opacity: 1, x: 0, rotate: Number(item.rot.match(/-?[\d.]+/)?.[0] ?? 0), scale: 1 }}
+                    viewport={{ once: true, margin: '-30px' }}
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0.3, delay: index * 0.04 }
+                        : { duration: 0.52, delay: index * 0.06, ease: [0.22, 1, 0.32, 1] }
+                    }
+                    className={`award-sticker bg-white p-4 sm:p-[16px] min-w-0 will-change-transform ${item.rot}`}
                   >
-                    <p className="font-handwriting text-lg font-bold leading-tight">
+                    <p className="font-handwriting text-base sm:text-lg font-bold leading-tight break-words">
                       {item.title}
                     </p>
-                    <p className="font-handwriting text-base mt-2 opacity-80 leading-snug">
+                    <p className="font-handwriting text-sm sm:text-base mt-2 opacity-80 leading-snug break-words">
                       {item.desc}
                     </p>
                   </motion.div>
@@ -305,69 +351,69 @@ const Projects = ({ onSelectProject }: ProjectsProps) => {
           </aside>
         </div>
 
-        <div className="sketch-divider mb-20" />
+        <div className="sketch-divider mb-12 sm:mb-16 md:mb-20" aria-hidden="true" />
 
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6 }}
-          className="relative next-gen-reveal"
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.32, 1] }}
+          className="relative"
         >
-          <h2 className="font-headline-lg text-4xl md:text-5xl mb-16 marker-highlight">
+          <h2 className="font-headline-lg text-[1.9rem] xs:text-3xl sm:text-4xl md:text-5xl mb-8 sm:mb-12 md:mb-16 marker-highlight leading-tight max-w-full break-words">
             Professional Experience
           </h2>
-          <div className="relative pl-8 md:pl-12">
-            <div className="timeline-doodle" />
+          <div className="relative pl-6 sm:pl-8 md:pl-12 min-w-0">
+            <div className="timeline-doodle" aria-hidden="true" />
 
-            <div className="relative mb-20 group">
-              <div className="experience-number-marker absolute -left-[48px] md:-left-[60px] top-1 z-10">
+            <div className="relative mb-10 sm:mb-14 md:mb-20 group min-w-0">
+              <div className="experience-number-marker absolute -left-[28px] sm:-left-[38px] md:-left-[60px] top-1 z-10 text-[10px] sm:text-xs">
                 01
               </div>
-              <div className="index-card p-10 rotate-[-0.5deg] bg-white relative">
-                <div className="flex flex-col md:flex-row justify-between items-start mb-6 gap-4">
-                  <div>
-                    <h3 className="font-headline-md text-2xl text-primary">Raen AI</h3>
-                    <p className="font-handwriting text-2xl text-secondary">
+              <div className="index-card p-5 sm:p-8 md:p-10 rotate-[-0.3deg] sm:rotate-[-0.5deg] bg-white relative min-w-0 overflow-hidden">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-5 sm:mb-6 gap-3 sm:gap-4 min-w-0">
+                  <div className="min-w-0">
+                    <h3 className="font-headline-md text-xl sm:text-2xl text-primary leading-tight break-words">Raen AI</h3>
+                    <p className="font-handwriting text-xl sm:text-2xl text-secondary leading-tight break-words">
                       Frontend Developer
                     </p>
                   </div>
-                  <span className="font-label-caps px-4 py-2 bg-black text-white rotate-2 border-2 border-black text-xs">
+                  <span className="font-label-caps px-3 sm:px-4 py-1.5 sm:py-2 bg-black text-white rotate-1 sm:rotate-2 border-2 border-black text-[10px] sm:text-xs shrink-0 self-start tracking-widest leading-none">
                     MAY 2024 - PRESENT
                   </span>
                 </div>
-                <p className="font-body-lg text-secondary max-w-3xl leading-relaxed mb-5">
-                  Primary frontend engineer for Raen AI's web presence, spanning marketing pages,
+                <p className="font-body-lg text-secondary max-w-3xl leading-relaxed mb-4 sm:mb-5 text-[15px] sm:text-base break-words">
+                  Primary frontend engineer for Raen AI&apos;s web presence, spanning marketing pages,
                   product interfaces, and internal platforms. Owns technical SEO, performance,
-                  semantic structure, Core Web Vitals, and responsive delivery across the company's
+                  semantic structure, Core Web Vitals, and responsive delivery across the company&apos;s
                   web properties.
                 </p>
-                <ul className="font-handwriting text-xl leading-tight grid md:grid-cols-2 gap-3 max-w-4xl">
-                  <li className="border-l-2 border-black pl-3">Drove brand SEO to the #1 Google result.</li>
-                  <li className="border-l-2 border-black pl-3">Led GarageView CRM frontend through production release.</li>
-                  <li className="border-l-2 border-black pl-3">Built auth flows and real-time data interfaces.</li>
-                  <li className="border-l-2 border-black pl-3">Optimized load time, assets, rendering, and responsiveness.</li>
+                <ul className="font-handwriting text-lg sm:text-xl leading-tight grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 max-w-4xl">
+                  <li className="border-l-2 border-black pl-3 break-words">Drove brand SEO to the #1 Google result.</li>
+                  <li className="border-l-2 border-black pl-3 break-words">Led GarageView CRM frontend through production release.</li>
+                  <li className="border-l-2 border-black pl-3 break-words">Built auth flows and real-time data interfaces.</li>
+                  <li className="border-l-2 border-black pl-3 break-words">Optimized load time, assets, rendering, and responsiveness.</li>
                 </ul>
               </div>
             </div>
 
-            <div className="relative group">
-              <div className="experience-number-marker absolute -left-[48px] md:-left-[60px] top-1 z-10">
+            <div className="relative group min-w-0">
+              <div className="experience-number-marker absolute -left-[28px] sm:-left-[38px] md:-left-[60px] top-1 z-10 text-[10px] sm:text-xs">
                 02
               </div>
-              <div className="index-card p-10 rotate-[0.3deg] bg-white">
-                <div className="flex flex-col md:flex-row justify-between items-start mb-6 gap-4">
-                  <div>
-                    <h3 className="font-headline-md text-2xl text-primary">Freelance Software Developer</h3>
-                    <p className="font-handwriting text-2xl text-secondary">
+              <div className="index-card p-5 sm:p-8 md:p-10 rotate-[0.2deg] sm:rotate-[0.3deg] bg-white min-w-0 overflow-hidden">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-5 sm:mb-6 gap-3 sm:gap-4 min-w-0">
+                  <div className="min-w-0">
+                    <h3 className="font-headline-md text-lg sm:text-2xl text-primary leading-tight break-words">Freelance Software Developer</h3>
+                    <p className="font-handwriting text-lg sm:text-2xl text-secondary leading-tight break-words">
                       Web, Software &amp; Client Delivery
                     </p>
                   </div>
-                  <span className="font-label-caps px-4 py-2 bg-black text-white -rotate-1 border-2 border-black text-xs">
+                  <span className="font-label-caps px-3 sm:px-4 py-1.5 sm:py-2 bg-black text-white -rotate-1 border-2 border-black text-[10px] sm:text-xs shrink-0 self-start tracking-widest leading-none">
                     2023 - MAY 2024
                   </span>
                 </div>
-                <p className="font-body-lg text-secondary max-w-3xl leading-relaxed">
+                <p className="font-body-lg text-secondary max-w-3xl leading-relaxed text-[15px] sm:text-base break-words">
                   Delivered end-to-end web and software projects for businesses and NGOs, covering
                   requirements, scoping, development, testing, and handoff while managing concurrent
                   client codebases independently.

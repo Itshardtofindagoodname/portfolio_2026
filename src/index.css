@@ -873,12 +873,183 @@ a[class*="border-b"]:hover {
   to { stroke-dashoffset: 0; }
 }
 
-.markdown-content h1 { font-family: var(--font-headline-xl); font-size: 48px; font-weight: 800; margin-bottom: 1rem; margin-top: 2rem; border-bottom: 2px solid black; display: inline-block; }
-.markdown-content h2 { font-family: var(--font-headline-lg); font-size: 32px; font-weight: 700; margin-bottom: 1rem; margin-top: 3rem; }
-.markdown-content h3 { font-family: var(--font-headline-md); font-size: 24px; font-weight: 700; margin-bottom: 0.5rem; margin-top: 2rem; }
-.markdown-content p { font-family: var(--font-body-md); font-size: 18px; line-height: 1.6; margin-bottom: 1.5rem; }
+.markdown-content h1 { font-family: var(--font-headline-xl); font-size: clamp(1.75rem, 6vw, 3rem); font-weight: 800; margin-bottom: 1rem; margin-top: 2rem; border-bottom: 2px solid black; display: inline-block; line-height: 1; word-break: break-word; }
+.markdown-content h2 { font-family: var(--font-headline-lg); font-size: clamp(1.35rem, 4.5vw, 2rem); font-weight: 700; margin-bottom: 1rem; margin-top: 2.25rem; line-height: 1.15; }
+.markdown-content h3 { font-family: var(--font-headline-md); font-size: clamp(1.05rem, 3.8vw, 1.5rem); font-weight: 700; margin-bottom: 0.5rem; margin-top: 1.5rem; line-height: 1.2; }
+.markdown-content p { font-family: var(--font-body-md); font-size: clamp(0.95rem, 2.8vw, 1.125rem); line-height: 1.65; margin-bottom: 1.25rem; overflow-wrap: anywhere; }
 .markdown-content ul { list-style-type: none; margin-bottom: 1.5rem; }
-.markdown-content li { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; }
+.markdown-content li { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; overflow-wrap: anywhere; }
 .markdown-content li::before { content: "→"; position: absolute; left: 0; }
 .markdown-content blockquote { border-left: 4px solid black; padding-left: 1.5rem; font-style: italic; margin: 2rem 0; opacity: 0.8; }
 .markdown-content code { background: #f0f0f0; padding: 2px 4px; border-radius: 4px; font-size: 0.9em; }
+
+/* ── ProjectDeepDive mobile fixes ── */
+@media (max-width: 640px) {
+  .paper-texture.wiggly-border {
+    border-radius: 14px 10px 16px 12px / 12px 16px 10px 14px;
+  }
+  .tape-tl { left: -8px; }
+  .tape-tr { right: -8px; }
+  .tape-bl { left: -6px; }
+  .tape-br { right: -6px; }
+}
+
+/* ── Senior animations — DeepDive (GPU-only: transform/opacity) ── */
+/* 1) Paper unfold: clip reveal via scaleY origin top + opacity, driven by framer in JS; CSS fallback */
+@keyframes paperTapeFlutter {
+  0%, 100% { transform: translateX(-50%) rotate(-3deg); }
+  25% { transform: translateX(-50%) rotate(-5deg) translateY(-1px); }
+  75% { transform: translateX(-50%) rotate(-1deg) translateY(1px); }
+}
+.tape-tl { animation: tapeSideFlutter 5.2s ease-in-out infinite; }
+.tape-tr { animation: tapeSideFlutter2 6s ease-in-out infinite; }
+.tape-bl, .tape-br { animation: tapeSideFlutter 7s ease-in-out infinite; }
+@keyframes tapeSideFlutter {
+  0%, 100% { transform: rotate(-45deg) translateY(0); }
+  50% { transform: rotate(-44deg) translateY(-2px); }
+}
+@keyframes tapeSideFlutter2 {
+  0%, 100% { transform: rotate(45deg) translateY(0); }
+  50% { transform: rotate(46deg) translateY(-2px); }
+}
+
+/* 2) Section h2 ink underline sweep */
+.deepdive-section-heading {
+  position: relative;
+  display: inline-block;
+}
+.deepdive-section-heading::after {
+  content: '';
+  position: absolute;
+  left: -4px;
+  right: -6px;
+  bottom: -6px;
+  height: 9px;
+  background: linear-gradient(90deg, #ffd23f 0%, #ffd23f 68%, transparent 100%);
+  opacity: 0.95;
+  transform: scaleX(0);
+  transform-origin: left;
+  mask-image: url("data:image/svg+xml,%3Csvg width='200' height='10' viewBox='0 0 200 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 5 Q 10 0 20 5 T 40 5 T 60 5 T 80 5 T 100 5 T 120 5 T 140 5 T 160 5 T 180 5 T 200 5' stroke='black' stroke-width='3' fill='none'/%3E%3C/svg%3E");
+  mask-size: 200px 9px;
+  mask-repeat: repeat-x;
+  transition: transform 0.7s cubic-bezier(0.19,1,0.22,1);
+}
+.deepdive-section-heading.is-visible::after {
+  transform: scaleX(1);
+}
+/* fallback: if no observer, show after delay */
+@keyframes inkSweepIn {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* 3) Architecture line stagger (JS sets delay via --i) */
+.arch-line {
+  display: block;
+  opacity: 0;
+  transform: translateY(6px);
+  animation: archLineIn 0.42s cubic-bezier(0.22,1,0.32,1) forwards;
+  animation-delay: calc(var(--i, 0) * 38ms + 120ms);
+  will-change: transform, opacity;
+}
+@keyframes archLineIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 4) Quote stamp — hand-drawn dash border draw */
+.quote-stamp {
+  position: relative;
+}
+.quote-stamp::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border: 2px dashed transparent;
+  border-radius: 2px;
+  opacity: 0;
+  background: linear-gradient(white, white) padding-box,
+              repeating-linear-gradient(90deg, black 0 6px, transparent 6px 10px) border-box;
+  mask: linear-gradient(#fff 0 0);
+  animation: quoteBorderIn 0.9s ease 0.6s forwards;
+}
+@keyframes quoteBorderIn {
+  0% { opacity: 0; clip-path: inset(0 100% 0 0); }
+  100% { opacity: 0.55; clip-path: inset(0 0 0 0); }
+}
+
+/* 5) Capabilities arrow nudge */
+.cap-item::before {
+  transition: transform 0.25s cubic-bezier(0.22,1,0.32,1);
+}
+.cap-item:hover::before {
+  transform: translateX(3px);
+}
+
+/* 6) Wiggly border micro-wobble on paper hover (desktop only) */
+@media (hover: hover) and (min-width: 768px) {
+  .paper-unfold:hover {
+    transform: rotate(0.15deg);
+    transition: transform 0.45s cubic-bezier(0.22,1,0.32,1);
+  }
+}
+
+/* 7) Status badge — compass rose pulse (transform only) */
+.status-badge {
+  position: relative;
+}
+.status-badge::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border: 1.5px solid black;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  opacity: 0.12;
+  transform: scale(0.96) rotate(-1deg);
+  animation: statusPulse 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes statusPulse {
+  0%, 100% { transform: scale(0.96) rotate(-1deg); opacity: 0.10; }
+  50% { transform: scale(1.04) rotate(1deg); opacity: 0.18; }
+}
+
+/* 8) Projects listing — paper toss landing */
+@keyframes cardTapeSettle {
+  0% { transform: rotate(-38deg) scale(1.08); }
+  60% { transform: rotate(-37deg) scale(1.02); }
+  100% { transform: rotate(-38deg) scale(1); }
+}
+.project-snippet .tape-effect {
+  will-change: transform;
+}
+
+/* staggered tag pop */
+.tag-pop {
+  animation: tagPopIn 0.45s cubic-bezier(0.22,1,0.32,1) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+@keyframes tagPopIn {
+  0% { opacity: 0; transform: translateY(6px) rotate(var(--tag-rot, 0deg)) scale(0.92); }
+  100% { opacity: 1; transform: translateY(0) rotate(var(--tag-rot, 0deg)) scale(1); }
+}
+
+/* achievements peel shadow drift */
+.award-sticker {
+  will-change: transform;
+}
+
+/* disable heavy anim on reduced motion or low-end via class */
+@media (prefers-reduced-motion: reduce) {
+  .tape-tl, .tape-tr, .tape-bl, .tape-br,
+  .arch-line, .tag-pop, .status-badge::after,
+  .quote-stamp::before {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .deepdive-section-heading::after { transform: scaleX(1) !important; }
+}
+@media (max-width: 480px) {
+  /* reduce motion cost on very small screens: keep but slower */
+  .tape-tl, .tape-tr, .tape-bl, .tape-br { animation-duration: 8s !important; }
+}
