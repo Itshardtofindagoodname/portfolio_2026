@@ -121,7 +121,7 @@ function App() {
             )}
 
             {!isLoaded && (
-              <PixelPreloader onComplete={() => setIsLoaded(true)} />
+              <PixelPreloader onComplete={() => setIsLoaded(true)} tileSize={72} />
             )}
           </>
         )}

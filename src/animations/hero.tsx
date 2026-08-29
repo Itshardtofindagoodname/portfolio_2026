@@ -2,24 +2,6 @@ import { gsap } from 'gsap'
 import { useEffect, useRef } from 'react'
 import allPeepsImage from '../assets/all-peeps.png'
 
-// Decide how heavy the crowd should be based on the device's muscle, so we
-// never turn the page into a slideshow on a weak machine.
-function pickVariant(): 0 | 1 | 2 {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return 0
-  const nav = navigator as unknown as {
-    deviceMemory?: number
-    hardwareConcurrency?: number
-  }
-  const memory = nav.deviceMemory
-  const cores = nav.hardwareConcurrency
-  const dpr = Math.min(window.devicePixelRatio || 1, 2)
-  if ((memory && memory < 4) || (cores && cores <= 4)) return 0
-  return dpr > 1.25 ? 2 : 1
-}
-
-const VARIANT_ROWS: Record<0 | 1 | 2, number> = { 0: 0, 1: 15, 2: 18 }
-const VARIANT_COLS: Record<0 | 1 | 2, number> = { 0: 0, 1: 7, 2: 8 }
-
 interface CrowdCanvasProps {
   src: string
   rows?: number
@@ -63,15 +45,10 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
     const canvas = canvasRef.current
     if (!canvas) return
 
-    // -- adaptive crowd size (0 = disabled on weak machines / reduced motion)
-    const variant = pickVariant()
-    if (variant === 0) return
-    const effectiveRows = VARIANT_ROWS[variant]
-    const effectiveCols = VARIANT_COLS[variant]
     const config = {
       src,
-      rows: effectiveRows,
-      cols: effectiveCols,
+      rows,
+      cols,
     }
 
     const ctx = canvas.getContext('2d')

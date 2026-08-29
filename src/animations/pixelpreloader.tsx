@@ -155,9 +155,6 @@ export function PixelPreloader({
             transform: translate3d(var(--tx), var(--ty), 0) scale(0.88) rotate(var(--r));
           }
         }
-        @media (prefers-reduced-motion: reduce) {
-          .pp-tile { animation: none !important; opacity: 0 !important; }
-        }
       `}</style>
     </div>
   )
