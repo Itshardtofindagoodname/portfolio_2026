@@ -23,10 +23,6 @@ const Reading = () => {
         <div className="absolute right-8 top-10 hidden font-handwriting text-3xl opacity-15 rotate-6 pointer-events-none select-none md:block">
           margins are for side quests
         </div>
-        <svg className="absolute left-8 bottom-14 hidden h-20 w-40 opacity-15 pointer-events-none md:block" viewBox="0 0 150 70" fill="none">
-          <path d="M8 38 C30 12 52 58 78 34 S118 18 142 42" stroke="black" strokeLinecap="round" strokeWidth="3" />
-          <path d="M126 31 L142 42 L124 52" stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" />
-        </svg>
 
         <main className="flex-grow z-10 relative px-4 md:px-margin-page py-10 md:py-14 max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-y-10 md:gap-x-20">
           <div className="col-span-1 md:col-span-12 mb-6 md:mb-8 relative next-gen-reveal overflow-hidden">

@@ -5,13 +5,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Favicons / Icons — Google Search compliant (48x48 multiple, crawlable, stable) -->
-  <link rel="icon" href="/favicon.ico" sizes="any" />
-  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <!-- Favicons / Icons — Google-favourable: multi-size .ico + crisp PNG (SVG icons are ignored by Google) -->
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
   <link rel="icon" type="image/png" sizes="480x480" href="/dt.png" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="apple-touch-icon" href="/dt.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/dt.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="manifest" href="/site.webmanifest" />
 
   <!-- Google Tag Manager -->
@@ -44,6 +45,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="application-name" content="Debarjun Thakur" />
   <meta name="apple-mobile-web-app-title" content="Debarjun Thakur" />
   <meta name="theme-color" content="#ffffff" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="referrer" content="origin-when-cross-origin" />
   <link rel="canonical" href="https://debarjun.vercel.app/" />
   <link rel="alternate" hreflang="en" href="https://debarjun.vercel.app/" />
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
@@ -76,15 +79,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="twitter:image" content="https://debarjun.vercel.app/standing_out.png" />
   <meta name="twitter:image:alt" content="Debarjun Thakur standing out from the crowd" />
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts (loaded async so they never block first paint) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;600;700&family=Caveat:wght@400..700&family=Dancing+Script:wght@400;700&display=swap"
-    rel="stylesheet" />
+    rel="stylesheet"
+    media="print"
+    onload="this.media='all'" />
   <!-- Material Symbols -->
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-    rel="stylesheet" />
+    rel="stylesheet"
+    media="print"
+    onload="this.media='all'" />
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;600;700&family=Caveat:wght@400..700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet" />
+  </noscript>
 
   <!-- Structured data: Person / WebSite / ProfilePage / Breadcrumb / Projects (AEO) -->
   <script type="application/ld+json">

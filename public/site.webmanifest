@@ -4,15 +4,27 @@
   "description": "Portfolio of Debarjun Thakur, Frontend Developer and AI Systems Builder",
   "icons": [
     {
-      "src": "/dt.png",
-      "sizes": "480x480",
+      "src": "/favicon-96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "/dt.png",
+      "sizes": "480x480",
+      "type": "image/png",
       "purpose": "any"
     }
   ],

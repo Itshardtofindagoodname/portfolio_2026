@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 export interface PixelPreloaderProps {
@@ -15,6 +14,7 @@ type TileSpec = {
 
 const OVERLAY_COLOR = '#ffffff'
 const GRID_STROKE = '#e0e0e0'
+const MAX_TILES = 120
 
 function createTileSpecs(totalTiles: number) {
   const indices = Array.from({ length: totalTiles }, (_, index) => index)
@@ -31,7 +31,6 @@ function createTileSpecs(totalTiles: number) {
 
   indices.forEach((tileIndex, order) => {
     specs[tileIndex] = {
-      // Sped up grid animation delays
       delay: (order / totalTiles) * 0.42,
       x: (Math.random() - 0.5) * 28,
       y: (Math.random() - 0.5) * 28,
@@ -42,88 +41,33 @@ function createTileSpecs(totalTiles: number) {
   return specs
 }
 
-function StaticGrid({ columns, rows }: { columns: number; rows: number }) {
-  return (
-    <div
-      style={{
-        position: 'absolute',
-        inset: 0,
-        display: 'grid',
-        gridTemplateColumns: `repeat(${columns}, 1fr)`,
-        gridTemplateRows: `repeat(${rows}, 1fr)`,
-      }}
-    >
-      {Array.from({ length: columns * rows }, (_, index) => (
-        <div
-          key={index}
-          style={{
-            width: '100%',
-            height: '100%',
-            backgroundColor: OVERLAY_COLOR,
-            border: `1px solid ${GRID_STROKE}`,
-          }}
-        />
-      ))}
-    </div>
-  )
-}
-
-function RevealTile({
-  spec,
-  onDone,
-}: {
-  spec: TileSpec
-  onDone: () => void
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 1, scale: 1, x: 0, y: 0, rotate: 0 }}
-      animate={{
-        opacity: 0,
-        scale: 0.88,
-        x: spec.x,
-        y: spec.y,
-        rotate: spec.rotate,
-      }}
-      transition={{
-        // Sped up tile fade-out duration
-        duration: 0.42,
-        ease: [0.22, 1, 0.36, 1],
-        delay: spec.delay,
-      }}
-      onAnimationComplete={onDone}
-      style={{
-        width: '100%',
-        height: '100%',
-        backgroundColor: OVERLAY_COLOR,
-        border: `1px solid ${GRID_STROKE}`,
-        willChange: 'transform, opacity',
-      }}
-    />
-  )
-}
-
 export function PixelPreloader({
   onComplete,
-  tileSize = 84,
+  tileSize = 96,
 }: PixelPreloaderProps) {
-  const tileCompletionRef = useRef(0)
+  const reportedRef = useRef(false)
   const [revealing, setRevealing] = useState(false)
 
-  const { columns, rows, totalTiles } = useMemo(() => {
+  const spec = useMemo(() => {
     if (typeof window === 'undefined') {
-      return { columns: 14, rows: 10, totalTiles: 140 }
+      return { columns: 12, rows: 10, totalTiles: 120 }
     }
-
-    const computedColumns = Math.min(Math.ceil(window.innerWidth / tileSize), 24)
-    const computedRows = Math.min(Math.ceil(window.innerHeight / tileSize), 16)
-
-    return {
-      columns: computedColumns,
-      rows: computedRows,
-      totalTiles: computedColumns * computedRows,
+    const computedColumns = Math.min(
+      Math.ceil(window.innerWidth / tileSize),
+      16,
+    )
+    const computedRows = Math.min(
+      Math.ceil(window.innerHeight / tileSize),
+      12,
+    )
+    let totalTiles = computedColumns * computedRows
+    if (totalTiles > MAX_TILES) {
+      totalTiles = MAX_TILES
     }
+    return { columns: computedColumns, rows: computedRows, totalTiles }
   }, [tileSize])
+
+  const { columns, rows, totalTiles } = spec
 
   const tileSpecs = useMemo(() => createTileSpecs(totalTiles), [totalTiles])
 
@@ -131,17 +75,27 @@ export function PixelPreloader({
     const timer = setTimeout(() => {
       setRevealing(true)
     }, 200)
-
     return () => clearTimeout(timer)
   }, [])
 
-  const handleTileDone = () => {
-    tileCompletionRef.current += 1
-
-    if (tileCompletionRef.current >= totalTiles) {
-      onComplete?.()
+  // Cheap, pure-CSS reveal: no per-tile JS animation loop, so it stays smooth
+  // on low-end phones. Completion is driven by a simple duration, which is
+  // robust and runs independently of animation frame timing.
+  useEffect(() => {
+    if (!revealing) return
+    const lastDelay = tileSpecs.length ? tileSpecs[tileSpecs.length - 1].delay : 0
+    const doneAt = (lastDelay + 0.42) * 1000 + 60
+    const timer = window.setTimeout(() => {
+      if (!reportedRef.current) {
+        reportedRef.current = true
+        onComplete?.()
+      }
+    }, doneAt)
+    return () => {
+      window.clearTimeout(timer)
+      reportedRef.current = false
     }
-  }
+  }, [revealing, onComplete, tileSpecs])
 
   return (
     <div
@@ -152,25 +106,59 @@ export function PixelPreloader({
         zIndex: 9999,
         overflow: 'hidden',
         pointerEvents: 'auto',
+        backgroundColor: OVERLAY_COLOR,
       }}
     >
-      {revealing ? (
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            display: 'grid',
-            gridTemplateColumns: `repeat(${columns}, 1fr)`,
-            gridTemplateRows: `repeat(${rows}, 1fr)`,
-          }}
-        >
-          {tileSpecs.map((spec, index) => (
-            <RevealTile key={index} spec={spec} onDone={handleTileDone} />
-          ))}
-        </div>
-      ) : (
-        <StaticGrid columns={columns} rows={rows} />
-      )}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          display: 'grid',
+          gridTemplateColumns: `repeat(${columns}, 1fr)`,
+          gridTemplateRows: `repeat(${rows}, 1fr)`,
+        }}
+      >
+        {tileSpecs.map((t, index) => (
+          <div
+            key={index}
+            data-tile={index}
+            className="pp-tile"
+            style={
+              {
+                ['--i' as string]: index,
+                ['--d' as string]: `${t.delay}s`,
+                ['--tx' as string]: `${t.x}px`,
+                ['--ty' as string]: `${t.y}px`,
+                ['--r' as string]: `${t.rotate}deg`,
+                backgroundColor: OVERLAY_COLOR,
+                border: `1px solid ${GRID_STROKE}`,
+              } as React.CSSProperties
+            }
+          />
+        ))}
+      </div>
+      <style>{`
+        .pp-tile {
+          width: 100%;
+          height: 100%;
+          opacity: 1;
+          transform: none;
+          will-change: transform, opacity;
+        }
+        .pp-tile {
+          animation: ppReveal 0.42s cubic-bezier(0.22,1,0.36,1) var(--d) forwards;
+        }
+        @keyframes ppReveal {
+          from { opacity: 1; transform: translate3d(0,0,0) scale(1) rotate(0deg); }
+          to {
+            opacity: 0;
+            transform: translate3d(var(--tx), var(--ty), 0) scale(0.88) rotate(var(--r));
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .pp-tile { animation: none !important; opacity: 0 !important; }
+        }
+      `}</style>
     </div>
   )
 }

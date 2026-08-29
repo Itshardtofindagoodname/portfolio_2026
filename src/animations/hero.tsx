@@ -2,6 +2,24 @@ import { gsap } from 'gsap'
 import { useEffect, useRef } from 'react'
 import allPeepsImage from '../assets/all-peeps.png'
 
+// Decide how heavy the crowd should be based on the device's muscle, so we
+// never turn the page into a slideshow on a weak machine.
+function pickVariant(): 0 | 1 | 2 {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return 0
+  const nav = navigator as unknown as {
+    deviceMemory?: number
+    hardwareConcurrency?: number
+  }
+  const memory = nav.deviceMemory
+  const cores = nav.hardwareConcurrency
+  const dpr = Math.min(window.devicePixelRatio || 1, 2)
+  if ((memory && memory < 4) || (cores && cores <= 4)) return 0
+  return dpr > 1.25 ? 2 : 1
+}
+
+const VARIANT_ROWS: Record<0 | 1 | 2, number> = { 0: 0, 1: 15, 2: 18 }
+const VARIANT_COLS: Record<0 | 1 | 2, number> = { 0: 0, 1: 7, 2: 8 }
+
 interface CrowdCanvasProps {
   src: string
   rows?: number
@@ -45,14 +63,19 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
     const canvas = canvasRef.current
     if (!canvas) return
 
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
+    // -- adaptive crowd size (0 = disabled on weak machines / reduced motion)
+    const variant = pickVariant()
+    if (variant === 0) return
+    const effectiveRows = VARIANT_ROWS[variant]
+    const effectiveCols = VARIANT_COLS[variant]
     const config = {
       src,
-      rows,
-      cols,
+      rows: effectiveRows,
+      cols: effectiveCols,
     }
+
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
 
     // UTILS
     const randomRange = (min: number, max: number) =>
@@ -279,6 +302,11 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
       createPeeps()
       resize()
       gsap.ticker.add(render)
+      // a peep only continues swapping when we're actually in view; once the
+      // crowd fills the stage it stays idle on-screen.
+      crowd.forEach((p) => {
+        if (p.walk) p.walk.timeScale(1).progress(0.05 + Math.random() * 0.3)
+      })
     }
 
     img.onload = init
@@ -287,7 +315,29 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
     const handleResize = () => resize()
     window.addEventListener('resize', handleResize)
 
+    // Pause expensive sprite animation whenever the hero scrolls out of view.
+    // This is the single biggest win for battery + low-end devices.
+    let isVisible = true
+    let paused = false
+    const togglePause = () => {
+      const shouldPause = !isVisible
+      if (shouldPause === paused) return
+      paused = shouldPause
+      crowd.forEach((p) => (shouldPause ? p.walk?.pause() : p.walk?.resume()))
+      if (shouldPause) gsap.ticker.remove(render)
+      else gsap.ticker.add(render)
+    }
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting
+        togglePause()
+      },
+      { rootMargin: '300px 0px' },
+    )
+    io.observe(canvas)
+
     return () => {
+      io.disconnect()
       window.removeEventListener('resize', handleResize)
       gsap.ticker.remove(render)
       crowd.forEach((peep) => {
@@ -399,10 +449,12 @@ const HeroAnimation = () => {
         `}
       </style>
       <div className="absolute inset-x-0 bottom-0 h-full overflow-hidden">
-        {/* standing_out guy behind crowd */}
+        {/* standing_out guy behind crowd (webp is ~98% lighter than the png) */}
         <img
-          src="/standing_out.png"
+          src="/standing_out.webp"
           alt="Standing out from the crowd"
+          decoding="async"
+          fetchPriority="low"
           className="absolute left-1/2 -translate-x-1/2 object-contain pointer-events-none select-none standing-out-image"
           style={{
             bottom: '120px',

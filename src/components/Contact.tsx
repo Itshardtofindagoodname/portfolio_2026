@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import DoodleButton from './DoodleButton'
 import VaraHoverText from './VaraHoverText'
-import contactUsImage from '../assets/contact_us.png'
+import contactUsImage from '../assets/contact_us.webp'
 
 const Contact = () => {
   return (
@@ -85,10 +85,7 @@ const Contact = () => {
                 target={link.href.startsWith('mailto') ? undefined : '_blank'}
                 rel="noopener noreferrer"
               >
-                {link.label}{' '}
-                <span className="material-symbols-outlined align-middle ml-1 text-sm">
-                  arrow_outward
-                </span>
+                {link.label}
               </a>
             ))}
           </div>
@@ -104,6 +101,8 @@ const Contact = () => {
         >
           <img
             alt="Debarjun Waving Illustration"
+            loading="lazy"
+            decoding="async"
             className="w-full max-w-sm object-cover group-hover:scale-102 transition-transform duration-500 ease-in-out"
             src={contactUsImage}
           />
