@@ -13,8 +13,7 @@ type TileSpec = {
 }
 
 const OVERLAY_COLOR = '#ffffff'
-const GRID_STROKE = '#e0e0e0'
-const MAX_TILES = 120
+const GRID_STROKE = '#a0a0a0'
 
 function createTileSpecs(totalTiles: number) {
   const indices = Array.from({ length: totalTiles }, (_, index) => index)
@@ -50,20 +49,17 @@ export function PixelPreloader({
 
   const spec = useMemo(() => {
     if (typeof window === 'undefined') {
-      return { columns: 12, rows: 10, totalTiles: 120 }
+      return { columns: 14, rows: 10, totalTiles: 140 }
     }
     const computedColumns = Math.min(
       Math.ceil(window.innerWidth / tileSize),
-      16,
+      24,
     )
     const computedRows = Math.min(
       Math.ceil(window.innerHeight / tileSize),
-      12,
+      16,
     )
-    let totalTiles = computedColumns * computedRows
-    if (totalTiles > MAX_TILES) {
-      totalTiles = MAX_TILES
-    }
+    const totalTiles = computedColumns * computedRows
     return { columns: computedColumns, rows: computedRows, totalTiles }
   }, [tileSize])
 
@@ -83,8 +79,11 @@ export function PixelPreloader({
   // robust and runs independently of animation frame timing.
   useEffect(() => {
     if (!revealing) return
-    const lastDelay = tileSpecs.length ? tileSpecs[tileSpecs.length - 1].delay : 0
-    const doneAt = (lastDelay + 0.42) * 1000 + 60
+    const maxDelay = tileSpecs.reduce(
+      (max, t) => Math.max(max, t.delay),
+      0,
+    )
+    const doneAt = (maxDelay + 0.42) * 1000 + 60
     const timer = window.setTimeout(() => {
       if (!reportedRef.current) {
         reportedRef.current = true
@@ -125,7 +124,6 @@ export function PixelPreloader({
             className="pp-tile"
             style={
               {
-                ['--i' as string]: index,
                 ['--d' as string]: `${t.delay}s`,
                 ['--tx' as string]: `${t.x}px`,
                 ['--ty' as string]: `${t.y}px`,
@@ -142,11 +140,8 @@ export function PixelPreloader({
           width: 100%;
           height: 100%;
           opacity: 1;
-          transform: none;
-          will-change: transform, opacity;
-        }
-        .pp-tile {
           animation: ppReveal 0.42s cubic-bezier(0.22,1,0.36,1) var(--d) forwards;
+          will-change: transform, opacity;
         }
         @keyframes ppReveal {
           from { opacity: 1; transform: translate3d(0,0,0) scale(1) rotate(0deg); }

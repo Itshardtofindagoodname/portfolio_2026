@@ -259,8 +259,12 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
 
     const resize = () => {
       if (!canvas) return
-      stage.width = canvas.clientWidth
-      stage.height = canvas.clientHeight
+      const nextWidth = canvas.clientWidth
+      const nextHeight = canvas.clientHeight
+      if (nextWidth === stage.width && nextHeight === stage.height) return
+
+      stage.width = nextWidth
+      stage.height = nextHeight
       canvas.width = stage.width * devicePixelRatio
       canvas.height = stage.height * devicePixelRatio
 
@@ -284,13 +288,21 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
       crowd.forEach((p) => {
         if (p.walk) p.walk.timeScale(1).progress(0.05 + Math.random() * 0.3)
       })
+      // Re-measure once layout settles: the first resize() can run while the
+      // preloader/page layout is still shifting, which locks the crowd into a
+      // too-narrow stage (visible as side margins on the very first load).
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => resize())
+      })
     }
 
     img.onload = init
     img.src = config.src
 
-    const handleResize = () => resize()
-    window.addEventListener('resize', handleResize)
+    const syncSize = () => resize()
+    window.addEventListener('resize', syncSize)
+    const ro = new ResizeObserver(() => resize())
+    ro.observe(canvas)
 
     // Pause expensive sprite animation whenever the hero scrolls out of view.
     // This is the single biggest win for battery + low-end devices.
@@ -315,7 +327,8 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
 
     return () => {
       io.disconnect()
-      window.removeEventListener('resize', handleResize)
+      ro.disconnect()
+      window.removeEventListener('resize', syncSize)
       gsap.ticker.remove(render)
       crowd.forEach((peep) => {
         if (peep.walk) peep.walk.kill()
@@ -379,23 +392,21 @@ const HeroAnimation = () => {
           frontend systems / motion / tactile interfaces
         </span>
         <h1 className="hero-copy-item font-headline-xl text-3xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-normal max-w-4xl">
-          If you want someone<br />
-          who <span className="relative inline-block px-3 italic">
+          Want someone who<br />
+          <span className="relative inline-block px-3 italic">
             stands out
             <svg className="absolute -inset-x-4 md:-inset-x-8 -inset-y-4 md:-inset-y-8 w-[120%] h-[180%] md:h-[200%] pointer-events-none overflow-visible" viewBox="0 0 220 80" fill="none">
               <path className="hero-circle-path" d="M10,40 C10,15 90,5 180,15 C215,22 215,55 180,68 C90,78 10,65 10,40 Z M15,35 C30,12 110,8 190,18" stroke="black" strokeWidth="3.5" strokeLinecap="round" />
             </svg>
-          </span> from the crowd, 
+          </span>
+          {' '}from the{' '}
           <span className="relative inline-block pb-2 px-1">
-            you have me.
+            crowd
             <svg className="absolute left-0 right-0 -bottom-2 h-4 w-full pointer-events-none overflow-visible" preserveAspectRatio="none" viewBox="0 0 200 20" fill="none">
               <path className="hero-gold-underline-path" d="M5,12 C40,8 80,15 120,10 C160,5 195,12 195,12 M10,16 C50,14 100,18 150,15 C180,13 192,16 192,16" stroke="#ffd23f" strokeWidth="4" strokeLinecap="round" />
             </svg>
           </span>
         </h1>
-        <p className="hero-copy-item max-w-[46ch] font-handwriting text-xl md:text-2xl leading-tight text-black/65 mt-2">
-          I build fast web experiences that feel like polished product work with a sketchbook soul.
-        </p>
         <svg
           aria-hidden="true"
           className="hero-copy-item hero-doodle-line mt-1 h-8 w-52 opacity-55 md:w-72"
@@ -412,33 +423,7 @@ const HeroAnimation = () => {
         </svg>
       </div>
 
-      <style>
-        {`
-          .standing-out-image {
-            z-index: 2;
-          }
-          @media (max-width: 768px) {
-            .standing-out-image {
-              z-index: 4;
-              bottom: -30px !important;
-            }
-          }
-        `}
-      </style>
       <div className="absolute inset-x-0 bottom-0 h-full overflow-hidden">
-        {/* standing_out guy behind crowd (webp is ~98% lighter than the png) */}
-        <img
-          src="/standing_out.webp"
-          alt="Standing out from the crowd"
-          decoding="async"
-          fetchPriority="low"
-          className="absolute left-1/2 -translate-x-1/2 object-contain pointer-events-none select-none standing-out-image"
-          style={{
-            bottom: '120px',
-            height: '300px',
-            width: 'auto',
-          }}
-        />
         <CrowdCanvas src={allPeepsImage} rows={15} cols={7} />
       </div>
       <div className="torn-hero-edge" aria-hidden="true" style={{ zIndex: 3 }} />
