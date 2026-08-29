@@ -704,11 +704,6 @@ a[class*="border-b"]:hover {
   opacity: 1;
 }
 
-.hero-doodle-line path {
-  stroke-dasharray: 260;
-  stroke-dashoffset: 260;
-}
-
 @keyframes doodleFloat {
   0%,
   100% {

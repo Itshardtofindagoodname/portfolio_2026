@@ -309,13 +309,6 @@ const HeroAnimation = () => {
     if (!copy) return
 
     const context = gsap.context(() => {
-      gsap.to('.hero-doodle-line path', {
-        strokeDashoffset: 0,
-        duration: 1.1,
-        ease: 'power2.out',
-        delay: 0.45,
-      })
-
       gsap.fromTo(
         '.hero-circle-path',
         { strokeDasharray: 600, strokeDashoffset: 600 },
@@ -324,6 +317,17 @@ const HeroAnimation = () => {
           duration: 1.2,
           ease: 'power2.out',
           delay: 0.75,
+        },
+      )
+
+      gsap.fromTo(
+        '.hero-gold-underline-path',
+        { strokeDasharray: 600, strokeDashoffset: 600 },
+        {
+          strokeDashoffset: 0,
+          duration: 1.0,
+          ease: 'power2.out',
+          delay: 1.15,
         },
       )
     }, copy)
@@ -348,22 +352,14 @@ const HeroAnimation = () => {
               <path className="hero-circle-path" d="M10,40 C10,15 90,5 180,15 C215,22 215,55 180,68 C90,78 10,65 10,40 Z M15,35 C30,12 110,8 190,18" stroke="black" strokeWidth="3.5" strokeLinecap="round" />
             </svg>
           </span>
-          {' '}from the crowd
+          {' '}from the{' '}
+          <span className="relative inline-block pb-2 px-1">
+            crowd
+            <svg className="absolute left-0 right-0 -bottom-2 h-4 w-full pointer-events-none overflow-visible" preserveAspectRatio="none" viewBox="0 0 200 20" fill="none">
+              <path className="hero-gold-underline-path" d="M5,12 C40,8 80,15 120,10 C160,5 195,12 195,12 M10,16 C50,14 100,18 150,15 C180,13 192,16 192,16" stroke="#ffd23f" strokeWidth="4" strokeLinecap="round" />
+            </svg>
+          </span>
         </h1>
-        <svg
-          aria-hidden="true"
-          className="hero-copy-item hero-doodle-line mt-1 h-8 w-52 opacity-55 md:w-72"
-          preserveAspectRatio="none"
-          viewBox="0 0 240 32"
-        >
-          <path
-            d="M5 20 C42 5 74 31 112 16 S180 8 235 20"
-            fill="none"
-            stroke="black"
-            strokeLinecap="round"
-            strokeWidth="3"
-          />
-        </svg>
       </div>
 
       <div className="absolute inset-x-0 bottom-0 h-full overflow-hidden">

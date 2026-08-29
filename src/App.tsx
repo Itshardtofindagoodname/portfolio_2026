@@ -18,6 +18,17 @@ const Reading = lazy(() => import('./components/Reading'))
 const Contact = lazy(() => import('./components/Contact'))
 const ProjectDeepDive = lazy(() => import('./components/ProjectDeepDive'))
 
+// Kick off the download/parse of every below-the-fold section as soon as this
+// module loads, so they are ready by the time the pixel preloader finishes.
+// Without this, the lazy chunks only start fetching after the loader drops,
+// which leaves a blank white gap before the page content appears.
+const readySections = Promise.allSettled([
+  import('./components/About'),
+  import('./components/Projects'),
+  import('./components/Reading'),
+  import('./components/Contact'),
+])
+
 const LenisScrollBridge = () => {
   useLenis(() => {
     ScrollTrigger.update()
@@ -39,6 +50,11 @@ function App() {
     }
     return null
   })
+
+  const handlePreloaderComplete = async () => {
+    await readySections
+    setIsLoaded(true)
+  }
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -121,7 +137,7 @@ function App() {
             )}
 
             {!isLoaded && (
-              <PixelPreloader onComplete={() => setIsLoaded(true)} tileSize={72} />
+              <PixelPreloader onComplete={handlePreloaderComplete} tileSize={72} />
             )}
           </>
         )}
