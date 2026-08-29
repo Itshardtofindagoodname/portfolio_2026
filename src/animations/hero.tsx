@@ -1,6 +1,6 @@
 import { gsap } from 'gsap'
 import { useEffect, useRef } from 'react'
-import allPeepsImage from '../assets/all-peeps.png'
+import allPeepsImage from '../assets/all-peeps.avif'
 
 interface CrowdCanvasProps {
   src: string
@@ -259,12 +259,8 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
 
     const resize = () => {
       if (!canvas) return
-      const nextWidth = canvas.clientWidth
-      const nextHeight = canvas.clientHeight
-      if (nextWidth === stage.width && nextHeight === stage.height) return
-
-      stage.width = nextWidth
-      stage.height = nextHeight
+      stage.width = canvas.clientWidth
+      stage.height = canvas.clientHeight
       canvas.width = stage.width * devicePixelRatio
       canvas.height = stage.height * devicePixelRatio
 
@@ -283,52 +279,16 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
       createPeeps()
       resize()
       gsap.ticker.add(render)
-      // a peep only continues swapping when we're actually in view; once the
-      // crowd fills the stage it stays idle on-screen.
-      crowd.forEach((p) => {
-        if (p.walk) p.walk.timeScale(1).progress(0.05 + Math.random() * 0.3)
-      })
-      // Re-measure once layout settles: the first resize() can run while the
-      // preloader/page layout is still shifting, which locks the crowd into a
-      // too-narrow stage (visible as side margins on the very first load).
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => resize())
-      })
     }
 
     img.onload = init
     img.src = config.src
 
-    const syncSize = () => resize()
-    window.addEventListener('resize', syncSize)
-    const ro = new ResizeObserver(() => resize())
-    ro.observe(canvas)
-
-    // Pause expensive sprite animation whenever the hero scrolls out of view.
-    // This is the single biggest win for battery + low-end devices.
-    let isVisible = true
-    let paused = false
-    const togglePause = () => {
-      const shouldPause = !isVisible
-      if (shouldPause === paused) return
-      paused = shouldPause
-      crowd.forEach((p) => (shouldPause ? p.walk?.pause() : p.walk?.resume()))
-      if (shouldPause) gsap.ticker.remove(render)
-      else gsap.ticker.add(render)
-    }
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        isVisible = entry.isIntersecting
-        togglePause()
-      },
-      { rootMargin: '300px 0px' },
-    )
-    io.observe(canvas)
+    const handleResize = () => resize()
+    window.addEventListener('resize', handleResize)
 
     return () => {
-      io.disconnect()
-      ro.disconnect()
-      window.removeEventListener('resize', syncSize)
+      window.removeEventListener('resize', handleResize)
       gsap.ticker.remove(render)
       crowd.forEach((peep) => {
         if (peep.walk) peep.walk.kill()
