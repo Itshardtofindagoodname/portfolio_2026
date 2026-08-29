@@ -15,11 +15,17 @@ const VaraHoverText = ({ text, className = '', fontSize = 30 }: VaraHoverTextPro
   const [isHovering, setIsHovering] = useState(false)
   const [shouldDraw, setShouldDraw] = useState(false)
 
+  const handleMouseEnter = () => {
+    setIsHovering(true)
+    setShouldDraw(true)
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovering(false)
+  }
+
   useEffect(() => {
-    if (isHovering) {
-      setShouldDraw(true)
-      return
-    }
+    if (isHovering) return
 
     const timeoutId = window.setTimeout(() => setShouldDraw(false), 260)
     return () => window.clearTimeout(timeoutId)
@@ -52,8 +58,8 @@ const VaraHoverText = ({ text, className = '', fontSize = 30 }: VaraHoverTextPro
   return (
     <span
       className={`vara-hover-text relative inline-block align-baseline ${className}`}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <span className={`vara-hover-fallback ${isHovering ? 'opacity-0' : 'opacity-100'}`}>{text}</span>
       <span

@@ -5,16 +5,16 @@ const Reading = () => {
 
   const books = [
     // Back Row
-    { id: 'b1', title: 'Everyday Things', height: 270, width: 55, left: 2, rotate: 1, isBack: true, bg: 'bg-white', textStyle: 'font-headline-md text-[10px]' },
+    { id: 'b1', title: 'The Pragmatic Programmer', height: 270, width: 55, left: 2, rotate: 1, isBack: true, bg: 'bg-white', textStyle: 'font-headline-md text-[9px]' },
     { id: 'b2', title: 'Clean Code', height: 280, width: 55, left: 0, rotate: 1, isBack: true, bg: 'bg-primary text-on-primary', textStyle: 'font-mono text-[9px] font-bold' },
     { id: 'b3', title: 'Refactoring', height: 260, width: 55, left: 30, rotate: 1, isBack: true, bg: 'bg-white', textStyle: 'font-body-md text-[10px] italic' },
     { id: 'b4', title: 'Design Patterns', height: 300, width: 55, left: 70, rotate: 1, isBack: true, bg: 'bg-white border-dashed', textStyle: 'font-label-caps text-[8px] font-bold' },
 
     // Front Row
-    { id: 'f1', title: 'Fast & Slow', height: 250, width: 55, left: -90, rotate: 1, isBack: false, bg: 'bg-white', textStyle: 'font-headline-md text-[10px] font-bold' },
-    { id: 'f2', title: 'Morisaki Bookshop', height: 230, width: 55, left: -55, rotate: 1, isBack: false, bg: 'bg-primary text-on-primary', textStyle: 'font-body-md text-[8px] tracking-wide' },
-    { id: 'f3', title: 'Steal Like Artist', height: 270, width: 55, left: 20, rotate: 1, isBack: false, bg: 'bg-white', textStyle: 'font-handwriting text-xs font-bold italic' },
-    { id: 'f4', title: 'Neuromancer', height: 210, width: 55, left: -60, rotate: 1, isBack: false, bg: 'bg-white border-dashed', textStyle: 'font-label-caps text-[8px]' },
+    { id: 'f1', title: 'Deep Work', height: 250, width: 55, left: -90, rotate: 1, isBack: false, bg: 'bg-white', textStyle: 'font-headline-md text-[10px] font-bold' },
+    { id: 'f2', title: 'The Lean Startup', height: 230, width: 55, left: -55, rotate: 1, isBack: false, bg: 'bg-primary text-on-primary', textStyle: 'font-body-md text-[8px] tracking-wide' },
+    { id: 'f3', title: 'The Phoenix Project', height: 270, width: 55, left: 20, rotate: 1, isBack: false, bg: 'bg-white', textStyle: 'font-handwriting text-xs font-bold italic' },
+    { id: 'f4', title: 'Code Complete', height: 210, width: 55, left: -60, rotate: 1, isBack: false, bg: 'bg-white border-dashed', textStyle: 'font-label-caps text-[8px]' },
   ]
 
   return (

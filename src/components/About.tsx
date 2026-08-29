@@ -11,10 +11,6 @@ const About = () => {
       <div className="absolute left-6 top-1/3 hidden font-handwriting text-3xl opacity-15 -rotate-6 pointer-events-none select-none md:block">
         messy notes, clean code
       </div>
-      <svg className="absolute bottom-24 right-8 hidden h-28 w-44 opacity-15 pointer-events-none md:block" viewBox="0 0 160 90" fill="none">
-        <path d="M8 48 C38 12 72 82 104 36 S142 28 152 54" stroke="black" strokeLinecap="round" strokeWidth="3" />
-        <path d="M128 42 L152 54 L132 67" stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" />
-      </svg>
 
       <div className="max-w-7xl mx-auto w-full px-6 md:px-12 relative z-10">
         <motion.div
@@ -47,12 +43,8 @@ const About = () => {
 
             <div className="hidden lg:block absolute -right-16 bottom-0 z-20">
               <div className="font-handwriting text-primary text-3xl rotate-[-5deg] max-w-[240px] leading-tight flex flex-col items-start">
-                <svg className="w-20 h-20 -mb-4 -ml-4 rotate-[160deg] opacity-60" fill="none" viewBox="0 0 100 100">
-                  <path d="M10,90 Q40,80 50,50 T90,10" fill="none" stroke="black" strokeLinecap="round" strokeWidth="3" />
-                  <path d="M80,20 L90,10 L80,5" fill="none" stroke="black" strokeLinecap="round" strokeWidth="3" />
-                </svg>
                 <span className="bg-white/60 backdrop-blur-xs px-2 py-1 wiggly-border">
-                  This guy codes until his coffee turns cold.
+                  Coffee &gt; Code. That's the way to live.
                 </span>
               </div>
             </div>

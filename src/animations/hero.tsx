@@ -297,7 +297,7 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
   }, [src, rows, cols])
 
   return (
-    <canvas ref={canvasRef} className="absolute bottom-0 h-[90vh] w-full" style={{ zIndex: 2 }} />
+    <canvas ref={canvasRef} className="absolute bottom-0 h-[85vh] w-full" style={{ zIndex: 2 }} />
   )
 }
 
@@ -326,24 +326,13 @@ const HeroAnimation = () => {
           delay: 0.75,
         },
       )
-
-      gsap.fromTo(
-        '.hero-gold-underline-path',
-        { strokeDasharray: 600, strokeDashoffset: 600 },
-        {
-          strokeDashoffset: 0,
-          duration: 1.0,
-          ease: 'power2.out',
-          delay: 1.15,
-        },
-      )
     }, copy)
 
     return () => context.revert()
   }, [])
 
   return (
-    <section className="hero-section relative min-h-screen overflow-hidden bg-white text-black">
+    <section className="hero-section relative min-h-[88vh] overflow-hidden bg-white text-black">
       <div
         ref={copyRef}
         className="hero-copy absolute left-1/2 top-8 z-10 grid w-full max-w-5xl -translate-x-1/2 content-start justify-items-center gap-3 px-6 text-center text-black md:top-12"
@@ -359,13 +348,7 @@ const HeroAnimation = () => {
               <path className="hero-circle-path" d="M10,40 C10,15 90,5 180,15 C215,22 215,55 180,68 C90,78 10,65 10,40 Z M15,35 C30,12 110,8 190,18" stroke="black" strokeWidth="3.5" strokeLinecap="round" />
             </svg>
           </span>
-          {' '}from the{' '}
-          <span className="relative inline-block pb-2 px-1">
-            crowd
-            <svg className="absolute left-0 right-0 -bottom-2 h-4 w-full pointer-events-none overflow-visible" preserveAspectRatio="none" viewBox="0 0 200 20" fill="none">
-              <path className="hero-gold-underline-path" d="M5,12 C40,8 80,15 120,10 C160,5 195,12 195,12 M10,16 C50,14 100,18 150,15 C180,13 192,16 192,16" stroke="#ffd23f" strokeWidth="4" strokeLinecap="round" />
-            </svg>
-          </span>
+          {' '}from the crowd
         </h1>
         <svg
           aria-hidden="true"
