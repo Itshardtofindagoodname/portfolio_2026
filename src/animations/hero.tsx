@@ -1,6 +1,8 @@
 import { gsap } from 'gsap'
 import { useEffect, useRef } from 'react'
+import { motion, useReducedMotion, useScroll, useTransform, type Variants } from 'motion/react'
 import allPeepsImage from '../assets/all-peeps.avif'
+import ScrambleText from '../components/ScrambleText'
 
 interface CrowdCanvasProps {
   src: string
@@ -360,6 +362,31 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
 
 const HeroAnimation = ({ revealed = false }: { revealed?: boolean }) => {
   const copyRef = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLElement>(null)
+  const reduce = useReducedMotion()
+
+  const { scrollY } = useScroll()
+  const copyY = useTransform(scrollY, [0, 420], [0, -90])
+  const copyOpacity = useTransform(scrollY, [0, 380], [1, 0])
+  const crowdY = useTransform(scrollY, [0, 420], [0, 46])
+
+  const line: Variants = {
+    hidden: { opacity: 0, y: 46, rotate: 3, scale: 0.92, filter: 'blur(6px)' },
+    show: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      rotate: 0,
+      scale: 1,
+      filter: 'blur(0px)',
+      transition: {
+        delay: 0.15 + i * 0.18,
+        type: 'spring',
+        stiffness: 260,
+        damping: 18,
+        mass: 0.7,
+      } as const,
+    }),
+  }
 
   // The hero doodle strokes stay completely hidden until the intro reveal
   // finishes, so they never flash fully-drawn before animating.
@@ -386,7 +413,7 @@ const HeroAnimation = ({ revealed = false }: { revealed?: boolean }) => {
           strokeDashoffset: 0,
           duration: 1.3,
           ease: 'power2.out',
-          delay: 0.45,
+          delay: 1.1,
         },
       )
 
@@ -396,7 +423,7 @@ const HeroAnimation = ({ revealed = false }: { revealed?: boolean }) => {
           strokeDashoffset: 0,
           duration: 1.1,
           ease: 'power2.out',
-          delay: 1.0,
+          delay: 1.65,
         },
       )
     }, copy)
@@ -404,36 +431,92 @@ const HeroAnimation = ({ revealed = false }: { revealed?: boolean }) => {
     return () => context.revert()
   }, [revealed])
 
+  const shared = {
+    initial: 'hidden',
+    animate: revealed ? 'show' : 'hidden',
+  }
+
   return (
-    <section className="hero-section relative min-h-[88vh] overflow-hidden bg-[#F5F3EE] text-[#0D1015]">
-      <div
+    <section
+      ref={sectionRef}
+      className="hero-section relative min-h-[88vh] overflow-hidden bg-[#F5F3EE] text-[#0D1015]"
+    >
+      <motion.div
         ref={copyRef}
         className="hero-copy absolute left-1/2 top-8 z-10 grid w-full max-w-5xl -translate-x-1/2 content-start justify-items-center gap-3 px-6 text-center text-[#0D1015] md:top-12"
+        style={reduce ? undefined : { y: copyY, opacity: copyOpacity }}
       >
-        <span className="hero-copy-item font-label-caps text-[10px] md:text-xs uppercase tracking-[0.28em] text-[#0D1015]/45">
-          frontend systems / motion / tactile interfaces
-        </span>
-        <h1 className="hero-copy-item font-headline-xl text-3xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-normal max-w-4xl">
+        <motion.span
+          {...shared}
+          custom={0}
+          variants={reduce ? undefined : line}
+          className="hero-copy-item font-label-caps text-[10px] md:text-xs uppercase tracking-[0.28em] text-[#0D1015]/45"
+        >
+          <ScrambleText text="frontend systems / motion / tactile interfaces" />
+        </motion.span>
+
+        <motion.h1
+          {...shared}
+          custom={1}
+          variants={reduce ? undefined : line}
+          className="hero-copy-item font-headline-xl text-3xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-normal max-w-4xl"
+        >
           Want someone who<br />
-          <span className="relative inline-block px-3 italic">
+          <motion.span
+            {...shared}
+            custom={2}
+            variants={reduce ? undefined : line}
+            className="relative inline-block px-3 italic"
+          >
             stands out
             <svg className="absolute -inset-x-4 md:-inset-x-8 -inset-y-4 md:-inset-y-8 w-[120%] h-[180%] md:h-[200%] pointer-events-none overflow-visible" viewBox="0 0 220 80" fill="none">
               <path className="hero-circle-path" d="M10,40 C10,15 90,5 180,15 C215,22 215,55 180,68 C90,78 10,65 10,40 Z M15,35 C30,12 110,8 190,18" stroke="#0D1015" strokeWidth="3.5" strokeLinecap="round" />
             </svg>
-          </span>
+          </motion.span>
           {' '}from the{' '}
-          <span className="relative inline-block pb-2 px-1">
+          <motion.span
+            {...shared}
+            custom={3}
+            variants={reduce ? undefined : line}
+            className="relative inline-block pb-2 px-1"
+          >
             crowd
             <svg className="absolute left-0 right-0 -bottom-2 h-4 w-full pointer-events-none overflow-visible" preserveAspectRatio="none" viewBox="0 0 200 20" fill="none">
               <path className="hero-gold-underline-path" d="M5,12 C40,8 80,15 120,10 C160,5 195,12 195,12 M10,16 C50,14 100,18 150,15 C180,13 192,16 192,16" stroke="#4AC5CB" strokeWidth="4" strokeLinecap="round" />
             </svg>
-          </span>
-        </h1>
-      </div>
+          </motion.span>
+        </motion.h1>
+      </motion.div>
 
-      <div className="absolute inset-x-0 bottom-0 h-full overflow-hidden">
+      <motion.div
+        className="absolute inset-x-0 bottom-0 h-full overflow-hidden"
+        style={reduce ? undefined : { y: crowdY }}
+      >
         <CrowdCanvas src={allPeepsImage} rows={15} cols={7} />
-      </div>
+      </motion.div>
+
+      {!reduce && (
+        <motion.div
+          className="absolute bottom-4 left-1/2 z-10 -translate-x-1/2 flex flex-col items-center gap-1 text-[#0D1015]/50"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: revealed ? 1 : 0 }}
+          transition={{ delay: 2.1, duration: 0.6 }}
+          aria-hidden="true"
+        >
+          <span className="font-label-caps text-[9px] tracking-[0.3em] uppercase">scroll</span>
+          <motion.span
+            className="w-5 h-9 rounded-full border-2 border-[#0D1015]/40 flex justify-center pt-1.5"
+            animate={{ y: [0, 0], opacity: [0.4, 1, 0.4] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <motion.span
+              className="w-1 h-2 rounded-full bg-[#0D1015]/50"
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
+            />
+          </motion.span>
+        </motion.div>
+      )}
     </section>
   )
 }

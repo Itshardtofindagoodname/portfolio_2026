@@ -2,6 +2,9 @@ import { useEffect, useRef } from 'react'
 import { useLenis } from 'lenis/react'
 import projectRegistryRaw from '../data/projects.json'
 import VaraRevealText from './VaraRevealText'
+import AppIcon from './AppIcon'
+import MotionReveal from './MotionReveal'
+import AnimatedText from './AnimatedText'
 
 interface ProjectData {
   title: string
@@ -79,9 +82,10 @@ const ProjectDeepDive = ({ projectKey, onBack }: ProjectDeepDiveProps) => {
         <p className="text-sm leading-snug">{project.marginalia}</p>
       </div>
 
-      <div
+      <MotionReveal
         className="relative bg-[#F5F3EE] p-5 sm:p-8 md:p-12 lg:p-16 shadow-[6px_6px_0px_0px_rgba(13,16,21,0.15)] sm:shadow-[8px_8px_0px_0px_rgba(13,16,21,0.18)] md:shadow-[12px_12px_0px_0px_rgba(13,16,21,0.2)] paper-texture wiggly-border paper-unfold min-w-0 overflow-hidden"
-        style={{ transformOrigin: 'top center' }}
+        y={16}
+        rotate={0.4}
       >
         <div className="tape tape-tl" aria-hidden="true" />
         <div className="tape tape-tr" aria-hidden="true" />
@@ -125,14 +129,16 @@ const ProjectDeepDive = ({ projectKey, onBack }: ProjectDeepDiveProps) => {
             <h2 className="deepdive-section-heading is-visible text-[#0D1015]">
               <VaraRevealText text="1. Introduction" fontSize={30} />
             </h2>
-            <p className="mt-4 text-[#0D1015]">{project.intro}</p>
+            <p className="mt-4 text-[#0D1015]">
+              <AnimatedText text={project.intro} stagger={0.035} />
+            </p>
             <div className="quote-stamp relative p-5 sm:p-6 my-6 sm:my-8 border-2 border-[#0D1015] border-dashed bg-[#F5F3EE] transform rotate-[-0.4deg] sm:rotate-[-0.5deg] will-change-transform">
               <p className="italic mb-0 font-handwriting text-xl sm:text-2xl leading-tight pr-8 text-[#0D1015]">
                 &ldquo;{project.introQuote}&rdquo;
               </p>
-              <span className="material-symbols-outlined absolute -top-3 -right-3 sm:-top-4 sm:-right-4 text-3xl sm:text-4xl bg-[#F5F3EE] p-1 leading-none select-none text-[#0D1015]" aria-hidden="true">
-                {project.introIcon}
-              </span>
+              <div className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 bg-[#F5F3EE] p-1 leading-none select-none text-[#0D1015]" aria-hidden="true">
+                <AppIcon name={project.introIcon} size={30} />
+              </div>
             </div>
           </section>
 
@@ -270,7 +276,7 @@ const ProjectDeepDive = ({ projectKey, onBack }: ProjectDeepDiveProps) => {
             ** Drafted in the back of a notebook **
           </span>
         </div>
-      </div>
+      </MotionReveal>
 
       <aside className="mt-8 sm:mt-12 text-center xl:fixed xl:bottom-12 xl:right-12 xl:mt-0 z-40 flex justify-center xl:block">
         <div className="status-badge inline-block p-4 bg-[#F5F3EE] border-2 border-[#0D1015] rotate-[-2deg] sm:rotate-[-3deg] shadow-[4px_4px_0px_0px_rgba(13,16,21,0.15)] sm:shadow-lg min-w-[9rem]">

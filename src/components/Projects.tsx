@@ -1,5 +1,9 @@
 import DoodleButton from './DoodleButton'
 import VaraRevealText from './VaraRevealText'
+import AppIcon from './AppIcon'
+import MotionReveal from './MotionReveal'
+import AnimatedText from './AnimatedText'
+import ScrambleText from './ScrambleText'
 
 const repoBase = 'https://github.com/Itshardtofindagoodname'
 
@@ -173,53 +177,66 @@ const Projects = ({ onSelectProject }: ProjectsProps) => {
             {projects.map((project, index) => {
               const targetRot = project.rotate.match(/-?[\d.]+/)?.[0] ?? '0'
               return (
-                <article
+                <MotionReveal
                   key={project.title}
-                  className={`project-snippet p-5 sm:p-6 relative bg-[#F5F3EE] border-[#0D1015] flex flex-col h-full min-w-0 overflow-visible ${project.mobileRotate}`}
-                  style={{ transformOrigin: '50% 38%', transform: `rotate(${Number(targetRot)}deg)` }}
+                  className="h-full"
+                  delay={(index % 2) * 0.1}
+                  y={36}
+                  whileHover={{ y: -8, scale: 1.02, transition: { type: 'spring', stiffness: 300, damping: 18 } }}
                 >
-                  {index % 2 === 0 ? <div className="tape-effect tape-tl" aria-hidden="true" /> : <div className="tape-effect tape-tr" aria-hidden="true" />}
-                  <h3 className="font-headline-md text-xl sm:text-2xl border-b-2 border-[#0D1015] pb-0.5 inline-block mb-2 self-start max-w-full break-words leading-tight text-[#0D1015]">
-                    {project.title}
-                  </h3>
-                  <span className="block font-handwriting text-base sm:text-lg text-[#0D1015] mb-3 sm:mb-4 leading-tight break-words">
-                    {project.marginalia}
-                  </span>
-                  <p className="font-handwriting text-lg sm:text-xl text-[#0D1015] mb-4 leading-snug break-words">
-                    {project.desc}
-                  </p>
-                  <div className="flex flex-wrap gap-1.5 mb-5 sm:mb-6">
-                    {project.tags.map((tag, tagIndex) => (
-                      <span
-                        key={tag}
-                        className={`font-label-caps text-[9px] sm:text-[10px] px-1.5 py-0.5 bg-[#0D1015] text-[#F5F3EE] ${tagIndex % 2 === 0 ? 'rotate-2' : '-rotate-1'}`}
+                  <article
+                    className={`project-snippet p-5 sm:p-6 relative bg-[#F5F3EE] border-[#0D1015] flex flex-col h-full min-w-0 overflow-visible ${project.mobileRotate}`}
+                    style={{ transformOrigin: '50% 38%', transform: `rotate(${Number(targetRot)}deg)` }}
+                  >
+                    {index % 2 === 0 ? <div className="tape-effect tape-tl" aria-hidden="true" /> : <div className="tape-effect tape-tr" aria-hidden="true" />}
+                    <div className="flex items-center justify-between gap-3 w-full mb-2">
+                      <h3 className="font-headline-md text-xl sm:text-2xl border-b-2 border-[#0D1015] pb-0.5 inline-block self-start max-w-full break-words leading-tight text-[#0D1015]">
+                        {project.title}
+                      </h3>
+                      <AppIcon
+                        name={project.icon}
+                        size={26}
+                        className="text-[#0D1015] shrink-0 rotate-3 self-start"
+                      />
+                    </div>
+                    <span className="block font-handwriting text-base sm:text-lg text-[#0D1015] mb-3 sm:mb-4 leading-tight break-words">
+                      {project.marginalia}
+                    </span>
+                    <p className="font-handwriting text-lg sm:text-xl text-[#0D1015] mb-4 leading-snug break-words">
+                      {project.desc}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5 mb-5 sm:mb-6">
+                      {project.tags.map((tag, tagIndex) => (
+                        <span
+                          key={tag}
+                          className={`font-label-caps text-[9px] sm:text-[10px] px-1.5 py-0.5 bg-[#0D1015] text-[#F5F3EE] ${tagIndex % 2 === 0 ? 'rotate-2' : '-rotate-1'}`}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="mt-auto flex justify-center pt-2">
+                      <button
+                        onClick={() => {
+                          onSelectProject?.(project.title.toLowerCase())
+                        }}
+                        className="scribble-button text-base sm:text-[1.25rem] touch-manipulation text-[#0D1015]"
                       >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="mt-auto flex justify-center pt-2">
-                    <button
-                      onClick={() => {
-                        onSelectProject?.(project.title.toLowerCase())
-                      }}
-                      className="scribble-button text-base sm:text-[1.25rem] touch-manipulation text-[#0D1015]"
-                    >
-                      Understand Project
-                    </button>
-                  </div>
-                </article>
+                        Understand Project
+                      </button>
+                    </div>
+                  </article>
+                </MotionReveal>
               )
             })}
           </div>
 
           <aside className="lg:col-span-4 space-y-8 sm:space-y-12 min-w-0">
-            <div
-              className="wiggly-border p-6 sm:p-8 bg-[#F5F3EE] border-[#0D1015] rotate-[1deg] sm:rotate-[1.5deg] relative shadow-md min-w-0 overflow-visible"
-            >
+            <div className="wiggly-border p-6 sm:p-8 bg-[#F5F3EE] border-[#0D1015] rotate-[1deg] sm:rotate-[1.5deg] relative shadow-md min-w-0 overflow-visible">
+            <MotionReveal x={28} y={0} delay={0.1}>
               <div className="tape-effect tape-tr !bg-[#0D1015]/5" aria-hidden="true" />
               <h4 className="font-label-caps text-[#5C5268] mb-5 sm:mb-6 tracking-widest border-b-2 border-[#0D1015] pb-2 text-xs sm:text-sm">
-                HONOURABLE MENTIONS
+                <ScrambleText text="HONOURABLE MENTIONS" />
               </h4>
               <ul className="font-handwriting text-lg sm:text-xl space-y-5 sm:space-y-6">
                 {mentions.map((item) => (
@@ -228,9 +245,7 @@ const Projects = ({ onSelectProject }: ProjectsProps) => {
                     className="group min-w-0"
                   >
                     <div className="flex items-start gap-2 min-w-0">
-                      <span className="material-symbols-outlined mt-1 text-[#0D1015]/70 text-base shrink-0" aria-hidden="true">
-                        edit
-                      </span>
+                      <AppIcon name="edit" size={20} className="mt-1 text-[#0D1015]/70 shrink-0" aria-hidden="true" />
                       <div className="min-w-0 flex-1">
                         <p className="font-bold leading-tight text-[1.05rem] sm:text-lg break-words text-[#0D1015]">{item.title}</p>
                         <p className="font-handwriting text-sm sm:text-base opacity-75 leading-snug mt-1 break-words text-[#0D1015]">
@@ -276,23 +291,29 @@ const Projects = ({ onSelectProject }: ProjectsProps) => {
                   </span>
                 </p>
               </div>
+            </MotionReveal>
             </div>
 
             <div className="space-y-4 sm:space-y-6 min-w-0">
-              <h4 className="font-headline-md marker-highlight text-xl sm:text-2xl text-[#0D1015]">Achievements</h4>
+              <MotionReveal y={16}>
+                <h4 className="font-headline-md marker-highlight text-xl sm:text-2xl text-[#0D1015]">
+                  <AnimatedText text="Achievements" stagger={0.09} />
+                </h4>
+              </MotionReveal>
               <div className="flex flex-col gap-4 sm:gap-6">
-                {achievements.map((item) => (
-                  <div
-                    key={item.title}
-                    className={`award-sticker bg-[#F5F3EE] border-[#0D1015] p-4 sm:p-[16px] min-w-0 ${item.rot}`}
-                  >
-                    <p className="font-handwriting text-base sm:text-lg font-bold leading-tight break-words text-[#0D1015]">
-                      {item.title}
-                    </p>
-                    <p className="font-handwriting text-sm sm:text-base mt-2 opacity-80 leading-snug break-words text-[#0D1015]">
-                      {item.desc}
-                    </p>
-                  </div>
+                {achievements.map((item, idx) => (
+                  <MotionReveal key={item.title} y={20} delay={idx * 0.07}>
+                    <div
+                      className={`award-sticker bg-[#F5F3EE] border-[#0D1015] p-4 sm:p-[16px] min-w-0 ${item.rot}`}
+                    >
+                      <p className="font-handwriting text-base sm:text-lg font-bold leading-tight break-words text-[#0D1015]">
+                        {item.title}
+                      </p>
+                      <p className="font-handwriting text-sm sm:text-base mt-2 opacity-80 leading-snug break-words text-[#0D1015]">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </MotionReveal>
                 ))}
               </div>
             </div>
@@ -308,7 +329,7 @@ const Projects = ({ onSelectProject }: ProjectsProps) => {
           <div className="relative pl-6 sm:pl-8 md:pl-12 min-w-0">
             <div className="timeline-doodle" aria-hidden="true" />
 
-            <div className="relative mb-10 sm:mb-14 md:mb-20 group min-w-0">
+            <MotionReveal className="relative mb-10 sm:mb-14 md:mb-20 group min-w-0" y={24}>
               <div className="experience-number-marker absolute -left-[28px] sm:-left-[38px] md:-left-[60px] top-1 z-10 text-[10px] sm:text-xs bg-[#F5F3EE] border-[#0D1015] text-[#0D1015]">
                 01
               </div>
@@ -337,9 +358,9 @@ const Projects = ({ onSelectProject }: ProjectsProps) => {
                   <li className="border-l-2 border-[#0D1015]/60 pl-3 break-words">Optimized load time, assets, rendering, and responsiveness.</li>
                 </ul>
               </div>
-            </div>
+            </MotionReveal>
 
-            <div className="relative group min-w-0">
+            <MotionReveal className="relative group min-w-0" y={24} delay={0.1}>
               <div className="experience-number-marker absolute -left-[28px] sm:-left-[38px] md:-left-[60px] top-1 z-10 text-[10px] sm:text-xs bg-[#F5F3EE] border-[#0D1015] text-[#0D1015]">
                 02
               </div>
@@ -361,7 +382,7 @@ const Projects = ({ onSelectProject }: ProjectsProps) => {
                   client codebases independently.
                 </p>
               </div>
-            </div>
+            </MotionReveal>
           </div>
         </div>
       </div>

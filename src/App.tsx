@@ -2,10 +2,12 @@ import { useState, useEffect, lazy, Suspense } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ReactLenis, useLenis } from 'lenis/react'
+import { motion, useScroll, useSpring, useReducedMotion } from 'motion/react'
 import { HeroAnimation } from './animations/hero'
 import IntroLoader from './animations/IntroLoader'
 import { PixelPreloader } from './animations/pixelpreloader'
 import Navbar from './components/Navbar'
+import Marquee from './components/Marquee'
 import './App.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -26,6 +28,22 @@ const LenisScrollBridge = () => {
 
 const SectionFallback = () => {
   return <div aria-hidden="true" style={{ width: '100%' }} />
+}
+
+const ScrollProgress = () => {
+  const reduce = useReducedMotion()
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 24, mass: 0.3 })
+
+  if (reduce) return null
+
+  return (
+    <motion.div
+      aria-hidden="true"
+      className="fixed top-0 left-0 right-0 z-[100] h-[3px] origin-left bg-[#4AC5CB]"
+      style={{ scaleX }}
+    />
+  )
 }
 
 function App() {
@@ -77,6 +95,7 @@ function App() {
 
   return (
     <>
+      <ScrollProgress />
       {!introDone && <IntroLoader onComplete={() => setIntroDone(true)} />}
       {introDone && !revealDone && (
         <PixelPreloader onComplete={() => setRevealDone(true)} tileSize={72} />
@@ -110,6 +129,21 @@ function App() {
                 <HeroAnimation revealed={introDone && revealDone} />
               </main>
               <div className="torn-hero-edge" aria-hidden="true" />
+
+              <Marquee
+                items={[
+                  'FRONTEND SYSTEMS',
+                  'MOTION',
+                  'TACTILE INTERFACES',
+                  'REACT',
+                  'TYPESCRIPT',
+                  'GSAP',
+                  'LENIS',
+                  'ANIME.JS',
+                  'VITE',
+                  'TAILWIND CSS',
+                ]}
+              />
 
               <Suspense fallback={<SectionFallback />}>
                 <About />

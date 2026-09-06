@@ -1,5 +1,9 @@
 import { useState } from 'react'
 import VaraRevealText from './VaraRevealText'
+import AppIcon from './AppIcon'
+import MotionReveal from './MotionReveal'
+import AnimatedText from './AnimatedText'
+import ScrambleText from './ScrambleText'
 
 const Reading = () => {
   const [pulledBook, setPulledBook] = useState<string | null>(null)
@@ -27,25 +31,26 @@ const Reading = () => {
           <div className="col-span-1 md:col-span-12 mb-6 md:mb-8 relative overflow-hidden">
             <h1 className="font-headline-xl text-5xl md:text-7xl uppercase leading-none tracking-normal whitespace-nowrap md:whitespace-normal text-[#0D1015]">
               <span className="inline-block">
-                READING &
+                <AnimatedText text="READING &" stagger={0.08} />
               </span>
               <span className="block font-handwriting lowercase italic text-[#5C5268] ml-12 mt-8 text-2xl md:text-3xl font-normal">
-                musings
+                <AnimatedText text="musings" stagger={0.1} delay={0.35} />
               </span>
             </h1>
           </div>
 
           <section className="col-span-1 md:col-span-4 flex flex-col gap-stack-md mt-10 md:mt-0">
-            <div className="flex items-center gap-4 border-b-2 border-[#0D1015] pb-2 w-max">
-              <h2 className="font-label-caps text-label-caps uppercase tracking-[0.15em] text-[#0D1015]">
-                Currently Reading
-              </h2>
-              <span className="material-symbols-outlined text-[#5C5268]" style={{ fontVariationSettings: "'FILL' 1" }}>
-                book
-              </span>
-            </div>
+            <MotionReveal y={16}>
+              <div className="flex items-center gap-4 border-b-2 border-[#0D1015] pb-2 w-max">
+                <h2 className="font-label-caps text-label-caps uppercase tracking-[0.15em] text-[#0D1015]">
+                  <ScrambleText text="Currently Reading" />
+                </h2>
+                <AppIcon name="book" size={22} className="text-[#5C5268]" />
+              </div>
+            </MotionReveal>
 
-            <div className="reading-shelf flex items-end h-[420px] pl-4 border-l-2 border-[#0D1015] relative select-none min-w-[350px]">
+            <MotionReveal delay={0.12}>
+              <div className="reading-shelf flex items-end h-[420px] pl-4 border-l-2 border-[#0D1015] relative select-none min-w-[350px]">
               {books.map((book) => {
                 const isPulled = pulledBook === book.id
                 return (
@@ -81,19 +86,21 @@ const Reading = () => {
                   favorite
                 </span>
               </div>
-            </div>
+              </div>
+            </MotionReveal>
           </section>
 
           <section className="musing-board col-span-1 md:col-span-8 relative mt-8 md:mt-0">
-            <div className="flex items-center gap-4 border-b-2 border-[#0D1015] pb-2 w-max max-w-full mb-7 md:ml-auto md:mr-4">
-              <h2 className="font-label-caps text-label-caps uppercase tracking-[0.15em] text-[#0D1015]">
-                Random Musings
-              </h2>
-              <span className="material-symbols-outlined text-[#5C5268]" style={{ fontVariationSettings: "'FILL' 1" }}>
-                lightbulb
-              </span>
-            </div>
+            <MotionReveal y={16} delay={0.1}>
+              <div className="flex items-center gap-4 border-b-2 border-[#0D1015] pb-2 w-max max-w-full mb-7 md:ml-auto md:mr-4">
+                <h2 className="font-label-caps text-label-caps uppercase tracking-[0.15em] text-[#0D1015]">
+                  <ScrambleText text="Random Musings" />
+                </h2>
+                <AppIcon name="lightbulb" size={22} className="text-[#5C5268]" />
+              </div>
+            </MotionReveal>
 
+            <MotionReveal delay={0.2} y={24}>
             <div className="musing-scrap-grid relative grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
               <div className="paper-scrap musing-scrap musing-scrap-large p-6 rotate-[-5deg] sm:justify-self-end bg-[#F5F3EE] border-[#0D1015]">
                 <div className="tape"></div>
@@ -126,9 +133,7 @@ const Reading = () => {
 
               <div className="paper-scrap musing-scrap musing-scrap-medium p-5 rotate-[3deg] sm:mr-80 bg-[#F5F3EE] border-[#0D1015]">
                 <div className="tape"></div>
-                <span className="material-symbols-outlined text-[#0D1015] mb-2 text-4xl block">
-                  architecture
-                </span>
+                <AppIcon name="architecture" size={40} className="text-[#0D1015] mb-2 block text-4xl" />
                 <p className="font-body-lg text-body-lg text-[#0D1015]">
                   Form follows function, but sometimes form is just fun.
                 </p>
@@ -148,6 +153,7 @@ const Reading = () => {
                 </p>
               </div>
             </div>
+            </MotionReveal>
 
             <svg
               className="absolute top-36 left-1/2 -translate-x-1/2 opacity-20 pointer-events-none"
