@@ -1,8 +1,7 @@
-import { motion, type HTMLMotionProps } from 'framer-motion'
 import { gsap } from 'gsap'
-import type { MouseEvent, ReactNode } from 'react'
+import type { AnchorHTMLAttributes, MouseEvent, ReactNode } from 'react'
 
-type DoodleButtonProps = Omit<HTMLMotionProps<'a'>, 'children'> & {
+type DoodleButtonProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'children'> & {
   children: ReactNode
   variant?: 'ink' | 'paper' | 'underline'
 }
@@ -51,21 +50,19 @@ const DoodleButton = ({
   }
 
   const variantClasses = {
-    ink: 'bg-primary text-on-primary border-2 border-black shadow-[5px_5px_0_#000]',
-    paper: 'bg-white text-primary border-2 border-black shadow-[5px_5px_0_#000]',
-    underline: 'bg-transparent text-primary border-0 shadow-none px-0 py-0',
+    ink: 'bg-[#0D1015] text-[#F5F3EE] border-2 border-[#0D1015] shadow-[5px_5px_0_rgba(13,16,21,0.15)]',
+    paper: 'bg-[#F5F3EE] text-[#0D1015] border-2 border-[#0D1015] shadow-[5px_5px_0_rgba(13,16,21,0.15)]',
+    underline: 'bg-transparent text-[#0D1015] border-0 shadow-none px-0 py-0',
   }
 
   return (
-    <motion.a
-      whileTap={{ scale: 0.94, rotate: 1.5 }}
-      transition={{ type: 'spring', stiffness: 420, damping: 17 }}
-      className={`doodle-button relative inline-flex w-max items-center justify-center gap-3 overflow-visible px-7 py-3 font-handwriting text-2xl leading-none ${variantClasses[variant]} ${className}`}
+    <a
+      className={`doodle-button relative inline-flex w-max items-center justify-center gap-3 overflow-visible px-7 py-3 font-handwriting text-2xl leading-none transition-transform duration-100 active:scale-95 active:rotate-[1.5deg] ${variantClasses[variant]} ${className}`}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
       {...props}
     >
-      <span className="button-blot pointer-events-none absolute -right-3 -top-3 h-5 w-5 rounded-[38%_62%_45%_55%] bg-white/30 opacity-0" />
+      <span className="button-blot pointer-events-none absolute -right-3 -top-3 h-5 w-5 rounded-[38%_62%_45%_55%] bg-[#4AC5CB]/30 opacity-0" />
       <span className="relative z-10 inline-flex items-center gap-3">{children}</span>
       <svg
         aria-hidden="true"
@@ -81,7 +78,7 @@ const DoodleButton = ({
           strokeWidth="3"
         />
       </svg>
-    </motion.a>
+    </a>
   )
 }
 

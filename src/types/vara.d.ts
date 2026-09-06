@@ -15,6 +15,7 @@ declare module 'vara' {
         queued?: boolean
         delay?: number
         letterSpacing?: number | Record<string, number>
+        width?: number
       }
 
   export interface VaraProperties {

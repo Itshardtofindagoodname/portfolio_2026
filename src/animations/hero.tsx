@@ -38,6 +38,11 @@ type WalkFactory = (options: {
   props: ResetPeepProps
 }) => gsap.core.Timeline
 
+// The crowd sprite was downsampled to half resolution for a smaller
+// download. Peeps are drawn from their source cell but rendered at the
+// original pre-shrink size, so this factor keeps them the same on screen.
+const SPRITE_SCALE = 2
+
 const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -54,7 +59,10 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    // UTILS
+    // Cap pixel ratio at 1.5 so high-DPI screens don't push 3-4x the pixels
+    // per frame through the draw calls.
+    const dpr = Math.min(devicePixelRatio || 1, 1.5)
+
     const randomRange = (min: number, max: number) =>
       min + Math.random() * (max - min)
     const randomIndex = <T,>(array: T[]) => randomRange(0, array.length) | 0
@@ -65,7 +73,6 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
       removeFromArray(array, randomIndex(array))
     const getRandomFromArray = <T,>(array: T[]) => array[randomIndex(array) | 0]
 
-    // TWEEN FACTORIES
     const resetPeep = ({
       stage,
       peep,
@@ -132,7 +139,6 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
 
     const walks: WalkFactory[] = [normalWalk]
 
-    // FACTORY FUNCTIONS
     const createPeep = ({
       image,
       rect,
@@ -152,8 +158,8 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
         walk: null,
         setRect: (rect: number[]) => {
           peep.rect = rect
-          peep.width = rect[2]
-          peep.height = rect[3]
+          peep.width = rect[2] * SPRITE_SCALE
+          peep.height = rect[3] * SPRITE_SCALE
         },
         render: (ctx: CanvasRenderingContext2D) => {
           ctx.save()
@@ -178,7 +184,6 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
       return peep
     }
 
-    // MAIN
     const img = document.createElement('img')
     const stage: Stage = {
       width: 0,
@@ -248,7 +253,7 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
       if (!canvas) return
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.save()
-      ctx.scale(devicePixelRatio, devicePixelRatio)
+      ctx.scale(dpr, dpr)
 
       crowd.forEach((peep) => {
         peep.render(ctx)
@@ -261,8 +266,9 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
       if (!canvas) return
       stage.width = canvas.clientWidth
       stage.height = canvas.clientHeight
-      canvas.width = stage.width * devicePixelRatio
-      canvas.height = stage.height * devicePixelRatio
+      // Canvas backing store uses the capped DPR from the effect scope.
+      canvas.width = Math.max(1, Math.round(stage.width * dpr))
+      canvas.height = Math.max(1, Math.round(stage.height * dpr))
 
       crowd.forEach((peep) => {
         peep.walk?.kill()
@@ -275,20 +281,71 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
       initCrowd()
     }
 
+    let ticking = false
+
+    const startTicker = () => {
+      if (ticking) return
+      ticking = true
+      gsap.ticker.add(render)
+    }
+
+    const stopTicker = () => {
+      if (!ticking) return
+      ticking = false
+      gsap.ticker.remove(render)
+    }
+
     const init = () => {
       createPeeps()
       resize()
-      gsap.ticker.add(render)
+      startTicker()
     }
 
     img.onload = init
     img.src = config.src
 
+    const pauseAnimations = () => {
+      stopTicker()
+      crowd.forEach((peep) => {
+        peep.walk?.pause()
+      })
+    }
+
+    const resumeAnimations = () => {
+      crowd.forEach((peep) => {
+        peep.walk?.resume()
+      })
+      startTicker()
+    }
+
     const handleResize = () => resize()
     window.addEventListener('resize', handleResize)
 
+    const handleVisibility = () => {
+      if (document.visibilityState === 'hidden') {
+        pauseAnimations()
+      } else {
+        resumeAnimations()
+      }
+    }
+    document.addEventListener('visibilitychange', handleVisibility)
+
+    const canvasEl = canvas
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) resumeAnimations()
+          else pauseAnimations()
+        }
+      },
+      { threshold: 0.05 },
+    )
+    io.observe(canvasEl)
+
     return () => {
       window.removeEventListener('resize', handleResize)
+      document.removeEventListener('visibilitychange', handleVisibility)
+      io.disconnect()
       gsap.ticker.remove(render)
       crowd.forEach((peep) => {
         if (peep.walk) peep.walk.kill()
@@ -310,11 +367,22 @@ const HeroAnimation = () => {
 
     const context = gsap.context(() => {
       gsap.fromTo(
+        '.hero-doodle-line path',
+        { strokeDasharray: 260, strokeDashoffset: 260 },
+        {
+          strokeDashoffset: 0,
+          duration: 1.0,
+          ease: 'power2.out',
+          delay: 0.45,
+        },
+      )
+
+      gsap.fromTo(
         '.hero-circle-path',
         { strokeDasharray: 600, strokeDashoffset: 600 },
         {
           strokeDashoffset: 0,
-          duration: 1.2,
+          duration: 1.3,
           ease: 'power2.out',
           delay: 0.75,
         },
@@ -325,7 +393,7 @@ const HeroAnimation = () => {
         { strokeDasharray: 600, strokeDashoffset: 600 },
         {
           strokeDashoffset: 0,
-          duration: 1.0,
+          duration: 1.1,
           ease: 'power2.out',
           delay: 1.15,
         },
@@ -336,12 +404,12 @@ const HeroAnimation = () => {
   }, [])
 
   return (
-    <section className="hero-section relative min-h-[88vh] overflow-hidden bg-white text-black">
+    <section className="hero-section relative min-h-[88vh] overflow-hidden bg-[#F5F3EE] text-[#0D1015]">
       <div
         ref={copyRef}
-        className="hero-copy absolute left-1/2 top-8 z-10 grid w-full max-w-5xl -translate-x-1/2 content-start justify-items-center gap-3 px-6 text-center text-black md:top-12"
+        className="hero-copy absolute left-1/2 top-8 z-10 grid w-full max-w-5xl -translate-x-1/2 content-start justify-items-center gap-3 px-6 text-center text-[#0D1015] md:top-12"
       >
-        <span className="hero-copy-item font-label-caps text-[10px] md:text-xs uppercase tracking-[0.28em] text-black/45">
+        <span className="hero-copy-item font-label-caps text-[10px] md:text-xs uppercase tracking-[0.28em] text-[#0D1015]/45">
           frontend systems / motion / tactile interfaces
         </span>
         <h1 className="hero-copy-item font-headline-xl text-3xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-normal max-w-4xl">
@@ -349,23 +417,36 @@ const HeroAnimation = () => {
           <span className="relative inline-block px-3 italic">
             stands out
             <svg className="absolute -inset-x-4 md:-inset-x-8 -inset-y-4 md:-inset-y-8 w-[120%] h-[180%] md:h-[200%] pointer-events-none overflow-visible" viewBox="0 0 220 80" fill="none">
-              <path className="hero-circle-path" d="M10,40 C10,15 90,5 180,15 C215,22 215,55 180,68 C90,78 10,65 10,40 Z M15,35 C30,12 110,8 190,18" stroke="black" strokeWidth="3.5" strokeLinecap="round" />
+              <path className="hero-circle-path" d="M10,40 C10,15 90,5 180,15 C215,22 215,55 180,68 C90,78 10,65 10,40 Z M15,35 C30,12 110,8 190,18" stroke="#0D1015" strokeWidth="3.5" strokeLinecap="round" />
             </svg>
           </span>
           {' '}from the{' '}
           <span className="relative inline-block pb-2 px-1">
             crowd
             <svg className="absolute left-0 right-0 -bottom-2 h-4 w-full pointer-events-none overflow-visible" preserveAspectRatio="none" viewBox="0 0 200 20" fill="none">
-              <path className="hero-gold-underline-path" d="M5,12 C40,8 80,15 120,10 C160,5 195,12 195,12 M10,16 C50,14 100,18 150,15 C180,13 192,16 192,16" stroke="#ffd23f" strokeWidth="4" strokeLinecap="round" />
+              <path className="hero-gold-underline-path" d="M5,12 C40,8 80,15 120,10 C160,5 195,12 195,12 M10,16 C50,14 100,18 150,15 C180,13 192,16 192,16" stroke="#4AC5CB" strokeWidth="4" strokeLinecap="round" />
             </svg>
           </span>
         </h1>
+        <svg
+          aria-hidden="true"
+          className="hero-copy-item hero-doodle-line mt-1 h-8 w-52 opacity-55 md:w-72"
+          preserveAspectRatio="none"
+          viewBox="0 0 240 32"
+        >
+          <path
+            d="M5 20 C42 5 74 31 112 16 S180 8 235 20"
+            fill="none"
+            stroke="#0D1015"
+            strokeLinecap="round"
+            strokeWidth="3"
+          />
+        </svg>
       </div>
 
       <div className="absolute inset-x-0 bottom-0 h-full overflow-hidden">
         <CrowdCanvas src={allPeepsImage} rows={15} cols={7} />
       </div>
-      <div className="torn-hero-edge" aria-hidden="true" style={{ zIndex: 3 }} />
     </section>
   )
 }

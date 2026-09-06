@@ -45,8 +45,8 @@ const Navbar = () => {
         href={`#${item.id}`}
         className={`nav-doodle-link text-xs md:text-sm font-label-caps tracking-[0.15em] px-2 py-1 transition-all duration-300 ${rot} ${
           isActive
-            ? 'text-primary font-bold border-b-4 border-black'
-            : 'text-secondary hover:text-primary'
+            ? 'text-[#0D1015] font-bold border-b-4 border-[#4AC5CB]'
+            : 'text-[#5C5268] hover:text-[#4AC5CB]'
         }`}
       >
         {item.label}
@@ -55,10 +55,10 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="navbar-shell sticky top-0 bg-background/90 backdrop-blur-md w-full border-b-2 border-black flex flex-col sm:flex-row justify-between items-center gap-3 px-4 md:px-12 py-3">
+    <nav className="navbar-shell sticky top-0 bg-[#F5F3EE]/90 backdrop-blur-md w-full border-b-2 border-[#0D1015] flex flex-col sm:flex-row justify-between items-center gap-3 px-4 md:px-12 py-3">
       <a
         href="#home"
-        className="navbar-brand truncate text-sm sm:text-base font-headline-md font-bold text-primary tracking-[0.1em] border-2 border-black px-3 py-1 wiggly-border hover:bg-black hover:text-white transition-colors duration-200"
+        className="navbar-brand truncate text-sm sm:text-base font-headline-md font-bold text-[#0D1015] tracking-[0.1em] border-2 border-[#0D1015] px-3 py-1 wiggly-border hover:bg-[#4AC5CB] hover:text-[#0D1015] transition-colors duration-200"
       >
         DEBARJUN THAKUR
       </a>

@@ -1,25 +1,18 @@
-import { motion } from 'framer-motion'
 import DoodleButton from './DoodleButton'
-import VaraHoverText from './VaraHoverText'
+import VaraRevealText from './VaraRevealText'
 
 const About = () => {
   return (
-    <section id="about" className="paper-cut-section relative bg-white py-20 md:py-32 overflow-hidden">
-      <div className="absolute top-20 right-10 font-handwriting text-5xl opacity-8 -rotate-12 pointer-events-none select-none">
+    <section id="about" className="paper-cut-section no-top-cut relative bg-[#F5F3EE] py-20 md:py-32 overflow-hidden">
+      <div className="absolute top-20 right-10 font-handwriting text-5xl opacity-8 -rotate-12 pointer-events-none select-none text-[#0D1015]/20">
         CODE SHIP REPEAT
       </div>
-      <div className="absolute left-6 top-1/3 hidden font-handwriting text-3xl opacity-15 -rotate-6 pointer-events-none select-none md:block">
+      <div className="absolute left-6 top-1/3 hidden font-handwriting text-3xl opacity-15 -rotate-6 pointer-events-none select-none md:block text-[#0D1015]/20">
         messy notes, clean code
       </div>
 
       <div className="max-w-7xl mx-auto w-full px-6 md:px-12 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6 }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center mb-32 next-gen-reveal"
-        >
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center mb-32">
           <div className="lg:col-span-6 relative order-2 lg:order-1 flex justify-center lg:justify-start">
             <div className="relative group transition-transform duration-300 hover:rotate-0 inline-block">
               <div className="tape-effect tape-tl opacity-80" />
@@ -35,15 +28,15 @@ const About = () => {
                   className="w-full max-w-[360px] md:max-w-[420px] aspect-[3/4] object-cover grayscale hover:grayscale-0 transition-all duration-700"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9QMiLqog5Hn1umNZ8t0xy64pWfRa9_Mn0NBTCk0USD_xonrbAqkLaZpBvhd3QmpRL9RVdPtzJfsig88FCDjKabmzGqfCc7EQbiBwIll8mOv48VHP5QxECuwl7N-j23GE5JBRn2mTcQ3UiRJC8hTSMhrpP2r3pOHptncL5JNC3rIPlIOxCkkfavkewsIzqSK6mG0qzXdAbQY8vQCxolhuPg3PIqra334P_En_qAjo14S2_Hcz4kdzS7ZfIBTOiMVo-qL25cVhVmmQ"
                 />
-                <div className="absolute bottom-4 left-0 right-0 text-center font-handwriting text-2xl text-primary opacity-60">
+<div className="absolute bottom-4 left-0 right-0 text-center font-handwriting text-2xl text-[#0D1015] opacity-60">
                   Me, thinking about CSS...
                 </div>
               </div>
             </div>
 
             <div className="hidden lg:block absolute -right-16 bottom-0 z-20">
-              <div className="font-handwriting text-primary text-3xl rotate-[-5deg] max-w-[240px] leading-tight flex flex-col items-start">
-                <span className="bg-white/60 backdrop-blur-xs px-2 py-1 wiggly-border">
+              <div className="font-handwriting text-[#0D1015] text-2xl rotate-[-5deg] max-w-[240px] leading-tight flex flex-col items-start">
+                <span className="bg-[#BBDEE1]/20 backdrop-blur-xs px-2 py-1 wiggly-border">
                   Coffee &gt; Code. That's the way to live.
                 </span>
               </div>
@@ -53,22 +46,22 @@ const About = () => {
           <div className="lg:col-span-6 flex flex-col justify-center h-full pt-8 order-1 lg:order-2">
             <div className="space-y-10 relative">
               <svg className="ink-splatter -top-16 -left-16 w-48 h-48" viewBox="0 0 100 100">
-                <path d="M30,50 Q20,30 50,20 T80,50 T50,80 T30,50" fill="black" />
-                <circle cx="20" cy="20" fill="black" r="2" />
-                <circle cx="85" cy="85" fill="black" r="3" />
-                <circle cx="10" cy="70" fill="black" r="1.5" />
+                <path d="M30,50 Q20,30 50,20 T80,50 T50,80 T30,50" fill="#0D1015" />
+                <circle cx="20" cy="20" fill="#0D1015" r="2" />
+                <circle cx="85" cy="85" fill="#0D1015" r="3" />
+                <circle cx="10" cy="70" fill="#0D1015" r="1.5" />
               </svg>
 
               <div className="relative inline-block">
-                <h1 className="font-headline-xl text-5xl md:text-6xl lg:text-7xl leading-none marker-highlight">
-                  <VaraHoverText text="HELLOOO." fontSize={54} />
+                <h1 className="font-headline-xl text-5xl md:text-6xl lg:text-7xl leading-none marker-highlight text-[#0D1015]">
+                  <VaraRevealText text="HELLO." fontSize={54} />
                 </h1>
-                <div className="absolute -top-12 right-0 md:-right-12 font-handwriting text-primary text-3xl rotate-12 bg-white/95 px-4 py-2 rough-border">
+                <div className="absolute -top-12 right-0 md:-right-12 font-handwriting text-[#0D1015] text-3xl rotate-12 bg-[#F5F3EE] px-4 py-2 rough-border">
                   I'm Debarjun!
                 </div>
               </div>
 
-              <p className="font-handwriting text-2xl md:text-3xl text-primary max-w-xl leading-snug">
+              <p className="font-handwriting text-2xl md:text-3xl text-[#0D1015] max-w-xl leading-snug">
                 I am a <span className="scribble-underline font-bold">Frontend Developer</span>,
                 building fast web surfaces, product interfaces, CRM flows, SEO-friendly systems,
                 and tactile UI work that feels as thoughtful as a well-worn sketchbook.
@@ -81,10 +74,10 @@ const About = () => {
                   ['trending_up', 'Shipped SEO, performance, auth, CRM, and real-time interface work.'],
                 ].map(([icon, text], index) => (
                   <div key={text} className="flex items-center gap-4 group">
-                    <div className={`w-10 h-10 rounded-full border-2 border-black flex items-center justify-center transition-transform bg-white shadow-xs ${index % 2 === 0 ? 'rotate-[-12deg]' : 'rotate-[15deg]'} group-hover:rotate-0`}>
-                      <span className="material-symbols-outlined text-primary text-xl">{icon}</span>
+                    <div className={`w-10 h-10 rounded-full border-2 border-[#0D1015] flex items-center justify-center transition-transform bg-[#BBDEE1]/10 shadow-xs ${index % 2 === 0 ? 'rotate-[-12deg]' : 'rotate-[15deg]'} group-hover:rotate-0`}>
+                      <span className="material-symbols-outlined text-[#0D1015] text-xl">{icon}</span>
                     </div>
-                    <span className="font-body-md text-secondary border-b border-black border-dashed pb-0.5">
+                    <span className="font-body-md text-[#5C5268] border-b border-[#0D1015]/60 border-dashed pb-0.5">
                       {text}
                     </span>
                   </div>
@@ -99,14 +92,10 @@ const About = () => {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6 }}
-          className="py-24 relative next-gen-reveal bg-black -mx-6 md:-mx-12 px-6 md:px-12 overflow-hidden mt-16"
+        <div
+          className="py-24 relative bg-[#0D1015] -mx-6 md:-mx-12 px-6 md:px-12 overflow-hidden mt-16"
           style={{ transform: 'rotate(-0.2deg)' }}
         >
           <div className="h-1 bg-white opacity-20 w-full mb-20" />
@@ -117,7 +106,7 @@ const About = () => {
                 SYSTEM ARCHITECTURE
               </h2>
               <h3 className="font-headline-lg text-4xl md:text-5xl text-white">
-                The Engineering Journal
+                <VaraRevealText text="The Engineering Journal" fontSize={42} color="#F5F3EE" />
               </h3>
               <div className="absolute -right-24 top-0 hidden md:block">
                 <svg className="w-16 h-16 rotate-[20deg] opacity-60 stroke-white" fill="none" viewBox="0 0 100 100">
@@ -130,12 +119,11 @@ const About = () => {
               </div>
             </div>
             <div className="font-handwriting text-3xl text-white/40 rotate-[-4deg]">
-              010101 // tools of trade
+              <VaraRevealText text="010101 // tools of trade" fontSize={30} color="rgba(245, 243, 238, 0.4)" />
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-x-12 relative z-10">
-            {/* Block 1: Languages & Core */}
             <div className="md:col-span-5 sketch-paper rotate-[-1deg] group">
               <div className="hatching-shadow" />
               <svg className="sketch-border" preserveAspectRatio="none" viewBox="0 0 400 300">
@@ -144,32 +132,29 @@ const About = () => {
               <h4 className="font-headline-md text-3xl mb-6 text-white border-b border-white/30 pb-2">Languages</h4>
               <div className="flex flex-wrap gap-2">
                 {['Python', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'Dart'].map((lang, idx) => (
-                  <motion.span
-                    whileHover={{ scale: 1.1, rotate: idx % 2 === 0 ? 3 : -3 }}
+                  <span
                     key={lang}
-                    className="skill-tag border-white/30 text-white cursor-default"
+                    className={`skill-tag border-white/30 text-white cursor-default transition-transform duration-150 hover:scale-110 ${idx % 2 === 0 ? 'hover:rotate-3' : 'hover:-rotate-3'}`}
                   >
                     {lang}
-                  </motion.span>
+                  </span>
                 ))}
               </div>
               <div className="mt-8">
                 <h5 className="font-label-caps text-white/50 text-[10px] mb-4">BACKEND &amp; DATABASES</h5>
                 <div className="flex flex-wrap gap-2">
                   {['FastAPI', 'Node.js', 'REST APIs', 'PostgreSQL', 'MongoDB'].map((db, idx) => (
-                    <motion.span
-                      whileHover={{ scale: 1.1, rotate: idx % 2 === 0 ? -3 : 3 }}
+                    <span
                       key={db}
-                      className="skill-tag border-white/30 text-white cursor-default"
+                      className={`skill-tag border-white/30 text-white cursor-default transition-transform duration-150 hover:scale-110 ${idx % 2 === 0 ? 'hover:-rotate-3' : 'hover:rotate-3'}`}
                     >
                       {db}
-                    </motion.span>
+                    </span>
                   ))}
                 </div>
               </div>
             </div>
 
-            {/* Block 2: Frontend & Mobile */}
             <div className="md:col-span-7 sketch-paper rotate-[0.8deg] md:mt-12 group">
               <div className="hatching-shadow" />
               <svg className="sketch-border" preserveAspectRatio="none" viewBox="0 0 600 400">
@@ -180,13 +165,12 @@ const About = () => {
                   <h4 className="font-headline-md text-3xl mb-6 text-white border-b border-white/30 pb-2">Frontend</h4>
                   <div className="flex flex-wrap gap-2">
                     {['React', 'Next.js', 'Vite', 'Tailwind CSS', 'PostCSS'].map((item, idx) => (
-                      <motion.span
-                        whileHover={{ scale: 1.1, rotate: idx % 2 === 0 ? 3 : -3 }}
+                      <span
                         key={item}
-                        className="skill-tag border-white/30 text-white cursor-default"
+                        className={`skill-tag border-white/30 text-white cursor-default transition-transform duration-150 hover:scale-110 ${idx % 2 === 0 ? 'hover:rotate-3' : 'hover:-rotate-3'}`}
                       >
                         {item}
-                      </motion.span>
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -194,13 +178,12 @@ const About = () => {
                   <h4 className="font-headline-md text-3xl mb-6 text-white border-b border-white/30 pb-2">Mobile</h4>
                   <div className="flex flex-wrap gap-2">
                     {['React Native', 'Flutter', 'Android Dev Kit'].map((item, idx) => (
-                      <motion.span
-                        whileHover={{ scale: 1.1, rotate: idx % 2 === 0 ? -3 : 3 }}
-                        key={item}
-                        className="skill-tag border-white/30 text-white cursor-default"
-                      >
-                        {item}
-                      </motion.span>
+<span
+                    key={item}
+                    className={`skill-tag border-white/30 text-white cursor-default transition-transform duration-150 hover:scale-110 ${idx % 2 === 0 ? 'hover:-rotate-3' : 'hover:rotate-3'}`}
+                  >
+                    {item}
+                  </span>
                     ))}
                   </div>
                 </div>
@@ -209,19 +192,17 @@ const About = () => {
                 <h5 className="font-label-caps text-white/50 text-[10px] mb-4">PERFORMANCE &amp; SEO</h5>
                 <div className="flex flex-wrap gap-2">
                   {['Technical SEO', 'Core Web Vitals', 'Semantic HTML', 'Structured Metadata'].map((item, idx) => (
-                    <motion.span
-                      whileHover={{ scale: 1.1, rotate: idx % 2 === 0 ? 3 : -3 }}
+                    <span
                       key={item}
-                      className="skill-tag border-white/30 text-white cursor-default"
+                      className={`skill-tag border-white/30 text-white cursor-default transition-transform duration-150 hover:scale-110 ${idx % 2 === 0 ? 'hover:rotate-3' : 'hover:-rotate-3'}`}
                     >
                       {item}
-                    </motion.span>
+                    </span>
                   ))}
                 </div>
               </div>
             </div>
 
-            {/* Block 3: AI & ML */}
             <div className="md:col-span-12 sketch-paper rotate-[-0.3deg] group">
               <div className="hatching-shadow" />
               <svg className="sketch-border" preserveAspectRatio="none" viewBox="0 0 1000 350">
@@ -254,23 +235,21 @@ const About = () => {
                     'Alpaca Pipelines',
                     'RAG',
                   ].map((item, idx) => (
-                    <motion.span
-                      whileHover={{ scale: 1.1, rotate: idx % 2 === 0 ? 3 : -3 }}
+                    <span
                       key={item}
-                      className={`skill-tag text-white cursor-default ${
+                      className={`skill-tag text-white cursor-default transition-transform duration-150 hover:scale-110 ${idx % 2 === 0 ? 'hover:rotate-3' : 'hover:-rotate-3'} ${
                         item === 'LangChain' || item === 'LoRA / PEFT fine-tuning'
                           ? '!border-white/50 bg-white/5'
                           : 'border-white/30'
                       }`}
                     >
                       {item}
-                    </motion.span>
+                    </span>
                   ))}
                 </div>
               </div>
             </div>
 
-            {/* Block 4: Infrastructure & Others */}
             <div className="md:col-span-6 sketch-paper rotate-[1.5deg] group">
               <div className="hatching-shadow" />
               <svg className="sketch-border" preserveAspectRatio="none" viewBox="0 0 500 320">
@@ -279,32 +258,29 @@ const About = () => {
               <h4 className="font-headline-md text-3xl mb-6 text-white border-b border-white/30 pb-2">Infrastructure</h4>
               <div className="flex flex-wrap gap-2">
                 {['Vercel', 'Netlify', 'AWS', 'Cloudflare', 'Docker', 'CI/CD'].map((item, idx) => (
-                  <motion.span
-                    whileHover={{ scale: 1.1, rotate: idx % 2 === 0 ? 3 : -3 }}
+                  <span
                     key={item}
-                    className="skill-tag border-white/30 text-white cursor-default"
+                    className={`skill-tag border-white/30 text-white cursor-default transition-transform duration-150 hover:scale-110 ${idx % 2 === 0 ? 'hover:rotate-3' : 'hover:-rotate-3'}`}
                   >
                     {item}
-                  </motion.span>
+                  </span>
                 ))}
               </div>
               <div className="mt-8">
                 <h5 className="font-label-caps text-white/50 text-[10px] mb-4">MISCELLANEOUS</h5>
                 <div className="flex flex-wrap gap-2">
                   {['CRM systems', 'Cross-platform architecture', '.exe packaging'].map((item, idx) => (
-                    <motion.span
-                      whileHover={{ scale: 1.1, rotate: idx % 2 === 0 ? -3 : 3 }}
+                    <span
                       key={item}
-                      className="skill-tag border-white/30 text-white cursor-default"
+                      className={`skill-tag border-white/30 text-white cursor-default transition-transform duration-150 hover:scale-110 ${idx % 2 === 0 ? 'hover:-rotate-3' : 'hover:rotate-3'}`}
                     >
                       {item}
-                    </motion.span>
+                    </span>
                   ))}
                 </div>
               </div>
             </div>
 
-            {/* Block 5: Tools & Workflow */}
             <div className="md:col-span-6 sketch-paper rotate-[-2deg] md:-mt-8 group">
               <div className="hatching-shadow" />
               <svg className="sketch-border" preserveAspectRatio="none" viewBox="0 0 500 320">
@@ -329,19 +305,20 @@ const About = () => {
                 ))}
               </ul>
               <div className="mt-6 flex justify-end">
-                <span className="font-handwriting text-white/30 text-xl italic">The Engine Room // 2026</span>
+                <span className="font-handwriting text-white/30 text-xl italic">
+                  <VaraRevealText text="The Engine Room // 2026" fontSize={20} color="rgba(255, 255, 255, 0.3)" />
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Animated Background Scribble (White) */}
           <div className="absolute top-1/2 left-0 w-full h-1/2 opacity-5 pointer-events-none -z-0">
             <svg className="w-full h-full" viewBox="0 0 1000 500">
               <path d="M0,250 C100,200 200,300 300,250 C400,200 500,300 600,250 C700,200 800,300 900,250 L1000,250" fill="none" stroke="white" strokeWidth="1" />
               <path d="M0,350 C150,300 250,400 400,350 C550,300 650,400 800,350 L1000,350" fill="none" stroke="white" strokeWidth="1" />
             </svg>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
