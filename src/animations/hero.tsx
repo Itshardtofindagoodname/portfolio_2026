@@ -443,7 +443,7 @@ const HeroAnimation = ({ revealed = false }: { revealed?: boolean }) => {
     >
       <motion.div
         ref={copyRef}
-        className="hero-copy absolute left-1/2 top-8 z-10 grid w-full max-w-5xl -translate-x-1/2 content-start justify-items-center gap-3 px-6 text-center text-[#0D1015] md:top-12"
+        className="hero-copy absolute left-1/2 top-8 z-10 grid w-full max-w-5xl -translate-x-1/2 content-start justify-items-center gap-3 px-6 text-center text-[#0D1015] md:top-12 lg:top-16"
         style={reduce ? undefined : { y: copyY, opacity: copyOpacity }}
       >
         <motion.span

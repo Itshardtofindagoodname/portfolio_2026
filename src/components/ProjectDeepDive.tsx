@@ -130,7 +130,7 @@ const ProjectDeepDive = ({ projectKey, onBack }: ProjectDeepDiveProps) => {
               <VaraRevealText text="1. Introduction" fontSize={30} />
             </h2>
             <p className="mt-4 text-[#0D1015]">
-              <AnimatedText text={project.intro} stagger={0.035} />
+              <AnimatedText key={projectKey} text={project.intro} stagger={0.035} />
             </p>
             <div className="quote-stamp relative p-5 sm:p-6 my-6 sm:my-8 border-2 border-[#0D1015] border-dashed bg-[#F5F3EE] transform rotate-[-0.4deg] sm:rotate-[-0.5deg] will-change-transform">
               <p className="italic mb-0 font-handwriting text-xl sm:text-2xl leading-tight pr-8 text-[#0D1015]">

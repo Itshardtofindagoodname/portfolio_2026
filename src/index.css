@@ -982,6 +982,10 @@ a[class*="border-b"]:hover {
   transform-style: preserve-3d;
 }
 
+.tilt-card > *:hover {
+  transform: translateZ(24px) rotate(0deg);
+}
+
 /* ---------- animated underline sweep for nav ---------- */
 .nav-doodle-link {
   position: relative;
