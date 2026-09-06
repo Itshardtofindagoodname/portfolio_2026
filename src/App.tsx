@@ -3,6 +3,8 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ReactLenis, useLenis } from 'lenis/react'
 import { HeroAnimation } from './animations/hero'
+import IntroLoader from './animations/IntroLoader'
+import { PixelPreloader } from './animations/pixelpreloader'
 import Navbar from './components/Navbar'
 import './App.css'
 
@@ -27,6 +29,8 @@ const SectionFallback = () => {
 }
 
 function App() {
+  const [introDone, setIntroDone] = useState(false)
+  const [revealDone, setRevealDone] = useState(false)
   const [activeProject, setActiveProject] = useState<string | null>(() => {
     const hash = window.location.hash
     if (hash.startsWith('#/project/')) {
@@ -34,6 +38,12 @@ function App() {
     }
     return null
   })
+
+  useEffect(() => {
+    const hidden = !introDone || !revealDone
+    document.documentElement.style.overflow = hidden ? 'hidden' : ''
+    if (hidden) window.scrollTo(0, 0)
+  }, [introDone, revealDone])
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -49,6 +59,7 @@ function App() {
   }, [])
 
   useEffect(() => {
+    if (!introDone || !revealDone) return
     if (!activeProject) {
       const hash = window.location.hash
       if (hash && hash !== '#home' && !hash.startsWith('#/project/')) {
@@ -62,59 +73,65 @@ function App() {
         return () => clearTimeout(timer)
       }
     }
-  }, [activeProject])
+  }, [activeProject, introDone, revealDone])
 
   return (
-    <ReactLenis
-      root
-      options={{
-        anchors: true,
-        autoRaf: true,
-        lerp: 0.085,
-        smoothWheel: true,
-        wheelMultiplier: 0.9,
-      }}
-    >
-      <LenisScrollBridge />
-      <div className="app-shell flex flex-col">
-        <Navbar />
+    <>
+      {!introDone && <IntroLoader onComplete={() => setIntroDone(true)} />}
+      {introDone && !revealDone && (
+        <PixelPreloader onComplete={() => setRevealDone(true)} tileSize={72} />
+      )}
+      <ReactLenis
+        root
+        options={{
+          anchors: true,
+          autoRaf: true,
+          lerp: 0.085,
+          smoothWheel: true,
+          wheelMultiplier: 0.9,
+        }}
+      >
+        <LenisScrollBridge />
+        <div className="app-shell flex flex-col">
+          <Navbar />
 
-        {activeProject ? (
-          <Suspense fallback={<SectionFallback />}>
-            <ProjectDeepDive
-              projectKey={activeProject}
-              onBack={() => {
-                window.location.hash = '#projects'
-              }}
-            />
-          </Suspense>
-        ) : (
-          <>
-            <main className="home-page" id="home">
-              <HeroAnimation />
-            </main>
-            <div className="torn-hero-edge" aria-hidden="true" />
-
+          {activeProject ? (
             <Suspense fallback={<SectionFallback />}>
-              <About />
-            </Suspense>
-            <Suspense fallback={<SectionFallback />}>
-              <Projects
-                onSelectProject={(key) => {
-                  window.location.hash = `#/project/${key}`
+              <ProjectDeepDive
+                projectKey={activeProject}
+                onBack={() => {
+                  window.location.hash = '#projects'
                 }}
               />
             </Suspense>
-            <Suspense fallback={<SectionFallback />}>
-              <Reading />
-            </Suspense>
-            <Suspense fallback={<SectionFallback />}>
-              <Contact />
-            </Suspense>
-          </>
-        )}
-      </div>
-    </ReactLenis>
+          ) : (
+            <>
+              <main className="home-page" id="home">
+                <HeroAnimation revealed={introDone && revealDone} />
+              </main>
+              <div className="torn-hero-edge" aria-hidden="true" />
+
+              <Suspense fallback={<SectionFallback />}>
+                <About />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <Projects
+                  onSelectProject={(key) => {
+                    window.location.hash = `#/project/${key}`
+                  }}
+                />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <Reading />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <Contact />
+              </Suspense>
+            </>
+          )}
+        </div>
+      </ReactLenis>
+    </>
   )
 }
 

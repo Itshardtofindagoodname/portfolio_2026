@@ -34,10 +34,10 @@ const About = () => {
               </div>
             </div>
 
-            <div className="hidden lg:block absolute -right-16 bottom-0 z-20">
+            <div className="hidden lg:block absolute -right-10 bottom-0 z-20">
               <div className="font-handwriting text-[#0D1015] text-2xl rotate-[-5deg] max-w-[240px] leading-tight flex flex-col items-start">
                 <span className="bg-[#BBDEE1]/20 backdrop-blur-xs px-2 py-1 wiggly-border">
-                  Coffee &gt; Code. That's the way to live.
+                  Coffee &gt; Code. That's the way <br/> to live.
                 </span>
               </div>
             </div>
@@ -54,7 +54,7 @@ const About = () => {
 
               <div className="relative inline-block">
                 <h1 className="font-headline-xl text-5xl md:text-6xl lg:text-7xl leading-none marker-highlight text-[#0D1015]">
-                  <VaraRevealText text="HELLO." fontSize={54} />
+                  <VaraRevealText text="HELLO" fontSize={54} />
                 </h1>
                 <div className="absolute -top-12 right-0 md:-right-12 font-handwriting text-[#0D1015] text-3xl rotate-12 bg-[#F5F3EE] px-4 py-2 rough-border">
                   I'm Debarjun!
@@ -119,7 +119,7 @@ const About = () => {
               </div>
             </div>
             <div className="font-handwriting text-3xl text-white/40 rotate-[-4deg]">
-              <VaraRevealText text="010101 // tools of trade" fontSize={30} color="rgba(245, 243, 238, 0.4)" />
+              010101 // tools of trade
             </div>
           </div>
 
@@ -131,10 +131,10 @@ const About = () => {
               </svg>
               <h4 className="font-headline-md text-3xl mb-6 text-white border-b border-white/30 pb-2">Languages</h4>
               <div className="flex flex-wrap gap-2">
-                {['Python', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'Dart'].map((lang, idx) => (
+                {['Python', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'Dart'].map((lang) => (
                   <span
                     key={lang}
-                    className={`skill-tag border-white/30 text-white cursor-default transition-transform duration-150 hover:scale-110 ${idx % 2 === 0 ? 'hover:rotate-3' : 'hover:-rotate-3'}`}
+                    className={`skill-tag border-white/30 text-white cursor-default `}
                   >
                     {lang}
                   </span>
@@ -143,10 +143,10 @@ const About = () => {
               <div className="mt-8">
                 <h5 className="font-label-caps text-white/50 text-[10px] mb-4">BACKEND &amp; DATABASES</h5>
                 <div className="flex flex-wrap gap-2">
-                  {['FastAPI', 'Node.js', 'REST APIs', 'PostgreSQL', 'MongoDB'].map((db, idx) => (
+                  {['FastAPI', 'Node.js', 'REST APIs', 'PostgreSQL', 'MongoDB'].map((db) => (
                     <span
                       key={db}
-                      className={`skill-tag border-white/30 text-white cursor-default transition-transform duration-150 hover:scale-110 ${idx % 2 === 0 ? 'hover:-rotate-3' : 'hover:rotate-3'}`}
+                      className={`skill-tag border-white/30 text-white cursor-default `}
                     >
                       {db}
                     </span>
@@ -164,10 +164,10 @@ const About = () => {
                 <div>
                   <h4 className="font-headline-md text-3xl mb-6 text-white border-b border-white/30 pb-2">Frontend</h4>
                   <div className="flex flex-wrap gap-2">
-                    {['React', 'Next.js', 'Vite', 'Tailwind CSS', 'PostCSS'].map((item, idx) => (
+                    {['React', 'Next.js', 'Vite', 'Tailwind CSS', 'PostCSS'].map((item) => (
                       <span
                         key={item}
-                        className={`skill-tag border-white/30 text-white cursor-default transition-transform duration-150 hover:scale-110 ${idx % 2 === 0 ? 'hover:rotate-3' : 'hover:-rotate-3'}`}
+                        className={`skill-tag border-white/30 text-white cursor-default `}
                       >
                         {item}
                       </span>
@@ -177,10 +177,10 @@ const About = () => {
                 <div>
                   <h4 className="font-headline-md text-3xl mb-6 text-white border-b border-white/30 pb-2">Mobile</h4>
                   <div className="flex flex-wrap gap-2">
-                    {['React Native', 'Flutter', 'Android Dev Kit'].map((item, idx) => (
+                    {['React Native', 'Flutter', 'Android Dev Kit'].map((item) => (
 <span
                     key={item}
-                    className={`skill-tag border-white/30 text-white cursor-default transition-transform duration-150 hover:scale-110 ${idx % 2 === 0 ? 'hover:-rotate-3' : 'hover:rotate-3'}`}
+                    className={`skill-tag border-white/30 text-white cursor-default `}
                   >
                     {item}
                   </span>
@@ -191,10 +191,10 @@ const About = () => {
               <div className="mt-12 pt-6 border-t border-white/10">
                 <h5 className="font-label-caps text-white/50 text-[10px] mb-4">PERFORMANCE &amp; SEO</h5>
                 <div className="flex flex-wrap gap-2">
-                  {['Technical SEO', 'Core Web Vitals', 'Semantic HTML', 'Structured Metadata'].map((item, idx) => (
+                  {['Technical SEO', 'Core Web Vitals', 'Semantic HTML', 'Structured Metadata'].map((item) => (
                     <span
                       key={item}
-                      className={`skill-tag border-white/30 text-white cursor-default transition-transform duration-150 hover:scale-110 ${idx % 2 === 0 ? 'hover:rotate-3' : 'hover:-rotate-3'}`}
+                      className={`skill-tag border-white/30 text-white cursor-default `}
                     >
                       {item}
                     </span>
@@ -234,10 +234,10 @@ const About = () => {
                     'TRL',
                     'Alpaca Pipelines',
                     'RAG',
-                  ].map((item, idx) => (
+].map((item) => (
                     <span
                       key={item}
-                      className={`skill-tag text-white cursor-default transition-transform duration-150 hover:scale-110 ${idx % 2 === 0 ? 'hover:rotate-3' : 'hover:-rotate-3'} ${
+                      className={`skill-tag text-white cursor-default  ${
                         item === 'LangChain' || item === 'LoRA / PEFT fine-tuning'
                           ? '!border-white/50 bg-white/5'
                           : 'border-white/30'
@@ -257,10 +257,10 @@ const About = () => {
               </svg>
               <h4 className="font-headline-md text-3xl mb-6 text-white border-b border-white/30 pb-2">Infrastructure</h4>
               <div className="flex flex-wrap gap-2">
-                {['Vercel', 'Netlify', 'AWS', 'Cloudflare', 'Docker', 'CI/CD'].map((item, idx) => (
+                {['Vercel', 'Netlify', 'AWS', 'Cloudflare', 'Docker', 'CI/CD'].map((item) => (
                   <span
                     key={item}
-                    className={`skill-tag border-white/30 text-white cursor-default transition-transform duration-150 hover:scale-110 ${idx % 2 === 0 ? 'hover:rotate-3' : 'hover:-rotate-3'}`}
+                    className={`skill-tag border-white/30 text-white cursor-default `}
                   >
                     {item}
                   </span>
@@ -269,10 +269,10 @@ const About = () => {
               <div className="mt-8">
                 <h5 className="font-label-caps text-white/50 text-[10px] mb-4">MISCELLANEOUS</h5>
                 <div className="flex flex-wrap gap-2">
-                  {['CRM systems', 'Cross-platform architecture', '.exe packaging'].map((item, idx) => (
+                  {['CRM systems', 'Cross-platform architecture', '.exe packaging'].map((item) => (
                     <span
                       key={item}
-                      className={`skill-tag border-white/30 text-white cursor-default transition-transform duration-150 hover:scale-110 ${idx % 2 === 0 ? 'hover:-rotate-3' : 'hover:rotate-3'}`}
+                      className={`skill-tag border-white/30 text-white cursor-default `}
                     >
                       {item}
                     </span>

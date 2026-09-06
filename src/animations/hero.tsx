@@ -358,50 +358,51 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
   )
 }
 
-const HeroAnimation = () => {
+const HeroAnimation = ({ revealed = false }: { revealed?: boolean }) => {
   const copyRef = useRef<HTMLDivElement>(null)
+
+  // The hero doodle strokes stay completely hidden until the intro reveal
+  // finishes, so they never flash fully-drawn before animating.
+  useEffect(() => {
+    const context = gsap.context(() => {
+      gsap.set('.hero-circle-path', { strokeDasharray: 600, strokeDashoffset: 600 })
+      gsap.set('.hero-gold-underline-path', {
+        strokeDasharray: 600,
+        strokeDashoffset: 600,
+      })
+    }, copyRef)
+
+    return () => context.revert()
+  }, [])
 
   useEffect(() => {
     const copy = copyRef.current
-    if (!copy) return
+    if (!revealed || !copy) return
 
     const context = gsap.context(() => {
-      gsap.fromTo(
-        '.hero-doodle-line path',
-        { strokeDasharray: 260, strokeDashoffset: 260 },
+      gsap.to(
+        '.hero-circle-path',
         {
           strokeDashoffset: 0,
-          duration: 1.0,
+          duration: 1.3,
           ease: 'power2.out',
           delay: 0.45,
         },
       )
 
-      gsap.fromTo(
-        '.hero-circle-path',
-        { strokeDasharray: 600, strokeDashoffset: 600 },
-        {
-          strokeDashoffset: 0,
-          duration: 1.3,
-          ease: 'power2.out',
-          delay: 0.75,
-        },
-      )
-
-      gsap.fromTo(
+      gsap.to(
         '.hero-gold-underline-path',
-        { strokeDasharray: 600, strokeDashoffset: 600 },
         {
           strokeDashoffset: 0,
           duration: 1.1,
           ease: 'power2.out',
-          delay: 1.15,
+          delay: 1.0,
         },
       )
     }, copy)
 
     return () => context.revert()
-  }, [])
+  }, [revealed])
 
   return (
     <section className="hero-section relative min-h-[88vh] overflow-hidden bg-[#F5F3EE] text-[#0D1015]">
@@ -428,20 +429,6 @@ const HeroAnimation = () => {
             </svg>
           </span>
         </h1>
-        <svg
-          aria-hidden="true"
-          className="hero-copy-item hero-doodle-line mt-1 h-8 w-52 opacity-55 md:w-72"
-          preserveAspectRatio="none"
-          viewBox="0 0 240 32"
-        >
-          <path
-            d="M5 20 C42 5 74 31 112 16 S180 8 235 20"
-            fill="none"
-            stroke="#0D1015"
-            strokeLinecap="round"
-            strokeWidth="3"
-          />
-        </svg>
       </div>
 
       <div className="absolute inset-x-0 bottom-0 h-full overflow-hidden">

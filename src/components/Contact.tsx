@@ -30,7 +30,7 @@ const Contact = () => {
         ></circle>
       </svg>
       <div className="absolute right-8 top-20 hidden font-handwriting text-3xl opacity-40 rotate-6 pointer-events-none select-none md:block">
-        <VaraRevealText text="say hi, ship things" fontSize={30} color="#0D1015" />
+        <span className="text-[#0D1015]">say hi, ship things</span>
       </div>
 
       <div className="max-w-4xl w-full px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10 flex-grow py-8">
@@ -107,12 +107,6 @@ const Contact = () => {
       <footer className="bg-[#F5F3EE] w-full py-8 border-t border-[#0D1015]/60 flex flex-col md:flex-row justify-between items-center px-6 md:px-12 gap-4 mt-auto">
         <div className="font-label-caps text-xs text-[#0D1015] flex items-center gap-2">
           DEBARJUN THAKUR © 2026
-          <svg className="w-4 h-4 text-[#0D1015]" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10"></circle>
-            <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
-            <line x1="9" x2="9.01" y1="9" y2="9"></line>
-            <line x1="15" x2="15.01" y1="9" y2="9"></line>
-          </svg>
         </div>
         <div className="font-label-caps text-xs text-[#0D1015] flex gap-4">
           <a className="hover:italic transition-all" href="#about">ABOUT</a>

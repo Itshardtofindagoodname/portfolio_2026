@@ -58,9 +58,13 @@ const Navbar = () => {
     <nav className="navbar-shell sticky top-0 bg-[#F5F3EE]/90 backdrop-blur-md w-full border-b-2 border-[#0D1015] flex flex-col sm:flex-row justify-between items-center gap-3 px-4 md:px-12 py-3">
       <a
         href="#home"
-        className="navbar-brand truncate text-sm sm:text-base font-headline-md font-bold text-[#0D1015] tracking-[0.1em] border-2 border-[#0D1015] px-3 py-1 wiggly-border hover:bg-[#4AC5CB] hover:text-[#0D1015] transition-colors duration-200"
+        className="navbar-brand inline-block"
       >
-        DEBARJUN THAKUR
+        <img
+          src="/dev-tag.png"
+          alt="dev.tag"
+          className="navbar-logo h-10 w-auto"
+        />
       </a>
 
       <div className="navbar-links flex flex-wrap justify-center gap-x-4 gap-y-2 md:gap-x-8 items-center">

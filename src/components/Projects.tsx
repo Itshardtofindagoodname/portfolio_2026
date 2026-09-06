@@ -149,18 +149,9 @@ interface ProjectsProps {
 const Projects = ({ onSelectProject }: ProjectsProps) => {
   return (
     <section id="projects" className="paper-cut-section relative bg-[#F5F3EE] py-12 sm:py-16 md:py-20 lg:py-32 overflow-hidden border-y-2 border-[#0D1015]">
-      <div className="absolute top-40 left-0 opacity-10 pointer-events-none select-none -rotate-12 hidden sm:block">
-        <svg className="w-48 h-48" viewBox="0 0 100 100" aria-hidden="true">
-          <path d="M10,10 Q50,90 90,10" fill="none" stroke="#0D1015" strokeWidth="1" />
-        </svg>
+      <div className="absolute right-8 bottom-[60%] hidden font-handwriting text-3xl opacity-40 rotate-6 pointer-events-none select-none md:block">
+        <span className="text-[#0D1015]">build / break / ship</span>
       </div>
-      <div className="absolute right-8 top-28 hidden font-handwriting text-3xl opacity-40 rotate-6 pointer-events-none select-none md:block">
-        <VaraRevealText text="build / break / ship" fontSize={30} color="#0D1015" />
-      </div>
-      <svg className="absolute left-8 bottom-36 hidden h-24 w-48 opacity-15 pointer-events-none md:block" viewBox="0 0 180 80" fill="none" aria-hidden="true">
-        <path d="M8 42 C34 20 52 62 78 38 S122 14 164 45" stroke="#0D1015" strokeLinecap="round" strokeWidth="3" />
-        <path d="M148 32 L166 45 L145 55" stroke="#0D1015" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" />
-      </svg>
 
       <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-12 relative z-10">
         <div className="flex flex-col sm:flex-row sm:flex-wrap md:flex-row items-start sm:items-baseline gap-2 sm:gap-4 mb-10 sm:mb-14 md:mb-20 relative">

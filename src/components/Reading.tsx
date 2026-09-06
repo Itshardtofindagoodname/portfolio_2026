@@ -19,7 +19,7 @@ const Reading = () => {
   return (
     <section id="reading" className="paper-cut-section relative bg-[#F5F3EE] text-[#0D1015] border-y-2 border-[#0D1015] py-8 overflow-hidden">
       <div className="border-[1px] border-[#0D1015] m-2 md:m-4 relative bg-[#F5F3EE] py-10 md:py-18">
-        <div className="absolute right-8 top-10 hidden font-handwriting text-3xl opacity-40 rotate-6 pointer-events-none select-none md:block">
+        <div className="absolute left-8 top-10 hidden font-handwriting text-3xl opacity-40 -rotate-6 pointer-events-none select-none md:block">
           <VaraRevealText text="margins are for side quests" fontSize={30} color="#0D1015" />
         </div>
 
@@ -136,14 +136,14 @@ const Reading = () => {
 
               <div className="paper-scrap musing-scrap musing-scrap-small p-5 rotate-[-4deg] bg-[#F5F3EE] border-[#0D1015]">
                 <div className="tape"></div>
-                <p className="font-handwriting text-xl leading-none text-[#0D1015]">
+                <p className="font-handwriting text-lg leading-none text-[#0D1015]">
                   tiny bugs deserve dramatic soundtracks.
                 </p>
               </div>
 
               <div className="paper-scrap musing-scrap musing-scrap-medium p-5 rotate-[2.5deg] bg-[#F5F3EE] border-[#0D1015]">
                 <div className="tape"></div>
-                <p className="font-handwriting text-xl leading-tight text-[#0D1015]">
+                <p className="font-handwriting text-lg leading-tight text-[#0D1015]">
                   Your code is tomorrow's archaeology. Be kind to your future self.
                 </p>
               </div>
