@@ -719,8 +719,17 @@ a[class*="border-b"]:hover {
 .sketch-paper {
   background-color: #0D1015;
   position: relative;
-  padding: 2rem;
+  padding: 2.75rem 2rem 2rem;
   color: white;
+}
+
+/* Give the hand-drawn SVG border more clearance from the card headers
+   when the preserveAspectRatio="none" distortion pushes the border line
+   close to the content on very wide or narrow viewports. */
+@media (min-width: 1536px) {
+  .sketch-paper {
+    padding-top: 3.25rem;
+  }
 }
 .sketch-border {
   position: absolute;

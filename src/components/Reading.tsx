@@ -50,8 +50,8 @@ const Reading = () => {
             </MotionReveal>
 
             <MotionReveal delay={0.12}>
-              <div className="overflow-x-auto overflow-y-hidden pb-2 -mb-2 w-full max-w-[520px]">
-              <div className="reading-shelf flex items-end h-[420px] pl-4 pr-6 border-l-2 border-[#0D1015] relative select-none min-w-[350px]">
+              <div className="overflow-x-auto overflow-y-hidden pb-2 -mb-2 w-full max-w-[520px] lg:overflow-x-hidden">
+              <div className="reading-shelf flex items-end h-[420px] pl-14 pr-6 border-l-2 border-[#0D1015] relative select-none min-w-[350px]">
               {books.map((book) => {
                 const isPulled = pulledBook === book.id
                 return (
@@ -79,10 +79,14 @@ const Reading = () => {
                 )
               })}
 
-              <div className="absolute -left-8 top-16 flex items-center gap-2 pointer-events-none">
+              <div className="absolute left-0 -top-2 flex items-start gap-1 pointer-events-none z-50">
+                <svg className="w-6 h-5 mt-1 shrink-0 rotate-[-8deg]" viewBox="0 0 24 20" fill="none">
+                  <path d="M2 14 C5 6 10 4 16 8 C14 5 17 2 20 4" stroke="#5C5268" strokeWidth="1.8" strokeLinecap="round" fill="none" />
+                  <path d="M17 2 L20 4 L17 6" stroke="#5C5268" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                </svg>
                 <span
                   style={{ fontFamily: '"HappyMonkey", sans-serif' }}
-                  className="text-body-lg text-[#5C5268] italic rotate-[-12deg]"
+                  className="text-[#5C5268] italic rotate-[-12deg] text-base whitespace-nowrap"
                 >
                   favorite
                 </span>
