@@ -11,7 +11,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="paper-cut-section relative bg-[#F5F3EE] pt-20 md:pt-32 overflow-hidden border-t-2 border-[#0D1015] flex flex-col items-center justify-between min-h-[90vh]"
+      className="paper-cut-section relative bg-[#F5F3EE] pt-20 md:pt-32 pb-16 overflow-hidden border-t-2 border-[#0D1015] flex flex-col items-center justify-between md:min-h-[90vh]"
     >
       <svg className="absolute top-10 left-10 w-16 h-16 pointer-events-none opacity-20" viewBox="0 0 100 100">
         <path

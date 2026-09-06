@@ -19,13 +19,12 @@ const ScrambleText = ({ text, className, as: Tag = 'span' }: ScrambleTextProps) 
     if (reduce || !inView) return
 
     let frame = 0
-    let interval: ReturnType<typeof setInterval> | undefined
     const done = () => {
       if (interval) clearInterval(interval)
       setDisplay(text)
     }
 
-    interval = setInterval(() => {
+    const interval = setInterval(() => {
       const next = text
         .split('')
         .map((char, i) =>

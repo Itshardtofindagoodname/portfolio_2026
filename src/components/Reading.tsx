@@ -27,19 +27,19 @@ const Reading = () => {
           <VaraRevealText text="margins are for side quests" fontSize={30} color="#0D1015" />
         </div>
 
-        <main className="flex-grow z-10 relative px-4 md:px-margin-page py-10 md:py-14 max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-y-10 md:gap-x-20">
+        <main className="flex-grow z-10 relative px-4 md:px-margin-page py-10 md:py-14 max-w-7xl mx-auto w-full min-w-0 grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-y-10 md:gap-x-20">
           <div className="col-span-1 md:col-span-12 mb-6 md:mb-8 relative overflow-hidden">
-            <h1 className="font-headline-xl text-5xl md:text-7xl uppercase leading-none tracking-normal whitespace-nowrap md:whitespace-normal text-[#0D1015]">
+            <h1 className="font-headline-xl text-5xl md:text-7xl uppercase leading-none tracking-normal md:whitespace-normal text-[#0D1015] min-w-0 break-words">
               <span className="inline-block">
                 <AnimatedText text="READING &" stagger={0.08} />
               </span>
-              <span className="block font-handwriting lowercase italic text-[#5C5268] ml-12 mt-8 text-2xl md:text-3xl font-normal">
+              <span className="block font-handwriting lowercase italic text-[#5C5268] ml-12 md:ml-12 mt-6 md:mt-8 text-2xl md:text-3xl font-normal">
                 <AnimatedText text="musings" stagger={0.1} delay={0.35} />
               </span>
             </h1>
           </div>
 
-          <section className="col-span-1 md:col-span-4 flex flex-col gap-stack-md mt-10 md:mt-0">
+          <section className="col-span-1 md:col-span-4 flex flex-col gap-stack-md mt-10 md:mt-0 min-w-0">
             <MotionReveal y={16}>
               <div className="flex items-center gap-4 border-b-2 border-[#0D1015] pb-2 w-max">
                 <h2 className="font-label-caps text-label-caps uppercase tracking-[0.15em] text-[#0D1015]">
@@ -50,7 +50,8 @@ const Reading = () => {
             </MotionReveal>
 
             <MotionReveal delay={0.12}>
-              <div className="reading-shelf flex items-end h-[420px] pl-4 border-l-2 border-[#0D1015] relative select-none min-w-[350px]">
+              <div className="overflow-x-auto overflow-y-hidden pb-2 -mb-2 w-full max-w-[520px]">
+              <div className="reading-shelf flex items-end h-[420px] pl-4 pr-6 border-l-2 border-[#0D1015] relative select-none min-w-[350px]">
               {books.map((book) => {
                 const isPulled = pulledBook === book.id
                 return (
@@ -85,6 +86,7 @@ const Reading = () => {
                 >
                   favorite
                 </span>
+              </div>
               </div>
               </div>
             </MotionReveal>

@@ -9,6 +9,7 @@
 }
 
 @theme {
+  --breakpoint-xs: 30rem;
   --color-highlight: #4AC5CB;
   --color-on-highlight: #0D1015;
 
