@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+html, body {
+  cursor: url('/mouse/cursor.png'), auto;
+}
+a, button, [role="button"], input, textarea, select, canvas, .cursor-pointer, .interactive-hover, button *, a * {
+  cursor: url('/mouse/pointer.png'), pointer !important;
+}
+
 @font-face {
   font-family: 'HappyMonkey';
   src: url('/font/HappyMonkey-Regular.woff2') format('woff2'),

@@ -371,5 +371,51 @@
     ],
     "githubUrl": "https://github.com/Itshardtofindagoodname/Slash",
     "status": "COMPLETED"
+  },
+  "glimpses": {
+    "title": "Glimpses",
+    "filename": "Glimpses.md",
+    "ver": "VER 1.0.0",
+    "releaseType": "CLI TOOL RELEASE",
+    "marginalia": "Cross-Repo Fuzzy Go-To-Anything CLI for Developers",
+    "intro": "Glimpses is a cross-repo fuzzy go-to-anything CLI for developers. It provides instant fuzzy search over file paths and code symbols (functions, classes, interfaces, variables) across every git repository on your machine, ranked by relevance plus usage history (frecency). All core data structures — the FST, Bloom filter, and frecency scorer — are hand-written from scratch in TypeScript with zero external search or fuzzy matching dependencies.",
+    "introQuote": "Instant fuzzy search over file paths and code symbols across every git repository on your machine.",
+    "introIcon": "terminal",
+    "stackTitle": "The Stack",
+    "stack": [
+      "Runtime: Node.js >= 18",
+      "Language: TypeScript",
+      "Symbol Extractor: tree-sitter (JS/TS/TSX grammars)",
+      "Index & Storage: Hand-written FST, Bloom Filter & Atomic JSON Stores",
+      "Watcher Daemon: chokidar"
+    ],
+    "metricsTitle": "Engine Metrics",
+    "metrics": [
+      "Sub-25ms p50 Search Latency Over 10,000+ Symbols",
+      "Zero Third-Party Search or Fuzzy Matching Libraries",
+      "Custom Kirsch-Mitzenmacher Double-Hashed Bloom Prefilter",
+      "Frecency-Aware Logarithmic Decay Ranking Engine"
+    ],
+    "capabilities": [
+      "Fuzzy Search: Matches file paths and code symbols across all local git repositories with case-insensitive Levenshtein FST traversal.",
+      "Symbol Extraction: Uses tree-sitter to parse function declarations, class definitions, interface types, arrow functions, and exported constants.",
+      "Frecency Ranker: Blends match quality with access frequency and bucketed half-life recency decay.",
+      "Incremental Daemon: Runs a background process watching filesystem changes with chokidar and atomic tombstone updates."
+    ],
+    "whyBuilt": "Navigating between dozens of local git repositories often requires hopping between IDE instances or slow file search tools. Glimpses was built to create an instant, zero-dependency CLI command that indexes all local codebases into hand-crafted FST and Bloom filter structures for instant symbol navigation.",
+    "howItWorks": [
+      "Scan git roots and parse code symbols using tree-sitter grammars.",
+      "Build lexicographically sorted FST data structures and Kirsch-Mitzenmacher Bloom filters for each repository.",
+      "Traverse FSTs with breadth-first Levenshtein DP state tracking for sub-linearly pruned fuzzy queries.",
+      "Rank candidates by blending match score (0.7) and frecency score (0.3) before launching $EDITOR."
+    ],
+    "architectureDiagram": "                 ┌────────────────────────┐\n   fs changes -> │   Daemon (watcher)     │ --patches--> [FST + Bloom indexes on disk]\n                 └────────────────────────┘\n                                                   ^\n   glimpses <query>                               |\n        │                                         |\n        ▼                                         |\n ┌─────────────┐   ┌───────────────┐   ┌──────────┴───────┐   ┌────────────────┐\n │ Bloom filter│──>│ FST traversal │──>│ Merge candidates │──>│ Frecency-aware │──> TUI\n │  prefilter  │   │ (fuzzy/prefix)│   │ (files+symbols)  │   │    ranker      │\n └─────────────┘   └───────────────┘   └───────────────────┘   └────────────────┘",
+    "learnt": [
+      "Incremental FST construction with suffix-sharing reduces index sizes dramatically compared to raw tries.",
+      "Kirsch-Mitzenmacher double hashing provides 1% false positive rates without multiple hash function overhead.",
+      "Frecency algorithms (combining logarithmic frequency with bucketed decay) produce intuitive resume-work views."
+    ],
+    "githubUrl": "https://github.com/Itshardtofindagoodname/Glimpses",
+    "status": "COMPLETED"
   }
 }

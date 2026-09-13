@@ -459,7 +459,7 @@ const HeroAnimation = ({ revealed = false }: { revealed?: boolean }) => {
           {...shared}
           custom={1}
           variants={reduce ? undefined : line}
-          className="hero-copy-item font-headline-xl text-3xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-normal max-w-4xl"
+          className="hero-copy-item font-headline-xl text-3xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-normal max-w-4xl mt-20"
         >
           Want someone who<br />
           <motion.span
@@ -480,7 +480,7 @@ const HeroAnimation = ({ revealed = false }: { revealed?: boolean }) => {
             variants={reduce ? undefined : line}
             className="relative inline-block pb-2 px-1"
           >
-            crowd
+            crowd ?
             <svg className="absolute left-0 right-0 -bottom-2 h-4 w-full pointer-events-none overflow-visible" preserveAspectRatio="none" viewBox="0 0 200 20" fill="none">
               <path className="hero-gold-underline-path" d="M5,12 C40,8 80,15 120,10 C160,5 195,12 195,12 M10,16 C50,14 100,18 150,15 C180,13 192,16 192,16" stroke="#4AC5CB" strokeWidth="4" strokeLinecap="round" />
             </svg>

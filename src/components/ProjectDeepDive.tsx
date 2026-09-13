@@ -36,7 +36,7 @@ interface ProjectDeepDiveProps {
   onBack: () => void
 }
 
-const projectKeys = ['fastfox', 'gitgud', 'tornedo', 'profi', 'pragati', 'vaultify', 'slash', 'cairn']
+const projectKeys = ['fastfox', 'gitgud', 'tornedo', 'glimpses', 'vaultify', 'slash', 'cairn']
 
 const ProjectDeepDive = ({ projectKey, onBack }: ProjectDeepDiveProps) => {
   const project = projectRegistry[projectKey] || projectRegistry.fastfox

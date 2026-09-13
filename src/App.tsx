@@ -27,7 +27,7 @@ const LenisScrollBridge = () => {
 }
 
 const SectionFallback = () => {
-  return <div aria-hidden="true" style={{ width: '100%' }} />
+  return <div aria-hidden="true" style={{ width: '100%', minHeight: '200px' }} />
 }
 
 const ScrollProgress = () => {
@@ -139,7 +139,7 @@ function App() {
                   'TYPESCRIPT',
                   'GSAP',
                   'LENIS',
-                  'ANIME.JS',
+                  'MATTER.JS',
                   'VITE',
                   'TAILWIND CSS',
                 ]}

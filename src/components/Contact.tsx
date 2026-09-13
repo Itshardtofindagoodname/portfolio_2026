@@ -1,145 +1,175 @@
-import DoodleButton from './DoodleButton'
+import { useEffect, useRef, useState } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import VaraRevealText from './VaraRevealText'
 import AppIcon from './AppIcon'
 import MotionReveal from './MotionReveal'
-import AnimatedText from './AnimatedText'
-import ScrambleText from './ScrambleText'
-import TiltCard from './TiltCard'
+import DoodleButton from './DoodleButton'
 import contactUsImage from '../assets/contact_us.webp'
 
-const Contact = () => {
+gsap.registerPlugin(ScrollTrigger)
+
+export default function Contact() {
+  const containerRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const ctx = gsap.context(() => {
+      // Reconnecting doodle ink path timeline
+      gsap.fromTo(
+        '.finale-doodle-path',
+        { strokeDasharray: 1000, strokeDashoffset: 1000 },
+        {
+          strokeDashoffset: 0,
+          duration: 2,
+          ease: 'power2.inOut',
+          scrollTrigger: {
+            trigger: container,
+            start: 'top 70%',
+          },
+        },
+      )
+
+      gsap.fromTo(
+        '.finale-title-char',
+        { opacity: 0, y: 50, rotate: 6 },
+        {
+          opacity: 1,
+          y: 0,
+          rotate: 0,
+          stagger: 0.04,
+          duration: 0.8,
+          ease: 'back.out(1.5)',
+          scrollTrigger: {
+            trigger: container,
+            start: 'top 80%',
+          },
+        },
+      )
+    }, container)
+
+    return () => ctx.revert()
+  }, [])
+
+  const socialLinks = [
+    { label: 'EMAIL', href: 'mailto:debarjunthakur020@gmail.com', detail: 'debarjunthakur020@gmail.com' },
+    { label: 'GITHUB', href: 'https://github.com/Itshardtofindagoodname', detail: '@Itshardtofindagoodname' },
+    { label: 'LINKEDIN', href: 'https://in.linkedin.com/in/debarjun-thakur', detail: 'in/debarjun-thakur' },
+    { label: 'PEERLIST', href: 'https://peerlist.io/debarjunthakur', detail: 'peerlist.io/debarjunthakur' },
+  ]
+
   return (
     <section
+      ref={containerRef}
       id="contact"
-      className="paper-cut-section relative bg-[#F5F3EE] pt-20 md:pt-32 pb-16 overflow-hidden border-t-2 border-[#0D1015] flex flex-col items-center justify-between md:min-h-[90vh]"
+      className="paper-cut-section relative bg-[#F5F3EE] text-[#0D1015] pt-24 md:pt-36 pb-12 overflow-hidden border-t-2 border-[#0D1015] flex flex-col justify-between min-h-[90vh]"
     >
-      <svg className="absolute top-10 left-10 w-16 h-16 pointer-events-none opacity-20" viewBox="0 0 100 100">
+      {/* Reconnecting Ink Path SVG */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 1000 800" preserveAspectRatio="none">
         <path
-          d="M20,50 L80,50 M50,20 L50,80 M30,30 L70,70 M30,70 L70,30"
+          className="finale-doodle-path"
+          d="M 50 100 Q 500 400 950 200 T 100 700"
           fill="none"
           stroke="#0D1015"
-          strokeLinecap="round"
-          strokeWidth="2"
-        ></path>
+          strokeWidth="1.5"
+          strokeDasharray="4 4"
+        />
+        <circle cx="500" cy="400" r="180" fill="none" stroke="rgba(74, 197, 203, 0.2)" strokeWidth="2" />
       </svg>
 
-      <svg className="absolute top-1/4 right-1/4 w-12 h-12 pointer-events-none opacity-25" viewBox="0 0 50 50">
-        <circle
-          cx="25"
-          cy="25"
-          fill="none"
-          r="20"
-          stroke="#0D1015"
-          strokeDasharray="4,4"
-          strokeWidth="2"
-        ></circle>
-      </svg>
-      <div className="absolute right-8 top-20 hidden font-handwriting text-3xl opacity-40 rotate-6 pointer-events-none select-none md:block">
-        <span className="text-[#0D1015]">
-          <ScrambleText text="say hi, ship things" />
-        </span>
-      </div>
-
-      <div className="max-w-4xl w-full px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10 flex-grow py-8">
-        <div className="flex flex-col gap-8">
-          <MotionReveal y={16}>
-            <h1 className="font-headline-xl text-5xl md:text-6xl lowercase italic leading-none text-[#0D1015]">
-              <VaraRevealText text="let's talk." fontSize={52} />
-            </h1>
+      <div className="max-w-6xl mx-auto px-6 md:px-12 w-full relative z-10 my-auto">
+        <div className="text-center mb-16">
+          <MotionReveal y={20}>
+            <span className="font-label-caps text-xs text-[#5C5268] uppercase tracking-[0.3em] block mb-4">
+              FINALE // SAY HI, SHIP THINGS
+            </span>
           </MotionReveal>
 
-          <MotionReveal delay={0.1} y={16}>
-            <p className="font-body-lg text-lg text-[#5C5268] leading-relaxed">
-              <AnimatedText
-                text="I'm always open to interesting projects, collaborations, or just a good conversation."
-                stagger={0.04}
-              />
-            </p>
-          </MotionReveal>
+          {/* Enormous Kinetic Title */}
+          <h1 className="font-headline-xl text-5xl sm:text-7xl md:text-8xl lg:text-9xl uppercase leading-none tracking-tighter text-[#0D1015] break-words">
+            {'LET\'S BUILD'.split('').map((char, index) => (
+              <span key={index} className="finale-title-char inline-block">
+                {char === ' ' ? '\u00A0' : char}
+              </span>
+            ))}
+          </h1>
 
-          <MotionReveal delay={0.18} y={16}>
-            <div className="flex flex-wrap gap-4">
-              <DoodleButton href="/Resume.pdf" download variant="paper">
-                Download Resume
-                <AppIcon name="download" size={20} className="text-current" />
-              </DoodleButton>
-            </div>
-          </MotionReveal>
-
-          <MotionReveal delay={0.26} y={16}>
-            <div className="flex flex-col gap-4 mt-4">
-              <svg className="w-12 h-12 mb-2 pointer-events-none opacity-30" viewBox="0 0 100 50">
-                <path d="M10,10 Q50,40 90,10" fill="none" stroke="#0D1015" strokeLinecap="round" strokeWidth="2"></path>
-                <path d="M80,10 L90,10 L85,20" fill="none" stroke="#0D1015" strokeWidth="2"></path>
-              </svg>
-              
-              {[
-                { label: 'EMAIL', href: 'mailto:debarjunthakur020@gmail.com' },
-                { label: 'GITHUB', href: 'https://github.com/Itshardtofindagoodname' },
-                { label: 'LINKEDIN', href: 'https://in.linkedin.com/in/debarjun-thakur' },
-                { label: 'PEERLIST', href: 'https://peerlist.io/debarjunthakur' },
-              ].map((link) => (
-                <a
-                  key={link.label}
-                  className="font-label-caps text-xs md:text-sm inline-flex items-center w-max border-b border-[#0D1015]/70 pb-0.5 hover:italic hover:translate-x-1 transition-all duration-150 text-[#0D1015]"
-                  href={link.href}
-                  target={link.href.startsWith('mailto') ? undefined : '_blank'}
-                  rel="noopener noreferrer"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </MotionReveal>
+          <div className="font-handwriting text-3xl md:text-5xl text-[#5C5268] mt-4 italic">
+            <VaraRevealText text="something strange & beautiful." fontSize={48} />
+          </div>
         </div>
 
-        <MotionReveal x={24} y={0} delay={0.1}>
-          <TiltCard className="relative" intensity={7} glare={false}>
-            <div className="relative flex justify-center border-2 border-[#0D1015] bg-[#F5F3EE] p-4 overflow-hidden group shadow-lg">
-              <img
-                alt="Debarjun Waving Illustration"
-                loading="lazy"
-                decoding="async"
-                className="w-full max-w-sm object-cover group-hover:scale-102 transition-transform duration-500 ease-in-out"
-                src={contactUsImage}
-              />
-              <div className="absolute inset-0 border-4 border-[#0D1015] border-dashed opacity-10 pointer-events-none"></div>
+        {/* Quiet Finale Interactive Center Card */}
+        <div className="max-w-3xl mx-auto border-2 border-[#0D1015] bg-[#F5F3EE] p-8 md:p-12 shadow-2xl relative">
+          <div className="tape-effect tape-tl opacity-80" />
+          <div className="tape-effect tape-tr opacity-80" />
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            <div className="md:col-span-7 space-y-6">
+              <p className="font-handwriting text-2xl text-[#0D1015] leading-snug">
+                I&apos;m always open to high-impact projects, collaborations, or a good conversation about frontend architecture and tactile UI work.
+              </p>
+
+              <div className="space-y-4 pt-2">
+                {socialLinks.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target={item.href.startsWith('mailto') ? undefined : '_blank'}
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-between border-b border-[#0D1015]/30 pb-2 hover:border-[#4AC5CB] transition-colors"
+                  >
+                    <span className="font-label-caps text-xs tracking-widest text-[#0D1015] group-hover:text-[#4AC5CB]">
+                      {item.label}
+                    </span>
+                    <span className="font-mono text-sm text-[#5C5268] group-hover:underline">
+                      {item.detail}
+                    </span>
+                  </a>
+                ))}
+              </div>
+
+              <div className="pt-4 flex items-center gap-4">
+                <DoodleButton href="/Resume.pdf" download variant="paper" className="!text-sm">
+                  Download Resume
+                  <AppIcon name="download" size={18} />
+                </DoodleButton>
+              </div>
             </div>
-          </TiltCard>
-        </MotionReveal>
+
+            <div className="md:col-span-5 flex justify-center">
+              <div className="border-2 border-[#0D1015] p-2 bg-[#F5F3EE] rotate-2 shadow-md max-w-[220px]">
+                <img
+                  alt="Debarjun Waving"
+                  src={contactUsImage}
+                  className="w-full h-auto grayscale hover:grayscale-0 transition-[filter] duration-500"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <svg className="absolute bottom-32 left-4 w-12 h-12 pointer-events-none opacity-20" viewBox="0 0 100 100">
-        <path
-          d="M50 10 L60 40 L90 40 L65 60 L75 90 L50 70 L25 90 L35 60 L10 40 L40 40 Z"
-          fill="none"
-          stroke="#0D1015"
-          strokeWidth="2"
-        ></path>
-      </svg>
-      <svg className="absolute bottom-32 right-4 w-10 h-10 pointer-events-none opacity-20" viewBox="0 0 100 100">
-        <path
-          d="M50 10 L60 40 L90 40 L65 60 L75 90 L50 70 L25 90 L35 60 L10 40 L40 40 Z"
-          fill="none"
-          stroke="#0D1015"
-          strokeWidth="2"
-        ></path>
-      </svg>
+      {/* Premium Dark Editorial Footer */}
+      <footer className="w-full pt-12 pb-8 border-t-2 border-[#0D1015] bg-[#0D1015] text-[#F5F3EE] mt-24">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex items-center gap-3">
+            <img src="/dev-tag.png" alt="dev.tag" className="h-8 w-auto filter invert" />
+            <span className="font-label-caps text-xs tracking-widest opacity-60">DEBARJUN THAKUR © 2026</span>
+          </div>
 
-      <footer className="bg-[#F5F3EE] w-full py-8 border-t border-[#0D1015]/60 flex flex-col md:flex-row justify-between items-center px-6 md:px-12 gap-4 mt-auto">
-        <div className="font-label-caps text-xs text-[#0D1015] flex items-center gap-2">
-          DEBARJUN THAKUR © 2026
-        </div>
-        <div className="font-label-caps text-xs text-[#0D1015] flex gap-4">
-          <a className="hover:italic transition-all" href="#about">ABOUT</a>
-          <span className="opacity-40">·</span>
-          <a className="hover:italic transition-all" href="#projects">PROJECTS</a>
-          <span className="opacity-40">·</span>
-          <a className="font-bold underline hover:italic transition-all" href="#contact">CONTACT</a>
+          <div className="flex flex-wrap justify-center gap-6 font-label-caps text-xs tracking-widest text-white/70">
+            <a href="#home" className="hover:text-[#4AC5CB] transition-colors">HOME</a>
+            <a href="#about" className="hover:text-[#4AC5CB] transition-colors">ABOUT</a>
+            <a href="#projects" className="hover:text-[#4AC5CB] transition-colors">PROJECTS</a>
+            <a href="#reading" className="hover:text-[#4AC5CB] transition-colors">READING &amp; MUSINGS</a>
+            <a href="#contact" className="hover:text-[#4AC5CB] transition-colors">CONTACT</a>
+          </div>
         </div>
       </footer>
     </section>
   )
 }
-
-export default Contact
