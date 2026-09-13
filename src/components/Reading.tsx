@@ -299,9 +299,17 @@ export default function Reading() {
       ],
     },
     {
-      id: 'sec-2',
+      id: 'sec-musings',
       num: '02',
-      title: '02. Production & Recruiter Priorities',
+      title: '02. Random Musings',
+      motto: 'Intermittent showers of half-baked opinions and coffee-powered thoughts.',
+      notes: [],
+      isMusingBoard: true,
+    },
+    {
+      id: 'sec-2',
+      num: '03',
+      title: '03. Production & Recruiter Priorities',
       motto: 'Production Rigor: Zero layout shifts, 95+ Core Web Vitals, and compliant accessible UX standards.',
       notes: [
         { label: 'Core Web Vitals', detail: 'Optimized asset delivery, minimal bundle size, fast LCP, zero CLS, and instant interaction response times under high load.' },
@@ -310,16 +318,16 @@ export default function Reading() {
     },
     {
       id: 'sec-3',
-      num: '03',
-      title: '03. Interactive Physics & Gravity Sandbox',
+      num: '04',
+      title: '04. Interactive Physics & Gravity Sandbox',
       motto: 'Things I Prioritize: Physical inertia, rigid-body mechanics, and recruiter-attracting quality metrics.',
       notes: [],
       isPhysicsCanvas: true,
     },
     {
       id: 'sec-4',
-      num: '04',
-      title: '04. AI Systems & Modern Architecture',
+      num: '05',
+      title: '05. AI Systems & Modern Architecture',
       motto: 'Engineering Depth: Combining full-stack TypeScript, streaming endpoints, and LLM orchestration.',
       notes: [
         { label: 'LLM Orchestration', detail: 'Integrating Groq API, LLaMA 3, Mixtral, and LangChain RAG pipelines for real-time AI capabilities.' },
@@ -328,8 +336,8 @@ export default function Reading() {
     },
     {
       id: 'sec-5',
-      num: '05',
-      title: '05. Books & Essential Reading Notes',
+      num: '06',
+      title: '06. Books & Essential Reading Notes',
       motto: 'Continuous Learning: Architectural manuals, system design, and technical mastery books.',
       notes: [],
       isBookshelf: true,
@@ -469,7 +477,7 @@ export default function Reading() {
                   )}
 
                   {/* Standard Notes Grid */}
-                  {!sec.isPhysicsCanvas && !sec.isBookshelf && (
+                  {!sec.isPhysicsCanvas && !sec.isBookshelf && !sec.isMusingBoard && (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-handwriting text-xl text-[#0D1015]">
                       {sec.notes.map((note) => (
                         <div key={note.label} className="p-4 border-l-4 border-[#0D1015] bg-[#F5F3EE]/80 space-y-1">
@@ -484,6 +492,28 @@ export default function Reading() {
                       ))}
                     </div>
                   )}
+
+                  {/* Random Musings Board */}
+                  {sec.isMusingBoard && (
+                    <div className="relative grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
+                      <div className="paper-scrap musing-scrap p-4 rotate-[-3deg] w-full">
+                        <p className="font-handwriting text-base leading-snug text-[#0D1015]">
+                          There are two hard things in computer science: cache invalidation, naming things, and
+                          off-by-one errors.
+                        </p>
+                      </div>
+                      <div className="paper-scrap musing-scrap p-4 rotate-[2deg] w-full">
+                        <p className="font-handwriting text-base leading-snug text-[#0D1015]">
+                          It&apos;s not a bug. It&apos;s an undocumented feature.
+                        </p>
+                      </div>
+                      <div className="paper-scrap musing-scrap p-4 rotate-[-2deg] w-full">
+                        <p className="font-handwriting text-base leading-snug text-[#0D1015]">
+                          I love deadlines. I love the whooshing sound they make as they fly by.
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -491,7 +521,7 @@ export default function Reading() {
             {/* Footer */}
             <div className="mt-10 pt-4 border-t border-dashed border-[#0D1015]/40 flex justify-between items-center text-xs font-mono text-[#5C5268] pl-4">
               <span>DEBARJUN THAKUR // FIELD SKETCHBOOK</span>
-              <span>ENGINEERING MANIFESTO (5 POINTS)</span>
+              <span>ENGINEERING MANIFESTO (6 POINTS)</span>
             </div>
           </div>
         </div>
