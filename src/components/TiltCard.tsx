@@ -16,11 +16,18 @@ const TiltCard = ({ children, className, intensity = 9, glare = true }: TiltCard
   const ref = useRef<HTMLDivElement>(null)
   const glareRef = useRef<HTMLDivElement>(null)
   const [hover, setHover] = useState(false)
+  // Tilting is a precision-pointer interaction. On touch, it fights the
+  // natural scroll and just drains the battery, so phones get a flat card.
+  const isCoarse = useRef(
+    typeof window !== 'undefined' &&
+      window.matchMedia('(pointer: coarse)').matches,
+  ).current
 
   const rotateX = useSpring(0, { stiffness: 260, damping: 18, mass: 0.5 })
   const rotateY = useSpring(0, { stiffness: 260, damping: 18, mass: 0.5 })
 
   const onMove = (e: PointerEvent<HTMLDivElement>) => {
+    if (isCoarse) return
     const el = ref.current
     if (!el) return
     const rect = el.getBoundingClientRect()

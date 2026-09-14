@@ -51,7 +51,7 @@ const About = () => {
       </div>
 
       <div className="max-w-7xl mx-auto w-full px-6 md:px-12 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center mb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 gap-y-14 md:gap-16 items-center mb-20 md:mb-32">
           <MotionReveal className="lg:col-span-6 relative order-2 lg:order-1 flex justify-center lg:justify-start" x={-32} y={0}>
             <TiltCard className="relative inline-block" intensity={7}>
               <div className="relative group transition-transform duration-300 hover:rotate-0 inline-block">

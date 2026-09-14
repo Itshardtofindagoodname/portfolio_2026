@@ -61,9 +61,14 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    // Cap pixel ratio at 1.5 so high-DPI screens don't push 3-4x the pixels
-    // per frame through the draw calls.
-    const dpr = Math.min(devicePixelRatio || 1, 1.5)
+    // Cap pixel ratio so high-DPI screens don't push 3-4x the pixels
+    // per frame through the draw calls. Phones are capped harder: their
+    // screen density is high but their GPUs are weak, and 1x still looks
+    // crisp enough on the smaller physical canvas.
+    const dpr = Math.min(
+      devicePixelRatio || 1,
+      window.innerWidth < 768 ? 1 : 1.5,
+    )
 
     const randomRange = (min: number, max: number) =>
       min + Math.random() * (max - min)
@@ -196,6 +201,11 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
     const availablePeeps: Peep[] = []
     const crowd: Peep[] = []
 
+    // Phones are low on battery and CPU, so only keep a fraction of the
+    // crowd walking there. The rest stay parked offscreen ready to re-enter.
+    const getMaxCrowd = () =>
+      stage.width < 768 ? 22 : allPeeps.length
+
     const createPeeps = () => {
       const { rows, cols } = config
       const { naturalWidth: width, naturalHeight: height } = img
@@ -219,13 +229,15 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
     }
 
     const initCrowd = () => {
-      while (availablePeeps.length) {
-        const peep = addPeepToCrowd()
-        peep.walk?.progress(Math.random())
+      const limit = getMaxCrowd()
+      while (availablePeeps.length && crowd.length < limit) {
+        const peep = addPeepToCrowd() as Peep | undefined
+        peep?.walk?.progress(Math.random())
       }
     }
 
     const addPeepToCrowd = () => {
+      if (crowd.length >= getMaxCrowd()) return
       const peep = removeRandomFromArray(availablePeeps)
       const walk = getRandomFromArray(walks)({
         peep,
@@ -356,7 +368,7 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }: CrowdCanvasProps) => {
   }, [src, rows, cols])
 
   return (
-    <canvas ref={canvasRef} className="absolute bottom-0 h-[85vh] w-full" style={{ zIndex: 2 }} />
+    <canvas ref={canvasRef} className="absolute bottom-0 h-[70vh] sm:h-[85vh] w-full" style={{ zIndex: 2 }} />
   )
 }
 
@@ -450,7 +462,7 @@ const HeroAnimation = ({ revealed = false }: { revealed?: boolean }) => {
           {...shared}
           custom={0}
           variants={reduce ? undefined : line}
-          className="hero-copy-item font-label-caps text-[10px] md:text-xs uppercase tracking-[0.28em] text-[#0D1015]/45"
+          className="hero-copy-item font-label-caps text-[10px] uppercase tracking-[0.22em] sm:tracking-[0.28em] text-[#0D1015]/45"
         >
           <ScrambleText text="frontend systems / motion / tactile interfaces" />
         </motion.span>
@@ -459,7 +471,7 @@ const HeroAnimation = ({ revealed = false }: { revealed?: boolean }) => {
           {...shared}
           custom={1}
           variants={reduce ? undefined : line}
-          className="hero-copy-item font-headline-xl text-3xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-normal max-w-4xl mt-20"
+          className="hero-copy-item font-headline-xl text-[1.55rem] leading-snug sm:text-3xl md:text-5xl lg:text-6xl font-bold tracking-normal max-w-4xl mt-16 sm:mt-20"
         >
           Want someone who<br />
           <motion.span

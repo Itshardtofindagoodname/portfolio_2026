@@ -89,7 +89,7 @@ export default function Contact() {
           </MotionReveal>
 
           {/* Enormous Kinetic Title */}
-          <h1 className="font-headline-xl text-5xl sm:text-7xl md:text-8xl lg:text-9xl uppercase leading-none tracking-tighter text-[#0D1015] break-words">
+          <h1 className="font-headline-xl text-4xl sm:text-7xl md:text-8xl lg:text-9xl uppercase leading-none tracking-tighter text-[#0D1015] break-words">
             {'LET\'S BUILD'.split('').map((char, index) => (
               <span key={index} className="finale-title-char inline-block">
                 {char === ' ' ? '\u00A0' : char}

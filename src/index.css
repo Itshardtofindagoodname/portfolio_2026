@@ -1034,3 +1034,143 @@ a[class*="border-b"]:hover {
     box-shadow: 12px 12px 0 0 rgba(13, 16, 21, 0.22);
   }
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE PASS
+   Flagship breakpoint for small phones (< 640px). Restructures the
+   heavy, desktop-first motion work into something light and compact
+   without touching the ≥ md web-view above.
+   ════════════════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  /* Stop iOS silently inflating body copy on small screens */
+  body {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  /* No 300ms tap delay / double-tap zoom on discrete controls */
+  a,
+  button,
+  [role="button"],
+  input,
+  textarea,
+  select {
+    touch-action: manipulation;
+  }
+
+  /* Hand-drawn (Vara) headlines: the loading fallback may wrap instead of
+     forcing max-content width and blowing out the viewport. The drawn SVG
+     is already scaled to fit via VaraRevealText fitToWidth, so only the
+     no-wrap fallback needed taming. */
+  .vara-reveal-text {
+    min-width: 0 !important;
+    max-width: 100%;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .vara-reveal-fallback {
+    white-space: normal !important;
+    min-width: 0 !important;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  /* Softer torn/paper edges at phone scale so they don't eat vertical space */
+  .paper-cut-section::before,
+  .paper-cut-section::after {
+    height: 14px;
+  }
+
+  .torn-hero-edge {
+    margin-top: -10vh;
+    height: max(64px, calc(12vh + 14px));
+  }
+
+  /* Compact tape so it never overhangs a ~330px card */
+  .tape-effect {
+    width: 60px;
+    height: 24px;
+  }
+
+  .tape-tl {
+    top: -14px;
+    left: -10px;
+  }
+
+  .tape-tr {
+    top: -14px;
+    right: -10px;
+  }
+
+  .tape-bl {
+    bottom: -10px;
+    left: 18%;
+    width: 72px;
+  }
+
+  /* Sketch skill sheets: give the tags room and the hand-drawn border air */
+  .sketch-paper {
+    padding: 2.25rem 1.25rem 1.5rem;
+  }
+
+  .hatching-shadow {
+    inset: 8px -6px -8px 8px;
+  }
+
+  .skill-tag {
+    font-size: 1rem;
+    margin: 2px 2px 6px;
+  }
+
+  .experience-number-marker {
+    min-width: 1.9rem;
+    font-size: 0.65rem;
+  }
+
+  /* Any paper/card component is capped to its container on phones */
+  .project-snippet,
+  .index-card,
+  .index-card-wiggly,
+  .musing-scrap,
+  .award-sticker,
+  .paper-scrap,
+  .polaroid-frame {
+    max-width: 100%;
+  }
+
+  /* Headline/copy safety net so long words can never push the page wider */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  p,
+  li,
+  figcaption,
+  blockquote {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  /* Bookshelf becomes a swipeable rail on phones (see Reading.tsx) */
+  .reading-shelf {
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .reading-shelf > * {
+    scroll-snap-align: start;
+  }
+
+  /* Physics card text stays centered even when cards bunch up */
+  .physics-card-label {
+    pointer-events: none;
+  }
+}

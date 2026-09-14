@@ -204,7 +204,7 @@ export default function Projects({ onSelectProject }: ProjectsProps) {
         </div>
 
         {/* CARTOONIC DOODLY SHOWCASE: Cards Grid Selector at Top & Detailed Polaroid Sheet Below */}
-        <div className="mb-28">
+        <div className="mb-16 md:mb-28">
 
           {/* 8 Doodly Non-Box Paper Cutout Cards Grid (Primary Selector at Top) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
@@ -385,7 +385,7 @@ export default function Projects({ onSelectProject }: ProjectsProps) {
         )}
 
         {/* REDESIGNED ACHIEVEMENTS SECTION: Notebook Checkmarked To-Do List (No Outer Box) */}
-        <div className="achievements-checklist-section mb-32 py-8 relative">
+        <div className="achievements-checklist-section mb-20 md:mb-32 py-8 relative">
 
           {/* Section Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b-2 border-[#0D1015] pb-4">

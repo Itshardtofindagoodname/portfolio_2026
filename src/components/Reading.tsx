@@ -423,7 +423,7 @@ export default function Reading() {
                   {/* Point 05: Bookshelf */}
                   {sec.isBookshelf && (
                     <div className="mt-4">
-                      <div className="reading-shelf border-2 border-[#0D1015] bg-[#F5F3EE] h-[360px] px-3 pb-0 flex items-end justify-between relative select-none w-full overflow-hidden scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+                      <div className="reading-shelf border-2 border-[#0D1015] bg-[#F5F3EE] h-[360px] px-3 pb-0 flex items-end justify-between relative select-none w-full overflow-x-auto overflow-y-hidden md:overflow-hidden scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                         {/* Back Row Layer of Books */}
                         <div className="absolute bottom-0 left-2 right-2 flex items-end justify-around opacity-40 pointer-events-none z-0">
                           {bgBooks.map((bgBook) => (
