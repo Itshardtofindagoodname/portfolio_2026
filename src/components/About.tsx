@@ -183,7 +183,7 @@ const About = () => {
                 <h4 className="font-headline-md text-3xl mb-6 text-white border-b border-white/30 pb-2">Languages</h4>
                 <div className="flex flex-wrap gap-2">
                   {['Python', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'Dart'].map((lang) => (
-                    <span key={lang} className="skill-tag border-white/30 text-white cursor-default">
+                    <span key={lang} className="skill-tag border-white/30 text-white cursor-pointer">
                       {lang}
                     </span>
                   ))}
@@ -192,7 +192,7 @@ const About = () => {
                   <h5 className="font-label-caps text-white/50 text-[10px] mb-4">BACKEND &amp; DATABASES</h5>
                   <div className="flex flex-wrap gap-2">
                     {['FastAPI', 'Node.js', 'REST APIs', 'PostgreSQL', 'MongoDB'].map((db) => (
-                      <span key={db} className="skill-tag border-white/30 text-white cursor-default">
+                      <span key={db} className="skill-tag border-white/30 text-white cursor-pointer">
                         {db}
                       </span>
                     ))}
@@ -212,7 +212,7 @@ const About = () => {
                     <h4 className="font-headline-md text-3xl mb-6 text-white border-b border-white/30 pb-2">Frontend</h4>
                     <div className="flex flex-wrap gap-2">
                       {['React', 'Next.js', 'Vite', 'Tailwind CSS', 'PostCSS'].map((item) => (
-                        <span key={item} className="skill-tag border-white/30 text-white cursor-default">
+                        <span key={item} className="skill-tag border-white/30 text-white cursor-pointer">
                           {item}
                         </span>
                       ))}
@@ -222,7 +222,7 @@ const About = () => {
                     <h4 className="font-headline-md text-3xl mb-6 text-white border-b border-white/30 pb-2">Mobile</h4>
                     <div className="flex flex-wrap gap-2">
                       {['React Native', 'Flutter', 'Android Dev Kit'].map((item) => (
-                        <span key={item} className="skill-tag border-white/30 text-white cursor-default">
+                        <span key={item} className="skill-tag border-white/30 text-white cursor-pointer">
                           {item}
                         </span>
                       ))}
@@ -233,7 +233,7 @@ const About = () => {
                   <h5 className="font-label-caps text-white/50 text-[10px] mb-4">PERFORMANCE &amp; SEO</h5>
                   <div className="flex flex-wrap gap-2">
                     {['Technical SEO', 'Core Web Vitals', 'Semantic HTML', 'Structured Metadata'].map((item) => (
-                      <span key={item} className="skill-tag border-white/30 text-white cursor-default">
+                      <span key={item} className="skill-tag border-white/30 text-white cursor-pointer">
                         {item}
                       </span>
                     ))}
@@ -277,7 +277,7 @@ const About = () => {
                     ].map((item) => (
                       <span
                         key={item}
-                        className={`skill-tag text-white cursor-default ${
+                        className={`skill-tag text-white cursor-pointer ${
                           item === 'LangChain' || item === 'LoRA / PEFT fine-tuning'
                             ? '!border-white/50 bg-white/5'
                             : 'border-white/30'
@@ -300,7 +300,7 @@ const About = () => {
                 <h4 className="font-headline-md text-3xl mb-6 text-white border-b border-white/30 pb-2">Infrastructure</h4>
                 <div className="flex flex-wrap gap-2">
                   {['Vercel', 'Netlify', 'AWS', 'Cloudflare', 'Docker', 'CI/CD'].map((item) => (
-                    <span key={item} className="skill-tag border-white/30 text-white cursor-default">
+                    <span key={item} className="skill-tag border-white/30 text-white cursor-pointer">
                       {item}
                     </span>
                   ))}
@@ -309,7 +309,7 @@ const About = () => {
                   <h5 className="font-label-caps text-white/50 text-[10px] mb-4">MISCELLANEOUS</h5>
                   <div className="flex flex-wrap gap-2">
                     {['CRM systems', 'Cross-platform architecture', '.exe packaging'].map((item) => (
-                      <span key={item} className="skill-tag border-white/30 text-white cursor-default">
+                      <span key={item} className="skill-tag border-white/30 text-white cursor-pointer">
                         {item}
                       </span>
                     ))}
