@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://debarjun.vercel.app/sitemap.xml
+Sitemap: https://devtag.fun/sitemap.xml
